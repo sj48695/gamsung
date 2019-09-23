@@ -3,7 +3,7 @@
 <!DOCTYPE mapper
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.gamsung.mapper.DealMapper">
+<mapper namespace="com.gamsung.mapper.ProductMapper">
 
 	<sql id="productColumns">seller, name, contents, count, price, category, view, type</sql>
 
