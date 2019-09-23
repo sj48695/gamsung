@@ -11,7 +11,7 @@
 
 	<!-- Product -->
 
-	<select id="selectProductByProductNo" resultType="Product">
+	<select id="selectProductByProductNo" resultType="com.gamsung.vo.Product">
 		select product_no, reg_date,
 		<include refid="productColumns" />
 		from product where product_no = #{ productNo }

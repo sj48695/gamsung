@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.gamsung.vo.Product;
 
 @Mapper
-public interface DealMapper {
+public interface ProductMapper {
 
 	Product selectProductByProductNo(int productNo);
 	
