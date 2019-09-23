@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>register page</title>
+</head>
+<body>
+    <div class="container" layout:fragment="content"
+    	 xmlns:th="http://www.thymeleaf.org"
+	  	 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  	 layout:decorator="layouts/main">
+	  	 
+	  	 <div class="container">
+	  	 	<div>
+	  	 		<h2>회원가입</h2>
+	  	 	</div>
+	  	 	<div>
+	  	 		<form action="registerIn" method="POST">
+		  	 		<div>
+		  	 		<label for="id">id</label>
+		  	 		<input
+		  	 			type="text"
+		  	 			id="id" name="id"/>
+		  	 		</div>
+
+	  	 	
+			  	 	<div>
+			  	 		<label for="id">password</label>
+			  	 		<input
+			  	 			type="text"
+			  	 			id="id" name="id"/>
+			  	 	</div>
+	  	 	
+			  	 	<div>
+			  	 		<label for="phone">phone</label>
+			  	 		<input
+			  	 			type="text"
+			  	 			id="phone" name="phone"/>
+			  	 	</div>
+			  	 	<div>
+			  	 		<label for="phone">ROLE</label>
+			  	 		<input
+			  	 			type="text"
+			  	 			id="ROLE" name="ROLE"/>
+			  	 	</div>
+					<button id="registerBtn" type="submit">회원등록</button>
+					<button id="cancelBtn">취소</button>
+	  	 	  	</form>
+	  	 	</div>
+	  	 </div>	 
+	</div>
+	
+	<script type="text/javascript">
+		('#cancelBtn').on('click', function(e){
+			location.href="/member/login";
+		})
+	</script>	
+</body>
+</html>
