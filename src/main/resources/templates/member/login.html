@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>login page</title>
+</head>
+<body>
+    <div class="container" layout:fragment="content"
+    	 xmlns:th="http://www.thymeleaf.org"
+	  	 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  	 layout:decorator="layouts/main">
+	  	 
+	  	 <div>
+	  	 	<form>
+	  	 		<div class="container">
+	  	 		<label for="id">id</label>
+	  	 		<input 
+	  	 			type="text"
+	  	 			id="id" name="id"
+	  	 			class="form-control"
+	  	 			placeholder="enter username..." />
+	  	 		</div>
+	  	 		
+	  	 		<div>
+	  	 		<label for="pwd">password</label>
+	  	 		<input 
+	  	 			type="password"
+	  	 			id="pwd" name="pwd"
+	  	 			class="form-control"
+	  	 			placeholder="enter password..." />
+	  	 		</div>	  	 	
+	  	 	</form>
+	  	 	<button type="submit">로그인</button>
+	  	 	<a href="/member/register" type="button">회원가입</a>
+	  	 </div>
+	  	 
+	  	 
+	</div>
+
+</body>
+</html>
