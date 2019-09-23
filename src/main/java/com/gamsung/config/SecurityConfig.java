@@ -45,8 +45,8 @@ public class SecurityConfig
 			
 			.formLogin()
 			.loginPage("/member/login")
-			.usernameParameter("username")
-			.passwordParameter("password")
+			.usernameParameter("id")
+			.passwordParameter("pwd")
 			.loginProcessingUrl("/member/login")
 			.and()
 			
