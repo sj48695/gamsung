@@ -1025,7 +1025,7 @@ section
 	font-weight: 500;
 	color: #6c6a74;
 	line-height: 0.75;
-	margin-top: 13px;
+	margin-top: 5px;
 }
 .product_extra
 {
@@ -1041,6 +1041,15 @@ section
 	-o-transform-origin: top left;
 	transform-origin: top left;
 	transform: rotate(90deg);
+}
+.product_extraB
+{
+	position: absolute;
+	top: 0;
+	left: 54px;
+	width: 66px;
+	height: 36px;
+	text-align: center;
 }
 .product_extra a
 {
