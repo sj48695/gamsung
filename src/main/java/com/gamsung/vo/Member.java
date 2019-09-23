@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class Member {
 	private String id;
-	private String password;
+	private String pwd;
 	private String phone;
 	private String type;
 	private boolean active;
