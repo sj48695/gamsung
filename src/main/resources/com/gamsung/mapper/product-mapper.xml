@@ -17,7 +17,30 @@
 		from product where product_no = #{ productNo }
 	</select>
 	
+	<select id="selectQuestions" resultType="com.gamsung.vo.Product">
+		select product_no, reg_date,
+		<include refid="productColumns" />
+		from product 
+	</select>
+	
+	<insert id="insertProduct" >
+		insert product(
+		<include refid="productColumns" />
+		)
+		into values(
+			#{seller},
+			#{name},
+			#{contents},
+			#{count},
+			#{price},
+			#{category},
+			#{type}
+		)
+		 
+	</insert>
+
 	
 
 
 </mapper>
+

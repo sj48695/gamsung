@@ -3,21 +3,13 @@
 <!DOCTYPE mapper
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.gamsung.mapper.ProductMapper">
+<mapper namespace="com.gamsung.mapper.DealMapper">
 
-	<sql id="productColumns">seller, name, contents, count, price, category, view, type</sql>
-
-
-
-	<!-- Product -->
-
-	<select id="selectProductByProductNo" resultType="com.gamsung.vo.Product">
-		select product_no, reg_date,
-		<include refid="productColumns" />
-		from product where product_no = #{ productNo }
-	</select>
-	
-	
+	<sql id="dealColumns">buyer, product_no, count, price</sql>
 
 
+	<!-- Order -->
+	<insert id="insertDeal" parameterType="com.gamsung.vo.Deal">
+		insert deal(buyer, product_no, count, price) into values(buyer, product_no, count, price)
+	</insert>
 </mapper>
