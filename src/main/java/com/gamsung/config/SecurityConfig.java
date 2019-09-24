@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -39,7 +40,7 @@ public class SecurityConfig
 			.and()
 			
 			.authorizeRequests()
-			.antMatchers("/admin/**").access("hashAuthority('ROLE_ADMIN')")
+			//.antMatchers("/admin/**").access("hashAuthority('ROLE_ADMIN')")
 			.anyRequest().permitAll()
 			.and()
 			
@@ -47,14 +48,16 @@ public class SecurityConfig
 			.loginPage("/member/login")
 			.usernameParameter("id")
 			.passwordParameter("pwd")
-			.loginProcessingUrl("/member/login")
+			.loginProcessingUrl("/member/login2")
 			.and()
 			
 			.logout()
 			.logoutUrl("/member/logout")
 			.deleteCookies("JSESSIONIND")
 			.invalidateHttpSession(true)
-			.and()
+			.and().csrf().disable()
+			
+			
 			
 			.rememberMe()
 			.key("myAppKey")
@@ -63,13 +66,22 @@ public class SecurityConfig
 			
 			.sessionManagement()
 			.maximumSessions(3)
-			.maxSessionsPreventsLogin(false);
+			.maxSessionsPreventsLogin(false)
+			
+			;
+			
 	}
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
 	}
+	
+	@Bean
+	public SpringSecurityDialect springSecurityDialect() {
+		return new SpringSecurityDialect();
+	}
+
 	
 
 }
