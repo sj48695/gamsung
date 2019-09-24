@@ -1,11 +1,14 @@
 package com.gamsung.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.gamsung.service.ProductService;
@@ -18,10 +21,7 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 
-	@GetMapping(path = "categories")
-	public String categories() {
-		return "categories";
-	}
+
 	
 	@GetMapping(path="detail/{productNo}")
 	public String productDetail(@PathVariable int productNo, Model model) {
@@ -30,7 +30,38 @@ public class ProductController {
 	     
 		model.addAttribute("product", product);
 		 
-		return "product"; 
+		return "product/detail"; 
 	}
+	
+	@GetMapping(path = "/categories")
+	public String productList(Model model) {
+		
+		ArrayList<Product> products = productService.findProducts();
+		
+		model.addAttribute("products", products);
+		System.out.println(products);
+		
+		return "product/list"; 
+	}
+	
+	@GetMapping(path = "/write")
+	public String showProductWrite() {
+		
+		return "product/write";
+	}	
+	
+	@PostMapping(path = "/write")
+	public String write(Product product, Model model) {
+		
+
+		productService.writeProduct(product);
+		model.addAttribute("product", product);
+		
+		
+		
+		return "redirect:/product/categories";
+	}
+	
+	
 	
 }
