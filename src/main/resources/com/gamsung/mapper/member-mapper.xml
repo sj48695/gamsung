@@ -5,8 +5,15 @@
 <mapper namespace="com.gamsung.mapper.MemberMapper">
 
 <insert id="save">
-	INSERT INTO MEMBER (ID, NICKNAME, PWD, PHONE, TYPE)
+	INSERT INTO member (id, nickname, pwd, phone, type)
 	VALUES (#{ id }, #{ nickname }, #{ pwd }, #{ phone }, #{ type }) 
 </insert>
+
+<select id="findByUsername" parameterType="String" resultType="com.gamsung.vo.Member">
+	SELECT id, nickname, pwd, phone, type, reg_date, active
+	FROM member
+	WHERE id = #{ username }
+	
+</select>
 
 </mapper>

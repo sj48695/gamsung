@@ -1,21 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  	 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  	 layout:decorator="layouts/main">
 <head>
+<link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/animate.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/main_styles.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/responsive.css}">
 <meta charset="utf-8">
 <title>register page</title>
 </head>
 <body>
-    <div class="container" layout:fragment="content"
-    	 xmlns:th="http://www.thymeleaf.org"
-	  	 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  	 layout:decorator="layouts/main">
-	  	 
-	  	 <div class="container">
+    <div class="container" layout:fragment="content">
+    
+    	<div>
+	  	 <div class="container" align="center" style="margin-top:20%">
 	  	 	<div>
 	  	 		<h2>회원가입</h2>
 	  	 	</div>
 	  	 	<div>
-	  	 		<form action="registerIn" method="POST">
+	  	 		<form action="#" th:action="@{/member/registerIn}" method="POST">
 		  	 		<div>
 			  	 		<label for="id">id</label>
 			  	 		<input
@@ -29,10 +34,10 @@
 			  	 			id="nickname" name="nickname"/>
 		  	 		</div>
 			  	 	<div>
-			  	 		<label for="id">password</label>
+			  	 		<label for="pwd">password</label>
 			  	 		<input
-			  	 			type="text"
-			  	 			id="id" name="id"/>
+			  	 			type="password"
+			  	 			id="pwd" name="pwd"/>
 			  	 	</div>
 	  	 	
 			  	 	<div>
@@ -41,23 +46,24 @@
 			  	 			type="text"
 			  	 			id="phone" name="phone"/>
 			  	 	</div>
-			  	 	<div>
-			  	 		<label for="type">type</label>
-			  	 		<input
-			  	 			type="text"
-			  	 			id="type" name="type"/>
-			  	 	</div>
-					<button id="registerBtn" type="submit">회원등록</button>
-					<button id="cancelBtn">취소</button>
+				  	 <div>
+						<button id="registerBtn" type="submit">회원등록</button>
+						<button id="cancelBtn">취소</button>
+					</div>
 	  	 	  	</form>
+
 	  	 	</div>
-	  	 </div>	 
+	  	 </div>	
+	  	 </div> 
+<script type="text/javascript" src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('#cancelBtn').on('click', function(event){
+		location.href="/member/login";
+	})
+})
+</script>
 	</div>
 	
-	<script type="text/javascript">
-		('#cancelBtn').on('click', function(e){
-			location.href="/member/login";
-		})
-	</script>	
 </body>
 </html>

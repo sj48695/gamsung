@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko" 
 	  xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <title>Gamsung</title>
 <meta charset="utf-8">
@@ -52,7 +53,21 @@
 									<li><a href="/contact">Contact</a></li>
 								</ul>
 							</nav>
+							
+
 							<div class="header_extra ml-auto">
+							<div class="user_container">
+								<div sec:authorize="isAnonymous()">
+							          <a href="/member/login">로그인</a>
+							          <a href="/member/register">회원가입</a>
+							    </div>
+							    <div sec:authorize="isAuthenticated()">
+							         <span sec:authentication="name"></span>
+							           		님 환영합니다.
+							            	<a href="/member/logout">로그아웃</a>
+							    </div>
+									
+							</div>
 								<div class="shopping_cart">
 									<a href="/cart">
 										<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -90,12 +105,16 @@
 									</div>
 								</div>
 								<div class="hamburger"><i class="fa fa-bars" aria-hidden="true"></i></div>
+								
+
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		
+
 		
 		<!-- Search Panel -->
 		<div class="search_panel trans_300">
