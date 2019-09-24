@@ -45,5 +45,11 @@ public class MemberController {
 //		
 //		return "redirect:/home";
 //	}
+	
+	@GetMapping(path = "mypage")
+	public String mypage() {
+		
+		return "member/mypage";
+	}
 
 }
