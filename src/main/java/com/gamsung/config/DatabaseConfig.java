@@ -59,12 +59,6 @@ public class DatabaseConfig {
 	}
 	
 	/////////////////////////////////////
-//	
-//	@Bean
-//	@ConfigurationProperties(prefix = "spring.jpa")
-//	public Properties hibernateConfig() {
-//		return new Properties();
-//	}
 	
 }
 
