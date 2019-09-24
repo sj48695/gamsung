@@ -13,10 +13,14 @@ public class Deal {
 	private String active;
 	private int count;
 	private int price;
-	private Date regDate;
-	private boolean deleted;
 	private String receiver;
-	private String addr;
 	private String phone;
+	private int postcode;
+	private String roadAddr;
+	private String jibunAddr;
+	private String detailAddr;
+	private String extraAddr;
+	private boolean deleted;
+	private Date regDate;
 	
 }

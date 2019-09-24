@@ -5,11 +5,39 @@
 
 <mapper namespace="com.gamsung.mapper.DealMapper">
 
-	<sql id="dealColumns">buyer, product_no, count, price</sql>
+	<sql id="dealColumns">
+			buyer, 
+			product_no, 
+			count, 
+			price,
+			receiver,
+			phone,
+			postcode,
+			road_addr,
+			jibun_addr,
+			detail_addr,
+			extra_addr
+	</sql>
+
+
 
 	<!-- Order -->
 	<insert id="insertDeal" parameterType="com.gamsung.vo.Deal">
-		insert deal(buyer, product_no, count, price) into values(buyer, product_no, count, price)
+		INSERT INTO deal(
+			<include refid="dealColumns"/>
+		) VALUES(
+			#{buyer}, 
+			#{productNo}, 
+			#{count}, 
+			#{price},
+			#{receiver},
+			#{phone},
+			#{postcode},
+			#{roadAddr},
+			#{jibunAddr},
+			#{detailAddr},
+			#{extraAddr}
+		)
 	</insert>
 
 </mapper>
