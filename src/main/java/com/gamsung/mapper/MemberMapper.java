@@ -9,4 +9,6 @@ public interface MemberMapper {
 
 	void save(Member member);
 
+	Member findByUsername(String username);
+
 }
