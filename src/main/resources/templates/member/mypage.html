@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko" 
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="layouts/main">
+<head>
+<style>
+.photo2 {
+    width: 120px; 
+    height: 120px;
+    margin-bottom: 20px;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 50%;
+}
+</style>
+<link rel="stylesheet" type="text/css" th:href="@{/styles/main_styles.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/responsive.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/mypage/css/demo.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/mypage/css/normalize.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/mypage/css/tabs.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/mypage/css/tabstyles.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/mypage/css/mypage.css}">
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="container py-5">
+			<section>
+				<div class="py-5">
+					<div class="px-5" style="float:left">
+						<img class='photo2' src="/images/mong.jpg" />
+					</div>
+					<div>
+						<h3>상점이름</h3>
+						<div>
+							소개
+						</div>
+					</div>
+				</div>
+				<div class="tabs tabs-style-topline">
+					<nav>
+						<ul>
+							<li><a href="#section-topline-1" class="icon icon-home"><span>상품</span></a></li>
+							<li><a href="#section-topline-2" class="icon icon-heart"><span>찜</span></a></li>
+							<li><a href="#section-topline-3" class="icon icon-upload"><span>후기</span></a></li>
+							<li><a href="#section-topline-4" class="icon icon-coffee"><span>쪽지</span></a></li>
+							<li><a href="#section-topline-5" class="icon icon-config"><span>설정</span></a></li>
+						</ul>
+					</nav>
+					<div class="content-wrap">
+						<section id="section-topline-1">
+								<div class="container">
+									<div class="row">
+										<div class="col">
+											<!-- Column Titles -->
+											<div class="mypage_info_columns clearfix">
+												<div class="mypage_info_col mypage_info_col_product">상품명</div>
+												<div class="mypage_info_col mypage_info_col_price">가격</div>
+												<div class="mypage_info_col mypage_info_col_quantity">갯수</div>
+												<div class="mypage_info_col mypage_info_col_date">날짜</div>
+												<div class="mypage_info_col mypage_info_col_state">상태</div>
+											</div>
+										</div>
+									</div>
+									<div class="row cart_items_row">
+										<div class="col">
+
+											<!-- Cart Item -->
+											<div
+												class="mypage_item d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
+												<!-- Name -->
+												<div
+													class="mypage_item_product d-flex flex-row align-items-center justify-content-start">
+													<div class="mypage_item_image">
+														<div>
+															<img src="/images/cart_1.jpg" alt="">
+														</div>
+													</div>
+													<div class="mypage_item_name_container">
+														<div class="mypage_item_name">
+															<a href="#">Smart Phone Deluxe Edition</a>
+														</div>
+													</div>
+												</div>
+												<!-- Price -->
+												<div class="mypage_item_date">$790.90</div>
+												<!-- Quantity -->
+												<div class="mypage_item_quantity">
+													<div class="product_quantity_container">
+														<div class="product_quantity clearfix">
+															<input id="quantity_input" type="text"
+																pattern="[0-9]*" value="1">
+															<div class="quantity_buttons">
+																<div id="quantity_inc_button"
+																	class="quantity_inc quantity_control">
+																	<i class="fa fa-chevron-up" aria-hidden="true"></i>
+																</div>
+																<div id="quantity_dec_button"
+																	class="quantity_dec quantity_control">
+																	<i class="fa fa-chevron-down" aria-hidden="true"></i>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<!-- Total -->
+												<div class="mypage_item_date">$790.90</div>
+												<!-- 상태 -->
+												<div class="mypage_item_state">
+												<select class="form-control" id="exampleFormControlSelect1">
+													<option>판매중</option>
+													<option>판매완료</option>
+													<option>거래중</option>
+													<option>거래완료</option>
+													<option>거래중지</option>
+												</select>
+											</div>
+											</div>
+										</div>
+									</div>
+								</div>	
+						</section>
+						<section id="section-topline-2"><p>2</p></section>
+						<section id="section-topline-3"><p>3</p></section>
+						<section id="section-topline-4"><p>4</p></section>
+						<section id="section-topline-5"><p>5</p></section>
+					</div><!-- /content -->
+				</div><!-- /tabs -->
+			</section>
+		</div>
+	</div>
+
+</body>
+</html>

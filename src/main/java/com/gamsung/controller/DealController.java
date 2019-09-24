@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.gamsung.service.DealService;
 import com.gamsung.service.ProductService;
@@ -31,7 +32,9 @@ public class DealController {
 	}
 
 	@PostMapping(path = "/order")
-	public String dealForm(Deal deal) {
+//	@RequestMapping(path="/order", method = RequestMethod.POST)
+	public String order(Deal deal) {
+		System.out.println(deal);
 		deal.setBuyer("sj");
 		dealService.registerDeal(deal);
 		return "redirect:/home";
