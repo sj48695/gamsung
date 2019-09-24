@@ -12,6 +12,7 @@ target/
 .settings
 .springBeans
 .sts4-cache
+/src/main/resources/static/plugins/**/*
 bin
 
 ### IntelliJ IDEA ###
@@ -30,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### node ###
+node_modules/

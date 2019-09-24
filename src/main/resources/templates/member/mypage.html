@@ -14,13 +14,13 @@
     border-radius: 50%;
 }
 </style>
-<link rel="stylesheet" type="text/css" th:href="@{styles/main_styles.css}">
-<link rel="stylesheet" type="text/css" th:href="@{styles/responsive.css}">
-<link rel="stylesheet" type="text/css" th:href="@{styles/mypage/css/demo.css}">
-<link rel="stylesheet" type="text/css" th:href="@{styles/mypage/css/normalize.css}">
-<link rel="stylesheet" type="text/css" th:href="@{styles/mypage/css/tabs.css}">
-<link rel="stylesheet" type="text/css" th:href="@{styles/mypage/css/tabstyles.css}">
-<link rel="stylesheet" type="text/css" th:href="@{styles/mypage/css/mypage.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/main_styles.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/responsive.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/mypage/css/demo.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/mypage/css/normalize.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/mypage/css/tabs.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/mypage/css/tabstyles.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/mypage/css/mypage.css}">
 </head>
 <body>
 	<div layout:fragment="content">
@@ -28,7 +28,7 @@
 			<section>
 				<div class="py-5">
 					<div class="px-5" style="float:left">
-						<img class='photo2' src="images/mong.jpg" />
+						<img class='photo2' src="/images/mong.jpg" />
 					</div>
 					<div>
 						<h3>상점이름</h3>
@@ -73,7 +73,7 @@
 													class="mypage_item_product d-flex flex-row align-items-center justify-content-start">
 													<div class="mypage_item_image">
 														<div>
-															<img src="images/cart_1.jpg" alt="">
+															<img src="/images/cart_1.jpg" alt="">
 														</div>
 													</div>
 													<div class="mypage_item_name_container">

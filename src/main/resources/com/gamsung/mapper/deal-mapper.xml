@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gamsung.mapper.DealMapper">
+
+	<sql id="dealColumns">buyer, product_no, count, price</sql>
+
+	<!-- Order -->
+	<insert id="insertDeal" parameterType="com.gamsung.vo.Deal">
+		insert deal(buyer, product_no, count, price) into values(buyer, product_no, count, price)
+	</insert>
+
+</mapper>
