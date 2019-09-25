@@ -51,7 +51,7 @@
 							    </div>
 							    <div sec:authorize="isAuthenticated()">
 							    	<span th:if="${#authentication.principal.member.type} eq 'ROLE_USER'">
-							    	<a href="#"><span sec:authentication="principal.member.nickname"></span>
+							    	<a href="/member/mypage"><span sec:authentication="principal.member.nickname"></span>
 							           		님 환영합니다.</a>
 							    	</span>
 							    	<span th:if="${#authentication.principal.member.type} eq 'ROLE_ADMIN'">

@@ -34,6 +34,13 @@ public class ProductServiceImpl implements ProductService {
 		productMapper.insertProduct(product);
 		
 	}
+
+	@Override
+	public List<Product> findMyProductList(String memberId) {
+		
+		List<Product> products = productMapper.selectMyProductList(memberId);
+		return products;
+	}
 	
 
 }

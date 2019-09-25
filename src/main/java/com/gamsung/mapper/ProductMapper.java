@@ -15,6 +15,8 @@ public interface ProductMapper {
 	ArrayList<Product> selectQuestions();
 
 	void insertProduct(Product product);
+
+	List<Product> selectMyProductList(String memberId);
 	
 	
 	
