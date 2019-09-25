@@ -15,7 +15,7 @@
     <div class="container" layout:fragment="content">
     
     	<div>
-	  	 <div class="container" align="center" style="margin-top:20%">
+	  	 <div class="container" style="margin-top:20%">
 	  	 	<div>
 	  	 		<h2>회원가입</h2>
 	  	 	</div>
@@ -25,30 +25,61 @@
 			  	 		<label for="id">id</label>
 			  	 		<input
 			  	 			type="text"
-			  	 			id="id" name="id"/>
+			  	 			id="id" name="id"
+			  	 			class="checkout_input"/>
 		  	 		</div>
 		  	 		<div>
 			  	 		<label for="nickname">nickname</label>
 			  	 		<input
 			  	 			type="text"
-			  	 			id="nickname" name="nickname"/>
+			  	 			id="nickname" name="nickname"
+			  	 			class="checkout_input"/>
 		  	 		</div>
 			  	 	<div>
 			  	 		<label for="pwd">password</label>
 			  	 		<input
 			  	 			type="password"
-			  	 			id="pwd" name="pwd"/>
+			  	 			id="pwd" name="pwd"
+			  	 			class="checkout_input"/>
 			  	 	</div>
 	  	 	
 			  	 	<div>
 			  	 		<label for="phone">phone</label>
 			  	 		<input
 			  	 			type="text"
-			  	 			id="phone" name="phone"/>
+			  	 			id="phone" name="phone"
+			  	 			class="checkout_input"/>
 			  	 	</div>
-				  	 <div>
-						<button id="registerBtn" type="submit">회원등록</button>
-						<button id="cancelBtn">취소</button>
+			  	 	<div class="col-6">
+					<!-- Zipcode -->
+						<label for="postcode">Zipcode*</label>
+						<input type="text"  name="postcode" id="postcode" class="checkout_input" required="required">
+					</div>
+					<div class="col-6">
+					<div class="button ml-auto" style="height: 50px;"><a href="#" class="addrBtn">주소 불러오기</a></div>
+					</div>
+										
+					<div class="col-12">
+					<!-- Address -->
+					<label for="address">Address*</label>
+						<input type="text" class="checkout_input" id="roadAddress" name="roadAddr" placeholder="도로명주소">
+					</div>
+					<div class="col-12">
+						<input type="text" class="checkout_input checkout_address_2" id="jibunAddress" name="jibunAddr" placeholder="지번주소">
+					</div>
+					<div class="col-6">
+						<input type="text" class="checkout_input checkout_address_2" id="detailAddress" name="detailAddr" placeholder="상세주소">
+					</div>
+					<div class="col-6">
+						<input type="text" class="checkout_input checkout_address_2" id="extraAddress" name="extraAddr" placeholder="참고항목">
+					</div>
+				  	 <div class="btn">
+				  	 	<span>
+							<button class="btn" id="registerBtn" type="submit">회원등록</button>
+						</span>
+						<span>
+							<button id="cancelBtn" class="btn">취소</button>
+						</span>
 					</div>
 	  	 	  	</form>
 

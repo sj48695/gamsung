@@ -105,12 +105,12 @@
 					<div class="col-lg-6">
 						<div class="billing checkout_section">
 							<div class="section_title">Billing Address</div>
-							<div class="section_subtitle">Enter your address info</div>
+							<div class="section_subtitle">접선지 또는 택배 수신 장소를 적어주세요.</div>
 							<div class="checkout_form_container">
 								<form action="order" id="checkout_form" class="checkout_form" method="post">
-									<input type="hidden" name="productNo" th:value="${product.productNo}">
-									<input type="hidden" name="buyer" th:value="${#authentication.principal.member.id}">
-									
+									<input type="hidden" name="productNo" th:value="${ product.productNo }">
+									<input type="hidden" name="buyer" th:value="${ #authentication.principal.member.id }">
+									<input type="hidden" name="type" th:value="${ dealType }">
 									<div class="row">
 										<div class="col-6">
 											<!-- Name -->
