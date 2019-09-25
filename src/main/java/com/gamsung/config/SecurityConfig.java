@@ -40,7 +40,7 @@ public class SecurityConfig
 			.and()
 			
 			.authorizeRequests()
-			//.antMatchers("/admin/**").access("hashAuthority('ROLE_ADMIN')")
+			.antMatchers("/member/admin").access("hasRole('ROLE_ADMIN')")
 			.anyRequest().permitAll()
 			.and()
 			

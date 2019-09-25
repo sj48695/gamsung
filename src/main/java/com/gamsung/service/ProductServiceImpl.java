@@ -39,6 +39,7 @@ public class ProductServiceImpl implements ProductService {
 		productMapper.insertProduct(product);
 		
 	}
+	
 
 	@Override
 	public ArrayList<Review> findReviewsByProductNo(int productNo) {

@@ -41,11 +41,10 @@
 					
 					<!-- Product Sorting -->
 					<div class="sorting_bar d-flex flex-md-row flex-column align-items-md-center justify-content-md-start">
-						<div class="results">Showing <span>12</span> results</div>
-						<div class="sorting_container ml-md-auto">
+						<div class="sorting_container">
 							<div class="sorting">
 								<ul class="item_sorting">
-									<li>
+									<li class="mb-0">
 										<span class="sorting_text">Sort by</span>
 										<i class="fa fa-chevron-down" aria-hidden="true"></i>
 										<ul>
@@ -56,6 +55,11 @@
 									</li>
 								</ul>
 							</div>
+						</div>
+						<div class="sorting_container ml-md-auto">
+							<form action="#">
+								<input type="text" class="search_input" placeholder="Search" required="required">
+							</form>
 						</div>
 					</div>
 				</div>
@@ -72,23 +76,26 @@
 							<div class="product_image"><img src="/images/product_1.jpg" alt=""></div>
 							<div class="product_extra product_sale" th:if="${ product.type } == '흥정'">
 								<a href="categories">흥정</a>
-							</div>	
+							</div>
+							<div class="product_extra product_hot" th:if="${ product.type } == '일반'">
+								<a href="categories">일반</a>
+							</div>
 							
 							<div class="product_content">
 								<div class="product_title col-8" >
 										<a href="product"></a>
 									</div>
 								<div class="row justify-content-between">
-									<div class="product_title col-8" >
+									<div class="product_title col" >
 										<a href="/product/detail/"
 										 th:attrappend="href=${ product.productNo }"
 										 th:text="${ product.name }"></a>
 									</div>
-									<div class="product_price col-4" th:text="${ product.price }"></div>
+									<div class="product_price col" th:text="${ #numbers.formatInteger(product.price,3,'COMMA') }+'원'"></div>
 								</div>
 								<div class="row justify-content-between">
 									<div class="col" th:text="${ product.seller }"></div>
-									<div class="col" th:text="${#dates.format(product.regDate, 'yyyy-MM-dd')}"></div>
+									<div class="text-right col" th:text="${#dates.format(product.regDate, 'yyyy-MM-dd')}"></div>
 								</div>
 							</div>
 						</div>

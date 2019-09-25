@@ -47,6 +47,9 @@
 							<div class="product_extra product_sale" th:if="${ product.type } == '흥정'">
 								<a href="categories">흥정</a>
 							</div>
+							<div class="product_extra product_hot" th:if="${ product.type } == '일반'">
+								<a href="categories">일반</a>
+							</div>
 						</div>
 						<div class="details_image_thumbnails d-flex flex-row align-items-start justify-content-between">
 							<div class="details_image_thumbnail active" data-image="/images/details_1.jpg"><img src="/images/details_1.jpg" alt=""></div>

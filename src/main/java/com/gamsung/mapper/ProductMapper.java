@@ -16,4 +16,6 @@ public interface ProductMapper {
 
 	void insertProduct(Product product);
 	
+	
+	
 }
