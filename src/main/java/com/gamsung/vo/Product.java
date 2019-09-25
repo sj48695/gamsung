@@ -22,4 +22,6 @@ public class Product {
 	private String type; //흥정or일반
 	private Date regDate;
 	
+	private Member member;
+	
 }

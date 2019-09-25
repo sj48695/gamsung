@@ -12,5 +12,6 @@ public interface ProductService {
 
 	void writeProduct(Product product);
 	
+	
 
 }
