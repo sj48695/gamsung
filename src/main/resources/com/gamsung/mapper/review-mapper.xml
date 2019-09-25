@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gamsung.mapper.ReviewMapper">
+
+
+	<!-- Review -->
+
+	<select id="selectReviewByReviewNo" resultType="com.gamsung.vo.Review">
+		select deal_no, contents, reg_date
+		from review where deal_no = #{ dealNo }
+	</select>
+	
+	<select id="selectReviewsByProductNo" resultType="com.gamsung.vo.Review">
+		select deal_no, contents, reg_date
+		from review 
+	</select>
+
+	
+
+
+</mapper>
+
