@@ -48,7 +48,7 @@ public class SecurityConfig
 			.loginPage("/member/login")
 			.usernameParameter("id")
 			.passwordParameter("pwd")
-			.loginProcessingUrl("/member/login2")
+			.loginProcessingUrl("/member/login")
 			.and()
 			
 			.logout()
