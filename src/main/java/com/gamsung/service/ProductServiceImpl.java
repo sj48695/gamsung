@@ -34,5 +34,6 @@ public class ProductServiceImpl implements ProductService {
 		productMapper.insertProduct(product);
 		
 	}
+	
 
 }

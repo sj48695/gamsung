@@ -23,4 +23,5 @@ public class Product {
 	private Date regDate;
 	
 	private Member member;
+	
 }
