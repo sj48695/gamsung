@@ -23,10 +23,17 @@ public class DealController {
 
 	@Autowired
 	DealService dealService;
-
-	@GetMapping(path = "/{productNo}")
-	public String dealForm(@PathVariable int productNo, Model model) {
+	
+	@GetMapping(path = "/{type}/{productNo}")
+	public String dealForm(@PathVariable String type, @PathVariable int productNo, Model model) {
 		Product product = productService.findProductByProductNo(productNo);
+		String dealType=null;
+		if(type.equals("buynow")) {
+			dealType="직거래";
+		}else if(type.equals("direct")) {
+			dealType="바로구매";
+		}
+		model.addAttribute("dealType", dealType);
 		model.addAttribute("product", product);
 		return "deal/deal";
 	}

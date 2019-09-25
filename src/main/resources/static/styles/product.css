@@ -980,8 +980,8 @@ section
 .details_price
 {
 	display: inline-block;
-	font-size: 16px;
-	font-weight: 500;
+	font-size: 25px;
+	font-weight: 800;
 	color: #6c6a74;
 	margin-top: 5px;
 }
@@ -1142,11 +1142,28 @@ section
 {
 	color: #1b1b1b;
 }
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active{
+	border:0px;
+}
+.nav-tabs .nav-link{
+	border:0px;
+	display: inline-block;
+	font-size: 24px;
+	font-weight: 500;
+	color: #c0c0c0;
+}
+.nav-tabs .nav-link:hover{
+	color: #1b1b1b;
+}
+.tab-content{
+	border-bottom: 1px solid #ddd;
+}
 .description_row
 {
 	margin-top: 91px;
 }
-.description_title
+/* .description_title
 {
 	display: inline-block;
 	font-size: 24px;
@@ -1156,7 +1173,6 @@ section
 .reviews_title
 {
 	display: inline-block;
-	margin-left: 41px;
 }
 .reviews_title a
 {
@@ -1172,7 +1188,7 @@ section
 .reviews_title a:hover
 {
 	color: #1b1b1b;
-}
+} */
 .description_text
 {
 	margin-top: 44px;
@@ -1246,22 +1262,22 @@ section
 {
 	position: absolute;
 	top: 0;
-	left: 54px;
+	/* left: 54px; */
 	width: 66px;
 	height: 36px;
 	text-align: center;
-	-webkit-transform-origin: top left;
+	/* -webkit-transform-origin: top left;
 	-moz-transform-origin: top left;
 	-ms-transform-origin: top left;
 	-o-transform-origin: top left;
 	transform-origin: top left;
-	transform: rotate(90deg);
+	transform: rotate(90deg); */
 }
 .product_extra a
 {
 	display: block;
-	font-size: 16px;
-	font-weight: 500;
+	font-size: 20px;
+	font-weight: 800;
 	color: #FFFFFF;
 	line-height: 36px;
 }

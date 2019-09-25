@@ -109,36 +109,85 @@
 							<div class="checkout_form_container">
 								<form action="order" id="checkout_form" class="checkout_form" method="post">
 									<input type="hidden" name="productNo" th:value="${product.productNo}">
+									<input type="hidden" name="buyer" th:value="${#authentication.principal.member.id}">
+									
+									<div class="row">
+										<div class="col-6">
+											<!-- Name -->
+											<label for="receiver">Name*</label>
+											<input type="text" class="checkout_input" id="name_from" th:value="${#authentication.principal.member.nickname}" readonly>
+										</div>
+										<div class="col-6">
+											<!-- Phone no -->
+											<label for="phone">Phone no*</label>
+											<input type="text" class="checkout_input" id="phone_from" th:value="${#authentication.principal.member.phone}" readonly>
+										</div>
+										
+										<div class="col-6">
+											<!-- Zipcode -->
+											<label for="postcode">Zipcode*</label>
+											<input type="text" class="checkout_input" id="postCode_from" value="${ loginuser.postcode}" readonly>
+								
+										</div>
+										
+										<div class="col-12">
+											<!-- Address -->
+											<label for="address">Address*</label>
+											<input type="text" class="checkout_input" id="postCode_from" value="${ loginuser.postcode}" readonly>
+										</div>
+										<div class="col-12">
+											<input type="text" class="checkout_input checkout_address_2" id="roadAddr_from" value="${ loginuser.roadAddr}" readonly>
+										</div>
+										<div class="col-6">
+											<input type="text" class="checkout_input checkout_address_2" id="detailAddr_from" value="${ loginuser.detailAddr}" readonly>
+										</div>
+										<div class="col-6">
+											<input type="text" class="checkout_input checkout_address_2" id="extraAddr_from" value="${ loginuser.extraAddr}" readonly>
+										</div>
+									</div>
+									<hr>
 									<div class="checkout_extra">
-											<input type="checkbox" id="checkbox_terms" name="regular_checkbox" class="regular_checkbox" checked="checked">
+											<input type="checkbox" id="checkbox_terms" name="regular_checkbox" class="regular_checkbox" onclick="checkBuy(this)">
 											<label for="checkbox_terms"><img src="/images/check.png" alt=""></label>
 											<span class="checkbox_title">주문자 정보와 동일</span>
 									</div>
-									<div>
-										<!-- Name -->
-										<label for="receiver">Name*</label>
-										<input type="text" name="receiver" id="receiver" class="checkout_input" required="required">
-									</div>
-									<div>
-										<!-- Phone no -->
-										<label for="phone">Phone no*</label>
-										<input type="phone" name="phone" id="phone" class="checkout_input" required="required">
-									</div>
-									<div>
-										<div class="button ml-auto"><a href="#" class="addrBtn">주소 불러오기</a></div>
-									</div>
-									<div>
-										<!-- Address -->
-										<label for="address">Address*</label>
-										<input type="text" class="checkout_input" id="roadAddress" name="roadAddr" placeholder="도로명주소">
-										<input type="text" class="checkout_input checkout_address_2" id="jibunAddress" name="jibunAddr" placeholder="지번주소">
-										<input type="text" class="checkout_input checkout_address_2" id="detailAddress" name="detailAddr" placeholder="상세주소">
-										<input type="text" class="checkout_input checkout_address_2" id="extraAddress" name="extraAddr" placeholder="참고항목">
-									</div>
-									<div>
-										<!-- Zipcode -->
-										<label for="postcode">Zipcode*</label>
-										<input type="text"  name="postcode" id="postcode" class="checkout_input" required="required">
+									<div class="row">
+										<div class="col-6">
+											<!-- Name -->
+											<label for="receiver">Name*</label>
+											<input type="text" name="receiver" id="name_to" class="checkout_input" required="required">
+										</div>
+										<div class="col-6">
+											<!-- Phone no -->
+											<label for="phone">Phone no*</label>
+											<input type="phone" name="phone" id="phone_to" class="checkout_input" required="required">
+										</div>
+										
+										<div class="col-6">
+											<!-- Zipcode -->
+											<label for="postcode">Zipcode*</label>
+											<input type="text"  name="postcode" id="postcode" class="checkout_input" required="required">
+								
+										</div>
+										<div class="col-6">
+											<label></label>
+											<div class="button ml-auto" style="height: 52px;"><a href="#" class="addrBtn">주소 불러오기</a></div>
+										</div>
+										
+										<div class="col-12">
+											<!-- Address -->
+											<label for="address">Address*</label>
+											<input type="text" class="checkout_input" id="roadAddress" name="roadAddr" placeholder="도로명주소">
+										</div>
+										<div class="col-12">
+											<input type="text" class="checkout_input checkout_address_2" id="jibunAddress" name="jibunAddr" placeholder="지번주소">
+										</div>
+										<div class="col-6">
+											<input type="text" class="checkout_input checkout_address_2" id="detailAddress" name="detailAddr" placeholder="상세주소">
+										</div>
+										<div class="col-6">
+											<input type="text" class="checkout_input checkout_address_2" id="extraAddress" name="extraAddr" placeholder="참고항목">
+										</div>
 									</div>
 								</form>
 							</div>
