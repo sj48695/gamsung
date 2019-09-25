@@ -2,7 +2,10 @@ package com.gamsung.controller;
 
 
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,13 +41,13 @@ public class MemberController {
 		return "redirect:/member/login";
 	}
 	
-//	@PostMapping("/login")
-//	public String findById(@PathVariable String username) {
-//		
-//		memberService.findByUsername(username);
-//		
-//		return "redirect:/home";
-//	}
+	@GetMapping("/admin")
+	public ModelAndView adminpage(HttpServletRequest req) {
+		Authentication auth = (Authentication)req.getUserPrincipal();
+		auth.getPrincipal();
+		
+		return new ModelAndView("/member/admin");
+	}
 	
 	@GetMapping(path = "mypage")
 	public String mypage() {

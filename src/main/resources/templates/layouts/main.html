@@ -44,17 +44,25 @@
 
 							<div class="header_extra ml-auto">
 							<div class="user_container">
+							<!--<div th:text="${#authentication.principal.member.nickname}"></div>-->
 								<div sec:authorize="isAnonymous()">
 							          <a href="/member/login">로그인</a>
 							          <a href="/member/register">회원가입</a>
 							    </div>
 							    <div sec:authorize="isAuthenticated()">
-							         <span sec:authentication="name"></span>
-							           		님 환영합니다.
+							    	<span th:if="${#authentication.principal.member.type} eq 'ROLE_USER'">
+							    	<a href="#"><span sec:authentication="principal.member.nickname"></span>
+							           		님 환영합니다.</a>
+							    	</span>
+							    	<span th:if="${#authentication.principal.member.type} eq 'ROLE_ADMIN'">
+							    	<a href="/member/admin"><span sec:authentication="principal.member.nickname"></span>
+							           		님 환영합니다.</a>
+							    	</span>
+							         
 							            	<a href="/member/logout">로그아웃</a>
 							    </div>
 									
-							</div>
+								</div>
 								<div class="shopping_cart">
 									<a href="/cart">
 										<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
