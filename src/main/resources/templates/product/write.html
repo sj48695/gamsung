@@ -33,7 +33,7 @@
 			</div>
 		</div>
 	</div>
-
+	<form action="write" method="post" enctype="multipart/form-data">
 	<!-- Product Details -->
 
 	<div class="product_details">
@@ -59,14 +59,19 @@
 				
 				
 				<div>
-					거래분류: <select name="category">
+					거래분류: <select name="type">
 										<option value="흥정" selected="selected">흥정등록</option>
 										<option value="일반">일반등록</option>
 									</select> <br><br>
+									
+					거래분류: <select name="category">
+										<option value="전자제품" selected="selected">전자제품</option>
+										<option value="의류/잡화">의류/잡화</option>
+										<option value="생활용품">생활용품</option>
+										<option value="기타">기타</option>
+									</select> <br><br>		
 					
-					조회수: 1 <br><br>	
-					
-					판매자:<input type="hidden" name="uploader" th:text="${#authentication.principal.member.nickname}"><br><br>
+					판매자:<input type="hidden" name="seller" th:text="${#authentication.principal.member.nickname}"><br><br>
 					
 					제목:<input type="text" name="name" 
 										style="width: 550px" class="form-control" /><br>
@@ -74,7 +79,7 @@
 					가격:<input type="text" name="price" 
 										style="width: 550px" class="form-control" /><br>
 				
-					설명:<textarea name="content" id="editor"
+					설명:<textarea name="contents" id="editor"
 									style="width: 550px" rows="10" class="form-control"></textarea><br>
 				
 					수량:<input type="text" name="price" 
@@ -95,19 +100,40 @@
 
 	<div class="newsletter">
 		<div class="container">
-			<div class="row">
 				<div class="col-lg-8 offset-lg-2">
 					<div class="newsletter_content text-center">
-						
-							<form action="#" id="newsletter_form" class="newsletter_form">
-								<button class="newsletter_button trans_200"><span>판매등록</span></button>
-							</form>
-						
+							<button class="newsletter_button trans_200" id="insertBoard" ><span>판매등록</span></button>
+							<button type="button" class="newsletter_button trans_200" id="back_button" ><span>취소</span></button>
 					</div>
-				</div>
 			</div>
 		</div>
 	</div>
+	</form>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script>
+		// Add the following code if you want the name of the file appear on select
+		$(".custom-file-input").on(
+				"change",
+				function() {
+					var fileName = $(this).val().split("\\").pop();
+					$(this).siblings(".custom-file-label").addClass("selected")
+							.html(fileName);
+				});
+		
+		
+	</script>
+	<script>
+		window.addEventListener('load',function(event) {//js의 main 함수 역할
+			var btnCancel = document.querySelector('#back_button');
+			btnCancel.addEventListener('click', function(event) {
+				history.back(); //브라우저의 이전 버튼을 클릭
+			});
+		});
+	</script>
 	</div>
 	</body>
+	
+	
+
 </html>
+

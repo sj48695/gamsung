@@ -24,10 +24,10 @@
 	</select>
 	
 	<insert id="insertProduct" >
-		insert product(
-		<include refid="productColumns" />
+		insert into product(
+			seller, name, contents, count, price, category, type
 		)
-		into values(
+		values(
 			#{seller},
 			#{name},
 			#{contents},
