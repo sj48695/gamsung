@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gamsung.service.MemberService;
+import com.gamsung.service.ProductService;
 import com.gamsung.vo.Member;
 import com.gamsung.vo.Product;
 
@@ -27,6 +28,9 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private ProductService productService;
 	
 	@GetMapping("/login")
 	public ModelAndView loginpage() {
@@ -59,9 +63,11 @@ public class MemberController {
 	@GetMapping(path = "mypage")
 	public String mypage(HttpServletRequest req, Model model) {
 		Authentication auth = (Authentication)req.getUserPrincipal();
-		auth.getName();
+		String memberId = auth.getName();
 		
-		//List<Product> products = productService.findProductList(memberId);
+		List<Product> products = productService.findMyProductList(memberId);
+		
+		model.addAttribute("products", products);
 		
 		
 		return "member/mypage";
