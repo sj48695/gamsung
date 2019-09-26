@@ -13,4 +13,9 @@ public class Member {
 	private boolean active;
 	private Date regDate;
 	private String nickname;
+	private int postcode;
+	private String roadAddr;
+	private String jibunAddr;
+	private String detailAddr;
+	private String extraAddr;
 }

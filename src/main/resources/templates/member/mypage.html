@@ -21,6 +21,7 @@
 <link rel="stylesheet" type="text/css" th:href="@{/styles/mypage/css/tabs.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/styles/mypage/css/tabstyles.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/styles/mypage/css/mypage.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/mypage/css/pe-icon-7-stroke.css}">
 </head>
 <body>
 	<div layout:fragment="content">
@@ -40,11 +41,11 @@
 				<div class="tabs tabs-style-topline">
 					<nav>
 						<ul>
-							<li><a href="#section-topline-1" class="icon icon-home"><span>상품</span></a></li>
-							<li><a href="#section-topline-2" class="icon icon-heart"><span>찜</span></a></li>
-							<li><a href="#section-topline-3" class="icon icon-upload"><span>후기</span></a></li>
-							<li><a href="#section-topline-4" class="icon icon-coffee"><span>쪽지</span></a></li>
-							<li><a href="#section-topline-5" class="icon icon-config"><span>설정</span></a></li>
+							<li><a href="#section-topline-1" class="icon pe-7s-shopbag"><span>상품</span></a></li>
+							<li><a href="#section-topline-2" class="icon pe-7s-like"><span>찜</span></a></li>
+							<li><a href="#section-topline-3" class="icon pe-7s-note"><span>후기</span></a></li>
+							<li><a href="#section-topline-4" class="icon pe-7s-paper-plane"><span>쪽지</span></a></li>
+							<li><a href="#section-topline-5" class="icon pe-7s-config"><span>설정</span></a></li>
 						</ul>
 					</nav>
 					<div class="content-wrap">
@@ -66,8 +67,8 @@
 										<div class="col">
 
 											<!-- Cart Item -->
-											<div
-												class="mypage_item d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
+											<div class="mypage_item d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start"
+												 th:if="${ #lists.size(products) } > 0" th:each="product : ${products}">
 												<!-- Name -->
 												<div
 													class="mypage_item_product d-flex flex-row align-items-center justify-content-start">
@@ -78,18 +79,18 @@
 													</div>
 													<div class="mypage_item_name_container">
 														<div class="mypage_item_name">
-															<a href="#">Smart Phone Deluxe Edition</a>
+															<a href="#" th:text="${ product.name }"></a>
 														</div>
 													</div>
 												</div>
-												<!-- Price -->
-												<div class="mypage_item_date">$790.90</div>
+												<!-- regDate -->
+												<div class="mypage_item_date" th:text="${ product.price }"></div>
 												<!-- Quantity -->
 												<div class="mypage_item_quantity">
 													<div class="product_quantity_container">
 														<div class="product_quantity clearfix">
 															<input id="quantity_input" type="text"
-																pattern="[0-9]*" value="1">
+																pattern="[0-9]*" th:value="${ product.count }">
 															<div class="quantity_buttons">
 																<div id="quantity_inc_button"
 																	class="quantity_inc quantity_control">
@@ -103,8 +104,8 @@
 														</div>
 													</div>
 												</div>
-												<!-- Total -->
-												<div class="mypage_item_date">$790.90</div>
+												<!-- regDate -->
+												<div class="mypage_item_date" th:text="${ product.regDate }"></div>
 												<!-- 상태 -->
 												<div class="mypage_item_state">
 												<select class="form-control" id="exampleFormControlSelect1">
@@ -120,7 +121,26 @@
 									</div>
 								</div>	
 						</section>
-						<section id="section-topline-2"><p>2</p></section>
+						<section id="section-topline-2">
+								<div class="row">
+									<div class="col">
+										<div class="product_grid">
+											<!-- Product -->
+											<div class="product">
+												<div class="product_image">
+													<img src="/images/product_2.jpg" alt="">
+												</div>
+												<div class="product_content">
+													<div class="product_title">
+														<a href="product">Smart Phone</a>
+													</div>
+													<div class="product_price">$520</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+						</section>
 						<section id="section-topline-3"><p>3</p></section>
 						<section id="section-topline-4"><p>4</p></section>
 						<section id="section-topline-5"><p>5</p></section>

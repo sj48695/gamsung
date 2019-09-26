@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.gamsung.vo.Heart;
 import com.gamsung.vo.Product;
 import com.gamsung.vo.ProductFile;
 
@@ -20,6 +21,10 @@ public interface ProductMapper {
 	void insertProductFile(ProductFile file);
 
 	ProductFile selectFileByProductNo(int productNo);
+	
+	List<Product> selectMyProductList(String memberId);
+
+	void insertHeart(Heart heart);
 	
 	
 	

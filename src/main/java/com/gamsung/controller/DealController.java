@@ -1,13 +1,13 @@
 package com.gamsung.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.gamsung.service.DealService;
 import com.gamsung.service.ProductService;
@@ -23,26 +23,20 @@ public class DealController {
 
 	@Autowired
 	DealService dealService;
-	
-	@GetMapping(path = "/{type}/{productNo}")
-	public String dealForm(@PathVariable String type, @PathVariable int productNo, Model model) {
+
+	@PostMapping(path = "/")
+	public String dealForm(int price, int productNo, Model model) {
 		Product product = productService.findProductByProductNo(productNo);
-		String dealType=null;
-		if(type.equals("buynow")) {
-			dealType="직거래";
-		}else if(type.equals("direct")) {
-			dealType="바로구매";
-		}
-		model.addAttribute("dealType", dealType);
+		product.setPrice(price);
 		model.addAttribute("product", product);
 		return "deal/deal";
 	}
 
 	@PostMapping(path = "/order")
-//	@RequestMapping(path="/order", method = RequestMethod.POST)
-	public String order(Deal deal) {
+	public String order(Deal deal, HttpServletRequest req) {
 		System.out.println(deal);
-		deal.setBuyer("sj");
+		Authentication auth = (Authentication) req.getUserPrincipal();
+		deal.setBuyer(auth.getName());
 		dealService.registerDeal(deal);
 		return "redirect:/home";
 	}

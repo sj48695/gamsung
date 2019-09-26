@@ -16,17 +16,11 @@
 .clearfix:after { clear: both; }
 
 body {
-	background: #e7ecea;
+
 	color: #74777b;
 	font-weight: 400;
 	font-size: 1em;
 	font-family: 'Raleway', Arial, sans-serif;
-}
-
-a {
-	color: #2CC185;
-	text-decoration: none;
-	outline: none;
 }
 
 a:hover, a:focus {
