@@ -1,6 +1,8 @@
 package com.gamsung.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
@@ -16,12 +18,12 @@ public class WebMvcConfiguration implements WebMvcConfigurer { // 이 설정 클
 	
 	//apache commons-fileupload를 사용해서 파일 업로드 하는 객체
 	
-//	@Bean
-//	public CommonsMultipartResolver multipartResolver() {
-//		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-//		resolver.setDefaultEncoding("utf-8");
-//		resolver.setMaxUploadSizePerFile(1024 * 1024 * 5); // 파일 하나 당 업로드 가능한 Size를 지정해 줌.
-//		return resolver;
-//	}
+	@Bean
+	public CommonsMultipartResolver multipartResolver() {
+		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+		resolver.setDefaultEncoding("utf-8");
+		resolver.setMaxUploadSizePerFile(1024 * 1024 * 5); // 파일 하나 당 업로드 가능한 Size를 지정해 줌.
+		return resolver;
+	}
 }
 

@@ -4,20 +4,52 @@
 
 <mapper namespace="com.gamsung.mapper.MemberMapper">
 
-<insert id="save">
-	INSERT INTO member (id, nickname, pwd, 
-						phone, postcode, roadAddr, 
-						jibunAddr, detailAddr, extraAddr)
-	VALUES (#{ id }, #{ nickname }, #{ pwd }, 
-			#{ phone }, #{ postcode }, #{ roadAddr }, 
-			#{ jibunAddr }, #{ detailAddr }, #{ extraAddr }) 
-</insert>
-
-<select id="findByUsername" parameterType="String" resultType="com.gamsung.vo.Member">
-	SELECT id, nickname, pwd, phone, type, reg_date, active
-	FROM member
-	WHERE id = #{ username } and active = 1
+	<insert id="save">
+		INSERT INTO member (
+			id, 
+			nickname, 
+			pwd, 
+			phone, 
+			postcode, 
+			roadAddr, 
+			jibunAddr, 
+			detailAddr, 
+			extraAddr)
+		VALUES (
+			#{ id }, 
+			#{ nickname }, 
+			#{ pwd }, 
+			#{ phone }, 
+			#{ postcode }, 
+			#{ roadAddr }, 
+			#{ jibunAddr }, 
+			#{ detailAddr }, 
+			#{ extraAddr }) 
+	</insert>
 	
-</select>
+	<select id="findByUsername" parameterType="String" resultType="com.gamsung.vo.Member">
+		SELECT id, nickname, pwd, phone, type, reg_date, active,postcode, roadAddr, jibunAddr, detailAddr, extraAddr
+		FROM member
+		WHERE id = #{ username } and active = 1
+		
+	</select>
+	
+	<select id="findMemberById" parameterType="String" resultType="com.gamsung.vo.Member">
+		SELECT id, 
+			nickname, 
+			pwd, 
+			phone, 
+			type, 
+			reg_date, 
+			active, 
+			postcode, 
+			roadAddr, 
+			jibunAddr, 
+			detailAddr, 
+			extraAddr
+		FROM member
+		WHERE id = #{ id }
+		
+	</select>
 
 </mapper>

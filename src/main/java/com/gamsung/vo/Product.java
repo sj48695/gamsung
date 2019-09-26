@@ -2,6 +2,7 @@
 package com.gamsung.vo;
 
 import java.util.Date;
+import java.util.List;
 
 import org.apache.ibatis.type.Alias;
 
@@ -21,6 +22,9 @@ public class Product {
 	private int view; //조회수
 	private String type; //흥정or일반
 	private Date regDate;
+	
+	private ProductFile file;
+	private List<ProductFile> files;
 	
 	private Member member;
 	

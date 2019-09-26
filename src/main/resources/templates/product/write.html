@@ -10,7 +10,10 @@
 <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/animate.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/styles/product.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/styles/product_responsive.css}">
+
+
 </head>
+
 <body>
 	
 	<div layout:fragment="content">
@@ -33,27 +36,48 @@
 			</div>
 		</div>
 	</div>
-	<form action="write" method="post" enctype="multipart/form-data">
+	<form action="write" id="writeForm" method="post" enctype="multipart/form-data">
 	<!-- Product Details -->
 
 	<div class="product_details">
 		<div class="container">
 			<div class="row details_row">
 
-				<!-- Product Image -->
+				
 				<div class="col-lg-6">
-					<div class="details_image">
-						<div class="details_image_large"><img src="/images/details_1.jpg" alt=""></div>
-						<div class="details_image_thumbnails d-flex flex-row align-items-start justify-content-between">
-							<div class="details_image_thumbnail active" data-image="/images/details_1.jpg"><img src="/images/details_1.jpg" alt=""></div>
-							<div class="details_image_thumbnail" data-image="/images/details_2.jpg"><img src="/images/details_2.jpg" alt=""></div>
-							<div class="details_image_thumbnail" data-image="/images/details_3.jpg"><img src="/images/details_3.jpg" alt=""></div>
-							<div class="details_image_thumbnail" data-image="/images/details_4.jpg"><img src="/images/details_4.jpg" alt=""></div>
+					<div class="col-md-7 form-group">
+						<span class="tit">대표이미지<span class="ico_required">
+								*</span></span>
+						<p class="option">2048 *1158 권장, 최대 3MB</p>
+						<div class="file">
+							<div class="product_image">이미지 파일을 추가해 주세요. (JPG, JPEG,PNG)</div>
+							<div class="btn_box" >
+								<label class="titleImgBtn btn" for="titleImgFile" style="border:1px solid" ><div>파일첨부</div>
+									<input type="file" class="_fileRel" name="titleImgFile"
+									id="titleImgFile" required accept="image/*"
+									style="display: none;"></label>
+							</div>
 						</div>
-						
+						<p class="p_guide warn">
+							<i class="sp_icon ico_alert"></i>대표이미지는 필수 입력입니다.
+						</p>
 					</div>
+	            	<div class="col-md-12 form-group">
+						<span class="tit">이미지<label for="sp_adrs"><span class="ico_required">*</span></label></span>
+						<p class="option">
+							2048 * 1158 권장, 한 장당 최대 3MB<span class="txt_guide">(최대 10장)</span>
+						</p>
+						<div class="files">
+							<div class="product_images row" >이미지 파일을 추가해 주세요. (JPG, JPEG, PNG)</div>
+							<div class="btn_box">
+								<label class="imgBtn btn" for="imgFile" style="border:1px solid"><div>파일첨부</div> 
+									<input type="file" class="_fileRel"  name="imgFile" id="imgFile" style="display: none;"
+										accept="image/*" placeholder="이미지 파일을 추가해 주세요. (JPG, JPEG, PNG)" multiple>
+								</label>
+							</div>
+						</div>
+         			</div>
 				</div>
-
 				<!-- Product Content -->
 				
 				
@@ -62,7 +86,7 @@
 					거래분류: <select name="type">
 										<option value="흥정" selected="selected">흥정등록</option>
 										<option value="일반">일반등록</option>
-									</select>&nbsp;&nbsp;&nbsp;
+									</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									
 					거래분류: <select name="category">
 										<option value="전자제품" selected="selected">전자제품</option>
@@ -103,22 +127,15 @@
 				<div class="col-lg-8 offset-lg-2">
 					<div class="newsletter_content text-center">
 							<button class="newsletter_button trans_200" id="insertBoard" ><span>판매등록</span></button>
-							<button type="button" class="newsletter_button trans_200" id="back_button" ><span>취소</span></button>
+							<button type="button" class="newsletter_button trans_200" id="back_button" 
+								onclick="history.back();"><span>취소</span></button>
 					</div>
 			</div>
 		</div>
 	</div>
 	</form>
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
-	<script>
-		window.addEventListener('load',function(event) {//js의 main 함수 역할
-			var btnCancel = document.querySelector('#back_button');
-			btnCancel.addEventListener('click', function(event) {
-				history.back(); //브라우저의 이전 버튼을 클릭
-			});
-		});
-	</script>
+	
 	</div>
 	</body>
 	
