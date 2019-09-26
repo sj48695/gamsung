@@ -10,5 +10,6 @@ import com.gamsung.vo.Review;
 public interface ReviewMapper {
 
 	ArrayList<Review> selectReviewsByProductNo(int productNo);
+	
 
 }

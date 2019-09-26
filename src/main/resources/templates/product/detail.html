@@ -135,7 +135,7 @@
 				<li class="nav-item reviews_title">
 					<a class="nav-link" id="profile-tab" data-toggle="tab" 
 						href="#profile" role="tab" aria-controls="profile" aria-selected="false">
-						Reviews <span>(1)</span>
+						Reviews <span th:text="'('+${#lists.size(reviewlist)}+')'"></span>
 					</a>
 				</li>
 			</ul>
@@ -148,10 +148,16 @@
 					<div class="container text-center py-5" th:if="${reviewlist.toString()} == '[]'">
 						<div>등록된 리뷰가 없습니다.</div>
 					</div>
-					<div class="container text-center py-5" th:unless="${reviewlist.toString()} == '[]'">
-						<div th:each="review : ${reviewlist}">
-							<div th:text="${review.contents}"></div>
+					<div class="container text-center" 
+						th:unless="${reviewlist.toString()} == '[]'"
+					 	th:each="review : ${reviewlist}">
+						<div class="row">
+							<div class="col" th:text="${review.buyer}"></div>
+							<div class="col" th:text="${review.contents}"></div>
+							<div class="col" th:text="${#dates.format(review.regDate, 'yyyy-MM-dd')}"></div>
 						</div>
+						<hr>
+						<br>
 					</div>
 				</div>
 			</div>

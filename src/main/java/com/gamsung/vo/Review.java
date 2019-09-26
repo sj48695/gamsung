@@ -11,4 +11,6 @@ public class Review {
 	private String contents;
 	private Date regDate;
 	
+	private String buyer;
+	
 }

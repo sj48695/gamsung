@@ -13,9 +13,11 @@
 		from review where deal_no = #{ dealNo }
 	</select>
 	
-	<select id="selectReviewsByProductNo" resultType="com.gamsung.vo.Review">
-		select deal_no, contents, reg_date
-		from review 
+	<select id="selectReviewsByProductNo" parameterType="int" resultType="com.gamsung.vo.Review">
+		select r.deal_no, contents, r.reg_date, d.buyer
+		from review r INNER JOIN deal d
+		on d.deal_no = r.deal_no
+		where d.product_no = ${productNo} 
 	</select>
 
 	

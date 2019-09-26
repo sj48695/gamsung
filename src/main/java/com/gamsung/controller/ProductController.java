@@ -34,7 +34,6 @@ public class ProductController {
 		
 		model.addAttribute("product", product);
 		model.addAttribute("reviewlist", reviewlist);
-		System.out.println(reviewlist);
 		 
 		return "product/detail"; 
 	}
