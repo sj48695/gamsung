@@ -23,6 +23,7 @@ import com.gamsung.common.Util;
 import com.gamsung.service.MemberService;
 import com.gamsung.service.ProductService;
 import com.gamsung.vo.Heart;
+import com.gamsung.vo.Member;
 import com.gamsung.vo.Product;
 import com.gamsung.vo.ProductFile;
 
@@ -40,6 +41,14 @@ public class ProductController {
 	@GetMapping(path = "detail/{productNo}")
 	public String productDetail(@PathVariable int productNo, Model model, HttpServletRequest req) {
 		Product product = productService.findProductByProductNo(productNo);
+		Member member = memberService.findMemberById(product.getSeller());
+		String[] jibun = member.getJibunAddr().split(" ");
+		String addr = "";
+		for (int i = 0; i < jibun.length - 1; i++) {
+			addr = addr + " " + jibun[i];
+		}
+		model.addAttribute("addr", addr);
+
 		model.addAttribute("product", product);
 
 		return "product/detail";
