@@ -11,4 +11,6 @@ public interface MemberMapper {
 
 	Member findByUsername(String username);
 
+	Member findMemberById(String id);
+
 }
