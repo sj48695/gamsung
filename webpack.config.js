@@ -4,14 +4,14 @@ module.exports = {
     context: path.resolve(__dirname, 'src/main/jsx'),
     entry: {
         //main: './App.jsx',
-        main: './index.jsx'
+        admin: './adminIndex.jsx'
     },
     devtool: 'sourcemaps',
     cache: true,
     output: {
         path: __dirname,
-        //filename: './src/main/resources/static/js/react/[name].bundle.js'
-        filename: './src/main/resources/static/js/react/bundle.js'
+        filename: './src/main/resources/static/js/react/[name].bundle.js'
+        //filename: './src/main/resources/static/js/react/bundle.js'
     },
     mode: 'none',
     module: {
