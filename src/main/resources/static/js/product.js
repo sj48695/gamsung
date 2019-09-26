@@ -284,3 +284,51 @@ $(document).ready(function()
 	}
 
 });
+
+
+function readURL(input,target) {
+	if (input.files && input.files[0]) {
+		var imgfiles = [];
+		var files = input.files;
+		var filesArr = Array.prototype.slice.call(files);
+		
+		var index = 0;
+		filesArr.forEach(function(f){
+			if(!f.type.match("image.*")){
+				alert("확장자는 이미지 확장자만 가능합니다.");
+				return;
+			}
+			
+			imgfiles.push(f);
+			
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				var result = "<img class='fileImg col-4' src='" + e.target.result + "'>";
+				target.append(result);
+				console.log(result);
+				index++;
+			}
+			reader.readAsDataURL(f);
+			
+		});
+		
+	}
+}
+
+/* ----------- product (write, update) ---------- */
+$(function () {
+
+	/* ----------- Img preview ---------- */
+	$("#writeForm").on("change", "#titleImgFile", function (event) {
+		$('.product_image').empty();
+		readURL(this, $(".product_image"));
+	});
+	$("#writeForm").on("change", "#imgFile", function (event) {
+		$('.product_images').empty();
+		readURL(this, $(".product_images"));
+	});
+
+
+
+	
+});

@@ -7,16 +7,21 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.gamsung.vo.Heart;
 import com.gamsung.vo.Product;
+import com.gamsung.vo.ProductFile;
 
 @Mapper
 public interface ProductMapper {
 
 	Product selectProductByProductNo(int productNo);
 
-	ArrayList<Product> selectQuestions();
+	ArrayList<Product> selectProducts();
 
 	void insertProduct(Product product);
 
+	void insertProductFile(ProductFile file);
+
+	ProductFile selectFileByProductNo(int productNo);
+	
 	List<Product> selectMyProductList(String memberId);
 
 	void insertHeart(Heart heart);

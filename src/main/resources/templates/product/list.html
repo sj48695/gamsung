@@ -73,7 +73,8 @@
 						<!-- Product -->
 						<div class="product" th:if="${ #lists.size(products) } > 0" th:each="product : ${products}">
 						
-							<div class="product_image"><img src="/images/product_1.jpg" alt=""></div>
+							<div class="product_image" ><img src="/files/product-files/" 
+															 th:attrappend="src=${ product.file.saveFileName }"></div>
 							<div class="product_extra product_sale" th:if="${ product.type } == '흥정'">
 								<a href="categories">흥정</a>
 							</div>

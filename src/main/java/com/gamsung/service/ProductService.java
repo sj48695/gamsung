@@ -11,8 +11,11 @@ public interface ProductService {
 	Product findProductByProductNo(int productNo);
 
 	ArrayList<Product> findProducts();
+	//void writeProduct(Product product);
 
-	void writeProduct(Product product);
+	Integer registerProductTx(Product product);
+
+	void insertProductFiles(Product product, int productNo);
 
 	List<Product> findMyProductList(String memberId);
 
