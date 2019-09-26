@@ -45,7 +45,7 @@
 		where seller = #{seller}
 	</select>
 
-	<insert id="insertHeart">
+	<insert id="insertHeart" parameterType="com.gamsung.vo.Heart">
 		insert into heart(
 			id, product_no
 		)
@@ -54,6 +54,11 @@
 			#{productNo}
 		)
 	</insert>
+	
+	<delete id="deleteHeart" parameterType="hashmap">
+		delete from heart
+		where id = #{id} and product_no = #{productNo}
+	</delete>
 
 	
 

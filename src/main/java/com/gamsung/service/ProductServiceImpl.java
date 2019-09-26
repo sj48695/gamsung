@@ -1,6 +1,7 @@
 package com.gamsung.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,15 @@ public class ProductServiceImpl implements ProductService {
 		productMapper.insertHeart(heart);
 		
 	}
-	
+
+	@Override
+	public void deleteHeart(String id, int productNo) {
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("id", id);
+		params.put("productNo", productNo);
+		
+		productMapper.deleteHeart(params);
+		
+	}
 
 }

@@ -81,5 +81,23 @@ public class ProductController {
 		}
 
 	}
+	
+	// 찜하기 취소
+		@GetMapping(path = "/removeheart")
+		// @RequestMapping(path = "/addheart?productNo={productNo}", method = {RequestMethod.POST, RequestMethod.GET})
+		@ResponseBody
+		public String removeHeart(Heart heart, int productNo, HttpServletRequest req) {
+
+			Authentication auth = (Authentication) req.getUserPrincipal();
+			String id = auth.getName();
+
+			if (auth != null) {
+				productService.deleteHeart(id,productNo);
+				return "success";
+			} else {
+				return "redirect:/";
+			}
+			
+		}
 
 }

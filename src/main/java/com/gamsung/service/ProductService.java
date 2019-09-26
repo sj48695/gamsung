@@ -17,7 +17,8 @@ public interface ProductService {
 	List<Product> findMyProductList(String memberId);
 
 	void insertHeart(Heart heart);
-	
+
+	void deleteHeart(String id, int productNo);
 	
 
 }
