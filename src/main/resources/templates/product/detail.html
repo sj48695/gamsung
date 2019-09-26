@@ -24,7 +24,9 @@
 						<div class="col">
 							<div class="home_content">
 								<div class="home_title">Smart Phones<span>.</span></div>
-								<div class="home_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie eros. Sed viverra velit venenatis fermentum luctus.</p></div>
+								<div class="home_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+									Nullam a ultricies metus. Sed nec molestie eros. 
+									Sed viverra velit venenatis fermentum luctus.</p></div>
 							</div>
 						</div>
 					</div>
@@ -66,7 +68,10 @@
 					
 					<div class="row justify-content-between">
 						<div class="row col">
-							<div class="col-12"><div class="details_name" th:text="${ product.name }"></div> | <span th:text="${ product.category }"></span></div>
+							<div class="col-12">
+								<div class="details_name" th:text="${ product.name }"></div> | 
+								<span th:text="${ product.category }"></span>
+							</div>
 							<div class="details_price col-12" th:text="${ #numbers.formatInteger(product.price,3,'COMMA') }+'원'"></div>
 						</div>
 						<div>
@@ -79,27 +84,36 @@
 							<span th:text="${ product.seller }"></span>
 						</div>
 						<div class="in_stock_container">
-							<div class="availability">거래지역 : </div>
-							<span>서울특별시 영등포구 문래동</span>
+							<div class="availability">판매지역 : </div>
+							<span th:text="${ addr }"></span>
 						</div>
 						<div class="in_stock_container">
 							<div class="availability">등록일 : </div>
 							<span th:text="${#dates.format(product.regDate, 'yyyy-MM-dd')}"></span>
 						</div>
-
+						
+						<form action="/deal/" method="post" id="dealForm">
+							<input type="hidden" name="productNo" th:value="${product.productNo}">
+							<input type="hidden" name="price" placeholder="흥정가격"  
+								th:unless="${product.type} == '흥정'" th:value="${product.price}">
+							
 						<!-- Product Quantity -->
-						<div class="product_quantity_container" th:if="${product.type} == '흥정'">
-							<div class="product_quantity clearfix px-3">
-								<input class="w-75" type="text" placeholder="흥정가격">
-								<span style="left:auto;">원</span>
+						<div class="product_quantity_container">
+							<div th:if="${product.type} == '흥정'">
+								<div class="availability">흥정가격 : </div>
+								<div class="product_quantity clearfix px-3">
+									<input class="w-75" type="text" name="price" 
+										th:placeholder="${ #numbers.formatInteger(product.price,3,'COMMA') }" 
+										th:value="${product.price}">
+									<span style="left:auto;">원</span>
+								</div>
+								<div class="button cart_button"><a href="#" onclick="$('#dealForm').submit();">거래 신청</a></div>
 							</div>
-							<div class="button cart_button"><a th:href="'/deal/direct/'+${product.productNo}">흥정신청</a></div>
+							<div th:unless="${product.type} == '흥정'">
+								<div class="button cart_button"><a href="#" onclick="$('#dealForm').submit();">거래 신청</a></div>
+							</div>
 						</div>
-
-						<div class="product_quantity_container row">
-							<div class="button cart_button col"><a th:href="'/deal/direct/'+${product.productNo}">거래신청</a></div>
-							<div class="button cart_button col"><a th:href="'/deal/buynow/'+${product.productNo}">바로구매</a></div>
-						</div>
+						</form>
 						<!-- <div class="product_quantity_container row">
 							<div class="button cart_button col" th:unless="${product.type} == '흥정'">
 								<a href="#">거래신청</a>
@@ -211,31 +225,14 @@
 		</div>
 	</div>
 
-	<!-- Newsletter -->
-
-	<div class="newsletter">
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<div class="newsletter_border"></div>
-				</div>
-			</div>
-			<div class="row">
+		<div class="container py-5">
 				<div class="col-lg-8 offset-lg-2">
-					<div class="newsletter_content text-center">
-						<div class="newsletter_title">Subscribe to our newsletter</div>
-						<div class="newsletter_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie eros</p></div>
-						<div class="newsletter_form_container">
-							<form action="#" id="newsletter_form" class="newsletter_form">
-								<input type="email" class="newsletter_input" required="required">
-								<button class="newsletter_button trans_200"><span>Subscribe</span></button>
-							</form>
-						</div>
+					<div class="text-center row justify-content-center">
+							<div class="button trans_200" id="insertBoard" ><a>수정</a></div>
+							<div class="button cart_button trans_200" id="back_button" ><a>삭제</a></div>
 					</div>
-				</div>
 			</div>
 		</div>
-	</div>
 	</div>
 	</body>
 </html>
