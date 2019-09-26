@@ -10,7 +10,11 @@ public interface ProductService {
 
 	ArrayList<Product> findProducts();
 
-	void writeProduct(Product product);
+	//void writeProduct(Product product);
+
+	Integer registerProductTx(Product product);
+
+	void insertProductFiles(Product product, int productNo);
 	
 	
 

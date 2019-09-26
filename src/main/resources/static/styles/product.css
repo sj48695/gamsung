@@ -1228,6 +1228,7 @@ section
 {
 	max-width: 100%;
 }
+
 .product_content
 {
 	width: 100%;
@@ -1480,3 +1481,15 @@ section
 {
 	color: #FFFFFF;
 }
+
+.titleImgFile
+{
+	width:200px;
+	hight:100px;
+}
+
+.imgFile
+{
+	width:200px;
+}
+

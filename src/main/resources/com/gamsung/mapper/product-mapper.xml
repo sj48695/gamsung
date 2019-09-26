@@ -7,6 +7,9 @@
 
 	<sql id="productColumns">seller, name, contents, count, price, category, view, type</sql>
 
+	<sql id="productFileBasicColumns">
+		product_no,save_file_name, raw_file_name, flag
+	</sql>
 
 
 	<!-- Product -->
@@ -17,13 +20,15 @@
 		from product where product_no = #{ productNo }
 	</select>
 	
-	<select id="selectQuestions" resultType="com.gamsung.vo.Product">
+	<select id="selectProducts" resultType="com.gamsung.vo.Product">
 		select product_no, reg_date,
 		<include refid="productColumns" />
-		from product 
+		from product
+		order by product_no desc
 	</select>
 	
-	<insert id="insertProduct" >
+	<insert id="insertProduct"  parameterType="com.gamsung.vo.Product"
+			useGeneratedKeys="true" keyColumn="product_no" keyProperty="productNo">
 		insert into product(
 			seller, name, contents, count, price, category, type
 		)
@@ -38,6 +43,25 @@
 		)
 		 
 	</insert>
+	
+	<insert id="insertProductFile" parameterType="com.gamsung.vo.ProductFile">
+		INSERT INTO productfile (
+			<include refid="productFileBasicColumns"/>
+		)
+		VALUES (
+			#{ productNo } 
+	        , #{ saveFileName }
+	        , #{ rawFileName }
+	        , #{ flag }
+		)
+	</insert>	
+	
+	<select id="selectFileByProductNo" parameterType="int" resultType="com.gamsung.vo.ProductFile">
+		select product_file_no, <include refid="productFileBasicColumns"/> 
+		from productfile 
+		where product_no = #{ productNo } and flag = true
+	</select>
+	
 	
 	
 
