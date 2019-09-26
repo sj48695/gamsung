@@ -43,6 +43,11 @@ public class MemberService {
 		return userDetails;
 	}
 
+	public Member findMemberById(String id) {
+		Member member = memberMapper.findMemberById(id);
+		return member;
+	}
+
 
 
 }
