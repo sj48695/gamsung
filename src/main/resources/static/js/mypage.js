@@ -1,9 +1,17 @@
 $(function() {
 	
+
+	/*별점*/
 	
+	$('.starRev span').click(function() {
+		$(this).parent().children('span').removeClass('on');
+		$(this).addClass('on').prevAll('span').addClass('on');
+		return false;
+	});
 
 });
 
+/*찜하기*/
 function heart(productno){
 	$.ajax({
 		url:"/product/addheart",
@@ -12,15 +20,14 @@ function heart(productno){
 		success:function(data, status, xhr){
 			var ok = confirm('찜 되었습니다.');
 			if (ok) {
-				window.location.href = "/product/detail/"+productno;
+				console.log(data);
+				 if(data == "success") {
+	                 $('#heart').attr("class","fa fa-heart");
+	             }
+	             else{
+	                 $('#heart').attr("class","fa fa-heart-o");
+	             }
 			}
-			console.log(data);
-			 if(data != null) {
-                 $('#heart').attr("class","fas fa-heart");
-             }
-             else{
-                 $('#heart').attr("class","fa fa-heart-o");
-             }
 
 		},
 		error:function(status, xhr, err){
@@ -28,3 +35,4 @@ function heart(productno){
 		}
 	});
 }
+

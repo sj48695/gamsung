@@ -28,7 +28,7 @@
 	</insert>
 	
 	<select id="findByUsername" parameterType="String" resultType="com.gamsung.vo.Member">
-		SELECT id, nickname, pwd, phone, type, reg_date, active
+		SELECT id, nickname, pwd, phone, type, reg_date, active,postcode, roadAddr, jibunAddr, detailAddr, extraAddr
 		FROM member
 		WHERE id = #{ username } and active = 1
 		
