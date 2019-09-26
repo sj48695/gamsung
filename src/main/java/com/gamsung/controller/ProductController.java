@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gamsung.service.ProductService;
+import com.gamsung.vo.Heart;
 import com.gamsung.vo.Product;
 
 @Controller
@@ -54,7 +57,7 @@ public class ProductController {
 	
 	@PostMapping(path = "/write")
 	public String write(Product product, Model model, HttpServletRequest req) {
-		 Authentication auth = (Authentication)req.getUserPrincipal();
+		Authentication auth = (Authentication)req.getUserPrincipal();
 		product.setSeller(auth.getName());
 		productService.writeProduct(product);
 		model.addAttribute("product", product);
@@ -64,6 +67,23 @@ public class ProductController {
 		return "redirect:/product/categories";
 	}
 	
-	
-	
+	//찜하기
+	@GetMapping(path = "/addheart")
+	//@RequestMapping(path = "/addheart?productNo={productNo}", method = {RequestMethod.POST, RequestMethod.GET})
+	@ResponseBody
+	public String addToHeart(Heart heart, int productNo, HttpServletRequest req) {
+		
+		Authentication auth = (Authentication)req.getUserPrincipal();
+		
+		if(auth != null) {
+			heart.setId(auth.getName());
+			productService.insertHeart(heart);
+			return "success";
+		} else { 
+			return "redirect:/";
+		}
+
+	}
+
 }
+

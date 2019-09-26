@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gamsung.mapper.ProductMapper;
+import com.gamsung.vo.Heart;
 import com.gamsung.vo.Product;
 
 @Service
@@ -40,6 +41,13 @@ public class ProductServiceImpl implements ProductService {
 		
 		List<Product> products = productMapper.selectMyProductList(memberId);
 		return products;
+	}
+
+	@Override
+	public void insertHeart(Heart heart) {
+		
+		productMapper.insertHeart(heart);
+		
 	}
 	
 

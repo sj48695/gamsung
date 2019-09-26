@@ -44,7 +44,16 @@
 		from product
 		where seller = #{seller}
 	</select>
-	
+
+	<insert id="insertHeart">
+		insert into heart(
+			id, product_no
+		)
+		values(
+			#{id},
+			#{productNo}
+		)
+	</insert>
 
 	
 

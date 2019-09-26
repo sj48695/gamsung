@@ -34,124 +34,127 @@
 	</div>
 
 	<!-- Product Details -->
-
-	<div class="product_details">
-		<div class="container">
-			<div class="row details_row">
-
-				<!-- Product Image -->
-				<div class="col-lg-6">
-					<div class="details_image">
-						<div class="details_image_large">
-							<img src="/images/details_1.jpg" alt="">
-							<div class="product_extra product_sale" th:if="${ product.type } == '흥정'">
-								<a href="categories">흥정</a>
+		<div class="product_details">
+			<div class="container">
+			<form id="addHeartForm" method="post">
+			<input hidden="true" name="productNo" th:value="${ product.productNo }">
+				<div class="row details_row">
+					<!-- Product Image -->
+					<div class="col-lg-6">
+						<div class="details_image">
+							<div class="details_image_large">
+								<img src="/images/details_1.jpg" alt="">
+								<div class="product_extra product_sale" th:if="${ product.type } == '흥정'">
+									<a href="categories">흥정</a>
+								</div>
+								<div class="product_extra product_hot" th:if="${ product.type } == '일반'">
+									<a href="categories">일반</a>
+								</div>
 							</div>
-							<div class="product_extra product_hot" th:if="${ product.type } == '일반'">
-								<a href="categories">일반</a>
+							<div class="details_image_thumbnails d-flex flex-row align-items-start justify-content-between">
+								<div class="details_image_thumbnail active" data-image="/images/details_1.jpg"><img src="/images/details_1.jpg" alt=""></div>
+								<div class="details_image_thumbnail" data-image="/images/details_2.jpg"><img src="/images/details_2.jpg" alt=""></div>
+								<div class="details_image_thumbnail" data-image="/images/details_3.jpg"><img src="/images/details_3.jpg" alt=""></div>
+								<div class="details_image_thumbnail" data-image="/images/details_4.jpg"><img src="/images/details_4.jpg" alt=""></div>
 							</div>
-						</div>
-						<div class="details_image_thumbnails d-flex flex-row align-items-start justify-content-between">
-							<div class="details_image_thumbnail active" data-image="/images/details_1.jpg"><img src="/images/details_1.jpg" alt=""></div>
-							<div class="details_image_thumbnail" data-image="/images/details_2.jpg"><img src="/images/details_2.jpg" alt=""></div>
-							<div class="details_image_thumbnail" data-image="/images/details_3.jpg"><img src="/images/details_3.jpg" alt=""></div>
-							<div class="details_image_thumbnail" data-image="/images/details_4.jpg"><img src="/images/details_4.jpg" alt=""></div>
 						</div>
 					</div>
-				</div>
-
-				<!-- Product Content -->
-				<div class="col-lg-6 py-5">
-					<div class="details_content py-5">
-					
-					<div class="row justify-content-between">
-						<div class="row col">
-							<div class="col-12"><div class="details_name" th:text="${ product.name }"></div> | <span th:text="${ product.category }"></span></div>
-							<div class="details_price col-12" th:text="${ #numbers.formatInteger(product.price,3,'COMMA') }+'원'"></div>
-						</div>
-						<div>
-						<font size="6"><i class="fa fa-heart-o" aria-hidden="true"></i></font>
-						</div>
-					</div>
-						<!-- In Stock -->
-						<div class="in_stock_container">
-							<div class="availability">작성자 : </div>
-							<span th:text="${ product.seller }"></span>
-						</div>
-						<div class="in_stock_container">
-							<div class="availability">거래지역 : </div>
-							<span>서울특별시 영등포구 문래동</span>
-						</div>
-						<div class="in_stock_container">
-							<div class="availability">등록일 : </div>
-							<span th:text="${#dates.format(product.regDate, 'yyyy-MM-dd')}"></span>
-						</div>
-
-						<!-- Product Quantity -->
-						<div class="product_quantity_container" th:if="${product.type} == '흥정'">
-							<div class="product_quantity clearfix px-3">
-								<input class="w-75" type="text" placeholder="흥정가격">
-								<span style="left:auto;">원</span>
+	
+					<!-- Product Content -->
+					<div class="col-lg-6 py-5">
+						<div class="details_content py-5">
+						
+						<div class="row justify-content-between">
+							<div class="row col">
+								<div class="col-12"><div class="details_name" th:text="${ product.name }"></div> | <span th:text="${ product.category }"></span></div>
+								<div class="details_price col-12" th:text="${ #numbers.formatInteger(product.price,3,'COMMA') }+'원'"></div>
 							</div>
-							<div class="button cart_button"><a th:href="'/deal/direct/'+${product.productNo}">흥정신청</a></div>
-						</div>
-
-						<div class="product_quantity_container row">
-							<div class="button cart_button col"><a th:href="'/deal/direct/'+${product.productNo}">거래신청</a></div>
-							<div class="button cart_button col"><a th:href="'/deal/buynow/'+${product.productNo}">바로구매</a></div>
-						</div>
-						<!-- <div class="product_quantity_container row">
-							<div class="button cart_button col" th:unless="${product.type} == '흥정'">
-								<a href="#">거래신청</a>
+							<!-- 찜 -->
+							<div class="addToHeart">
+									<font size="6"><i class="fa fa-heart-o" aria-hidden="true"></i></font>
 							</div>
-							<div th:if="${product.type} == '흥정'">
+						</div>
+							<!-- In Stock -->
+							<div class="in_stock_container">
+								<div class="availability">작성자 : </div>
+								<span th:text="${ product.seller }"></span>
+							</div>
+							<div class="in_stock_container">
+								<div class="availability">거래지역 : </div>
+								<span>서울특별시 영등포구 문래동</span>
+							</div>
+							<div class="in_stock_container">
+								<div class="availability">등록일 : </div>
+								<span th:text="${#dates.format(product.regDate, 'yyyy-MM-dd')}"></span>
+							</div>
+	
+							<!-- Product Quantity -->
+							<div class="product_quantity_container" th:if="${product.type} == '흥정'">
 								<div class="product_quantity clearfix px-3">
 									<input class="w-75" type="text" placeholder="흥정가격">
+									<span style="left:auto;">원</span>
 								</div>
-								<div class="button cart_button"><a href="#">흥정신청</a></div>
+								<div class="button cart_button"><a th:href="'/deal/direct/'+${product.productNo}">흥정신청</a></div>
 							</div>
-							<div class="button cart_button col"><a th:href="'/deal/'+${product.productNo}">바로구매</a></div>
-						</div> -->
-
-						<!-- Share -->
-						<div class="details_share">
-							<span>Share:</span>
-							<ul>
-								<li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-								<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-								<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-								<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-							</ul>
+	
+							<div class="product_quantity_container row">
+								<div class="button cart_button col"><a th:href="'/deal/direct/'+${product.productNo}">거래신청</a></div>
+								<div class="button cart_button col"><a th:href="'/deal/buynow/'+${product.productNo}">바로구매</a></div>
+							</div>
+						
+							<!-- <div class="product_quantity_container row">
+								<div class="button cart_button col" th:unless="${product.type} == '흥정'">
+									<a href="#">거래신청</a>
+								</div>
+								<div th:if="${product.type} == '흥정'">
+									<div class="product_quantity clearfix px-3">
+										<input class="w-75" type="text" placeholder="흥정가격">
+									</div>
+									<div class="button cart_button"><a href="#">흥정신청</a></div>
+								</div>
+								<div class="button cart_button col"><a th:href="'/deal/'+${product.productNo}">바로구매</a></div>
+							</div> -->
+	
+							<!-- Share -->
+							<div class="details_share">
+								<span>Share:</span>
+								<ul>
+									<li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+									<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+									<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+									<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+								</ul>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<ul class="nav nav-tabs description_row" role="tablist">
-				<li class="nav-item description_title">
-					<a class="nav-link active" id="home-tab" data-toggle="tab"
-						href="#home" role="tab" aria-controls="home" aria-selected="true">
-						Description </a>
-				</li>
-				<li class="nav-item reviews_title">
-					<a class="nav-link" id="profile-tab" data-toggle="tab" 
-						href="#profile" role="tab" aria-controls="profile" aria-selected="false">
-						Reviews <span>(1)</span>
-					</a>
-				</li>
-			</ul>
-			<div class="tab-content">
-				<div class="tab-pane fade show active py-5" id="home" role="tabpanel"
-					aria-labelledby="home-tab">
-					<div class="container py-5" th:text="${product.contents}"></div>
-				</div>
-				<div class="tab-pane fade py-5" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-					<div class="container text-center py-5">
-						<div>등록된 리뷰가 없습니다.</div>
+			</form>
+				<ul class="nav nav-tabs description_row" role="tablist">
+					<li class="nav-item description_title">
+						<a class="nav-link active" id="home-tab" data-toggle="tab"
+							href="#home" role="tab" aria-controls="home" aria-selected="true">
+							Description </a>
+					</li>
+					<li class="nav-item reviews_title">
+						<a class="nav-link" id="profile-tab" data-toggle="tab" 
+							href="#profile" role="tab" aria-controls="profile" aria-selected="false">
+							Reviews <span>(1)</span>
+						</a>
+					</li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane fade show active py-5" id="home" role="tabpanel"
+						aria-labelledby="home-tab">
+						<div class="container py-5" th:text="${product.contents}"></div>
+					</div>
+					<div class="tab-pane fade py-5" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+						<div class="container text-center py-5">
+							<div>등록된 리뷰가 없습니다.</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
 	<!-- Products -->
 
