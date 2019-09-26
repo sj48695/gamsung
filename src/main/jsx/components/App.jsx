@@ -11,9 +11,9 @@ class App extends Component {
 
     render(){
         return(
-        <div className="container">
+        <div className="gide-main">
             <Header />
-            <div></div>
+            <div className="gide-body"></div>
         </div>
         )
     }

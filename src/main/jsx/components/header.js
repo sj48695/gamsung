@@ -3,15 +3,13 @@ import React from 'react';
 const Header = () => (
     <nav>
         <div className="container">
-            <div>
-            <span>회원관리</span>
-            </div>
-            <div>
-            <span>블랙리스트</span>
-            </div>
-            <div>
-            <span>문의관리</span>
-            </div>
+            <nav className="gide">
+                <ul className="gide-nav-ul">
+                    <li className="gide-nav-ul-li"><a href="#" className="gide-nav-ul-li-a">회원관리</a></li>
+                    <li className="gide-nav-ul-li"><a href="#" className="gide-nav-ul-li-a">블랙리스트</a></li>
+                    <li className="gide-nav-ul-li"><a href="#" className="gide-nav-ul-li-a">회원문의</a></li>
+                </ul>
+            </nav>
         </div>
     </nav>
 );
