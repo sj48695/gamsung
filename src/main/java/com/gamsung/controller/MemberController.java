@@ -21,6 +21,7 @@ import com.gamsung.service.MemberService;
 import com.gamsung.service.ProductService;
 import com.gamsung.vo.Member;
 import com.gamsung.vo.Product;
+import com.gamsung.vo.ProductFile;
 
 @Controller
 @RequestMapping(value= "/member")
@@ -67,7 +68,10 @@ public class MemberController {
 		
 		List<Product> products = productService.findMyProductList(memberId);
 		
+		
 		model.addAttribute("products", products);
+		
+		
 		
 		
 		return "member/mypage";

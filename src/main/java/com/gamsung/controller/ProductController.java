@@ -123,6 +123,7 @@ public class ProductController {
 
 					ProductFile productFile = new ProductFile();
 					productFile.setSaveFileName(uniqueFileName);
+					productFile.setRawFileName(userFileName);
 					productFile.setFlag(true);
 					product.setFile(productFile);
 				}

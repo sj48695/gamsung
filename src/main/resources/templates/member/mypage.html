@@ -74,7 +74,8 @@
 													class="mypage_item_product d-flex flex-row align-items-center justify-content-start">
 													<div class="mypage_item_image">
 														<div>
-															<img src="/images/cart_1.jpg" alt="">
+															<img src="/files/product-files/" 
+															 th:attrappend="src=${ product.file.saveFileName }">
 														</div>
 													</div>
 													<div class="mypage_item_name_container">

@@ -27,6 +27,11 @@ public class ProductServiceImpl implements ProductService {
 	public Product findProductByProductNo(int productNo) {
 
 		Product product = productMapper.selectProductByProductNo(productNo);
+		
+		//
+		ProductFile file = productMapper.selectFileByProductNo(product.getProductNo());
+		product.setFile(file);
+		
 		return product;
 
 	}
@@ -85,6 +90,12 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> findMyProductList(String memberId) {
 		
 		List<Product> products = productMapper.selectMyProductList(memberId);
+		
+		//
+		for(Product product : products) {
+			product.setFile(productMapper.selectFileByProductNo(product.getProductNo()));
+		}
+		
 		return products;
 	}
 
