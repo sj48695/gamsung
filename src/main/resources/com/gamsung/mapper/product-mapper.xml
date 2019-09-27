@@ -57,7 +57,7 @@
 		)
 	</insert>	
 	
-	<select id="selectFileByProductNo" parameterType="int" resultType="com.gamsung.vo.ProductFile">
+	<select id="selectProductFileByProductNo" parameterType="int" resultType="com.gamsung.vo.ProductFile">
 		select product_file_no, <include refid="productFileBasicColumns"/> 
 		from productfile 
 		where product_no = #{ productNo } and flag = true
@@ -99,12 +99,10 @@
 	</select>
 	
 	<select id="selectMyHeartList" resultType="com.gamsung.vo.Product" parameterType="String">
-		
-		select * 
+		select p.name, h.product_no 
 		from product p, heart h
 		where p.product_no = h.product_no
 		and h.id = #{id};
-
 	</select>
 
 </mapper>

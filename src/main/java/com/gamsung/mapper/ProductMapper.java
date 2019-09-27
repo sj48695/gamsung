@@ -21,7 +21,7 @@ public interface ProductMapper {
 
 	void insertProductFile(ProductFile file);
 
-	ProductFile selectFileByProductNo(int productNo);
+	ProductFile selectProductFileByProductNo(int productNo);
 	
 	List<Product> selectMyProductList(String memberId);
 

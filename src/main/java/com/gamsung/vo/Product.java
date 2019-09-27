@@ -28,5 +28,6 @@ public class Product {
 	
 	private Member member;
 	private Heart heart; 
+	private List<Deal> deals;
 	
 }

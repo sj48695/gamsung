@@ -7,8 +7,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gamsung.mapper.DealMapper;
 import com.gamsung.mapper.ProductMapper;
 import com.gamsung.mapper.ReviewMapper;
+import com.gamsung.vo.Deal;
 import com.gamsung.vo.Heart;
 import com.gamsung.vo.Product;
 import com.gamsung.vo.ProductFile;
@@ -23,13 +25,18 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	ReviewMapper reviewMapper;
 
+	@Autowired
+	DealMapper dealMapper;
+
+	/*	Product	*/
+	
 	@Override
 	public Product findProductByProductNo(int productNo) {
 
 		Product product = productMapper.selectProductByProductNo(productNo);
 		
 		//
-		ProductFile file = productMapper.selectFileByProductNo(product.getProductNo());
+		ProductFile file = productMapper.selectProductFileByProductNo(product.getProductNo());
 		product.setFile(file);
 		
 		return product;
@@ -42,19 +49,13 @@ public class ProductServiceImpl implements ProductService {
 		ArrayList<Product> products = productMapper.selectProducts();
 		
 		for(Product product : products) {
-			ProductFile file = productMapper.selectFileByProductNo(product.getProductNo());
+			ProductFile file = productMapper.selectProductFileByProductNo(product.getProductNo());
 			product.setFile(file);
 		}
 		
 		return products;
 	}
-
-//	@Override
-//	public void writeProduct(Product product) {
-//		productMapper.insertProduct(product);
-//		
-//	}
-
+	
 	@Override
 	public Integer registerProductTx(Product product) {
 		System.out.println(product);
@@ -93,11 +94,13 @@ public class ProductServiceImpl implements ProductService {
 		
 		//
 		for(Product product : products) {
-			product.setFile(productMapper.selectFileByProductNo(product.getProductNo()));
+			product.setFile(productMapper.selectProductFileByProductNo(product.getProductNo()));
 		}
 		
 		return products;
 	}
+	
+	/*	Heart	*/
 
 	@Override
 	public void insertHeart(Heart heart) {
@@ -117,12 +120,6 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ArrayList<Review> findReviewsByProductNo(int productNo) {
-		ArrayList<Review> reviewlist = reviewMapper.selectReviewsByProductNo(productNo);
-		return reviewlist;
-	}
-
-	@Override
 	public Heart findHeart(String id, int productNo) {
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("id", id);
@@ -132,7 +129,7 @@ public class ProductServiceImpl implements ProductService {
 		
 		return heart;
 	}
-
+	
 	@Override
 	public boolean findHeartCount(String id, int productNo) {
 		HashMap<String, Object> params = new HashMap<String, Object>();
@@ -142,6 +139,29 @@ public class ProductServiceImpl implements ProductService {
 		boolean check = productMapper.selectHeartCount(params);
 		
 		return check;
+	}
+	
+	/*	Deal	*/
+
+	@Override
+	public List<Deal> findDealsByProductNo(int productNo) {
+		List<Deal> deals = dealMapper.selectDealsByProductNo(productNo);
+		return deals;
+	}
+
+	@Override
+	public List<Deal> findDealsByBuyer(String memberId) {
+		List<Deal> deals = dealMapper.selectDealsByBuyer(memberId);
+		return deals;
+	}
+	
+
+	/* Review	*/
+	
+	@Override
+	public ArrayList<Review> findReviewsByProductNo(int productNo) {
+		ArrayList<Review> reviewlist = reviewMapper.selectReviewsByProductNo(productNo);
+		return reviewlist;
 	}
 
 	@Override
