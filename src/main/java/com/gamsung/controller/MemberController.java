@@ -5,6 +5,7 @@ package com.gamsung.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -86,11 +88,13 @@ public class MemberController {
 		return members;
 	}
 	
-	@PutMapping(path= {"/delete"})
+	@PostMapping(path= {"/delete"})
 	@ResponseBody
-	public Member userDelete() {
+	public String userDelete(@RequestBody Member member) {
 		
-		return null;
+		memberService.deleteById(member,member.getId());
+		
+		return "{ \"result\": \"sucess\"}";
 	}
 
 }
