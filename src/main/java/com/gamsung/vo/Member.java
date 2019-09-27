@@ -18,4 +18,5 @@ public class Member {
 	private String jibunAddr;
 	private String detailAddr;
 	private String extraAddr;
+	private boolean blackList;
 }
