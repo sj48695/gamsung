@@ -1,22 +1,29 @@
 package com.gamsung.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gamsung.mapper.ProductMapper;
+import com.gamsung.mapper.ReviewMapper;
 import com.gamsung.vo.Heart;
 import com.gamsung.vo.Product;
 import com.gamsung.vo.ProductFile;
+import com.gamsung.vo.Review;
 
 @Service
 public class ProductServiceImpl implements ProductService {
 	
 	@Autowired
 	ProductMapper productMapper;
+	
+	@Autowired
+	ReviewMapper reviewMapper;
 
+	@Override
 	public Product findProductByProductNo(int productNo) {
 
 		Product product = productMapper.selectProductByProductNo(productNo);
@@ -87,6 +94,32 @@ public class ProductServiceImpl implements ProductService {
 		productMapper.insertHeart(heart);
 		
 	}
-	
+
+	@Override
+	public void deleteHeart(String id, int productNo) {
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("id", id);
+		params.put("productNo", productNo);
+		
+		productMapper.deleteHeart(params);
+		
+	}
+
+	@Override
+	public ArrayList<Review> findReviewsByProductNo(int productNo) {
+		ArrayList<Review> reviewlist = reviewMapper.selectReviewsByProductNo(productNo);
+		return reviewlist;
+	}
+
+	@Override
+	public Heart findHeart(String id, int productNo) {
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("id", id);
+		params.put("productNo", productNo);
+		
+		Heart heart = productMapper.selectHeart(params);
+		
+		return heart;
+	}
 
 }
