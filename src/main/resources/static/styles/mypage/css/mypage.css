@@ -3,7 +3,7 @@
 {
 	width: 100%;
 	border-bottom: solid 2px #e3e3e3;
-	padding-bottom: 7px;
+	/* padding-bottom: 7px; */
 }
 .mypage_info_col
 {
@@ -11,6 +11,7 @@
 	font-size: 14px;
 	font-weight: 400;
 	color: #1b1b1b;
+	height: auto;
 }
 .mypage_info_col_product
 {
@@ -22,24 +23,24 @@
 }
 .mypage_info_col_quantity
 {
-	width: 17%;
+	width: 8%;
 	text-align: center;
 }
 .mypage_info_col_date
 {
-	width: 10%;
-	text-align: right;
+	width: 17%;
+	/* text-align: right; */
 }
 .mypage_info_col_state
 {
 	width: 10%;
-	text-align: right;
+	/* text-align: right; */
 }
-.mypage_item
+/* .mypage_item
 {
 	padding-top: 33px;
 	padding-bottom: 33px;
-}
+} */
 .mypage_item_product
 {
 	width: 52%;
@@ -47,21 +48,22 @@
 .mypage_item_price
 {
 	width: 10%;
+	text-align: right;
 }
 .mypage_item_quantity
 {
-	width: 17%;
-	text-align: center;
+	width: 8%;
+	text-align: right;
 }
 .mypage_item_date
 {
-	width: 10%;
-	text-align: right;
+	width: 17%;
+	/* text-align: right; */
 }
 .mypage_item_state
 {
 	width: 10%;
-	text-align: right;
+	/* text-align: right; */
 }
 .mypage_item_image div
 {

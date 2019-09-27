@@ -50,6 +50,8 @@ public class ProductController {
 			if(id != null) {
 				Heart heart = productService.findHeart(id, productNo);
 				model.addAttribute("heart", heart);
+				
+				model.addAttribute("id", id);
 			}
 		}
 		

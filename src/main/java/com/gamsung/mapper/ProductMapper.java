@@ -21,7 +21,7 @@ public interface ProductMapper {
 
 	void insertProductFile(ProductFile file);
 
-	ProductFile selectFileByProductNo(int productNo);
+	ProductFile selectProductFileByProductNo(int productNo);
 	
 	List<Product> selectMyProductList(String memberId);
 
@@ -32,6 +32,8 @@ public interface ProductMapper {
 	Heart selectHeart(HashMap<String, Object> params);
 
 	boolean selectHeartCount(HashMap<String, Object> params);
+
+	List<Product> selectMyHeartList(String memberId);
 
 	
 }
