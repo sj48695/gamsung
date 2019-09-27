@@ -70,6 +70,13 @@
 		from product
 		where seller = #{seller}
 	</select>
+	
+	<select id="selectMyRequestProductList" resultType="com.gamsung.vo.Product" parameterType="String">
+		select seller, name, contents, d.count, d.price, category, view, d.type, p.product_no, d.reg_date
+		from product p inner join deal d
+		on p.product_no = d.product_no
+		where buyer = #{buyer}
+	</select>
 
 	<insert id="insertHeart" parameterType="com.gamsung.vo.Heart">
 		insert into heart(

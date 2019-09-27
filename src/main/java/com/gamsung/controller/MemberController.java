@@ -67,19 +67,14 @@ public class MemberController {
 		String memberId = auth.getName();
 		
 		List<Product> products = productService.findMyProductList(memberId);
-		for(Product product : products) {
-			List<Deal> deals = productService.findDealsByProductNo(product.getProductNo());
-			product.setDeals(deals);//요청받은 거래
-		}
-		List<Deal> mydeals = productService.findDealsByBuyer(memberId);//내 거래요청
+		List<Product> requestProducts = productService.findMyRequestProductList(memberId);
 		
 		//내가 찜한 목록
 		List<Product> hearts = productService.findMyHeartList(memberId);
 
 		model.addAttribute("products", products);
 		model.addAttribute("hearts", hearts);		
-		model.addAttribute("mydeals", mydeals);
-
+		model.addAttribute("requestProducts", requestProducts);
 		
 		return "member/mypage";
 	}

@@ -91,14 +91,26 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> findMyProductList(String memberId) {
 		
 		List<Product> products = productMapper.selectMyProductList(memberId);
-		
-		//
 		for(Product product : products) {
 			product.setFile(productMapper.selectProductFileByProductNo(product.getProductNo()));
+			product.setDeals(dealMapper.selectDealsByProductNo(product.getProductNo()));//요청받은 거래
 		}
 		
 		return products;
 	}
+	
+
+	@Override
+	public List<Product> findMyRequestProductList(String memberId) {
+		List<Product> products = productMapper.selectMyRequestProductList(memberId);
+		for(Product product : products) {
+			product.setFile(productMapper.selectProductFileByProductNo(product.getProductNo()));
+			product.setDeals(dealMapper.selectDealsByBuyer(memberId));//요청받은 거래
+		}
+		
+		return products;
+	}
+
 	
 	/*	Heart	*/
 

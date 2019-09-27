@@ -22,6 +22,8 @@ public interface ProductService {
 
 	List<Product> findMyProductList(String memberId);
 	
+	List<Product> findMyRequestProductList(String memberId);
+	
 	/*	Heart	*/
 
 	void insertHeart(Heart heart);
@@ -41,5 +43,6 @@ public interface ProductService {
 
 	/*	Review	*/
 	ArrayList<Review> findReviewsByProductNo(int productNo);
+
 
 }
