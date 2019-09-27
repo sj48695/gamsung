@@ -28,10 +28,17 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	DealMapper dealMapper;
 
+	/*	Product	*/
+	
 	@Override
 	public Product findProductByProductNo(int productNo) {
 
 		Product product = productMapper.selectProductByProductNo(productNo);
+		
+		//
+		ProductFile file = productMapper.selectProductFileByProductNo(product.getProductNo());
+		product.setFile(file);
+		
 		return product;
 
 	}
@@ -42,19 +49,13 @@ public class ProductServiceImpl implements ProductService {
 		ArrayList<Product> products = productMapper.selectProducts();
 		
 		for(Product product : products) {
-			ProductFile file = productMapper.selectFileByProductNo(product.getProductNo());
+			ProductFile file = productMapper.selectProductFileByProductNo(product.getProductNo());
 			product.setFile(file);
 		}
 		
 		return products;
 	}
-
-//	@Override
-//	public void writeProduct(Product product) {
-//		productMapper.insertProduct(product);
-//		
-//	}
-
+	
 	@Override
 	public Integer registerProductTx(Product product) {
 		System.out.println(product);
@@ -90,8 +91,16 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> findMyProductList(String memberId) {
 		
 		List<Product> products = productMapper.selectMyProductList(memberId);
+		
+		//
+		for(Product product : products) {
+			product.setFile(productMapper.selectProductFileByProductNo(product.getProductNo()));
+		}
+		
 		return products;
 	}
+	
+	/*	Heart	*/
 
 	@Override
 	public void insertHeart(Heart heart) {
@@ -111,12 +120,6 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ArrayList<Review> findReviewsByProductNo(int productNo) {
-		ArrayList<Review> reviewlist = reviewMapper.selectReviewsByProductNo(productNo);
-		return reviewlist;
-	}
-
-	@Override
 	public Heart findHeart(String id, int productNo) {
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("id", id);
@@ -126,6 +129,19 @@ public class ProductServiceImpl implements ProductService {
 		
 		return heart;
 	}
+	
+	@Override
+	public boolean findHeartCount(String id, int productNo) {
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("id", id);
+		params.put("productNo", productNo);
+		
+		boolean check = productMapper.selectHeartCount(params);
+		
+		return check;
+	}
+	
+	/*	Deal	*/
 
 	@Override
 	public List<Deal> findDealsByProductNo(int productNo) {
@@ -137,6 +153,15 @@ public class ProductServiceImpl implements ProductService {
 	public List<Deal> findDealsByBuyer(String memberId) {
 		List<Deal> deals = dealMapper.selectDealsByBuyer(memberId);
 		return deals;
+	}
+	
+
+	/* Review	*/
+	
+	@Override
+	public ArrayList<Review> findReviewsByProductNo(int productNo) {
+		ArrayList<Review> reviewlist = reviewMapper.selectReviewsByProductNo(productNo);
+		return reviewlist;
 	}
 
 }

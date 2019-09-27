@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 
 import Header from './header.js';
+import ManageManager from './managements/manageManager.jsx';
 
 class App extends Component {
     constructor(props) {
@@ -13,7 +14,9 @@ class App extends Component {
         return(
         <div className="gide-main">
             <Header />
-            <div className="gide-body"></div>
+            <div className="gide-body">
+                <ManageManager />
+            </div>
         </div>
         )
     }

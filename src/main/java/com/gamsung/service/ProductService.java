@@ -10,26 +10,36 @@ import com.gamsung.vo.Review;
 
 public interface ProductService {
 
+	/*	Product	*/
+	
 	Product findProductByProductNo(int productNo);
 
 	ArrayList<Product> findProducts();
-
-	ArrayList<Review> findReviewsByProductNo(int productNo);
 	
 	Integer registerProductTx(Product product);
 
 	void insertProductFiles(Product product, int productNo);
 
 	List<Product> findMyProductList(String memberId);
+	
+	/*	Heart	*/
 
 	void insertHeart(Heart heart);
 	
 	void deleteHeart(String id, int productNo);
 
 	Heart findHeart(String id, int productNo);
+	
+	boolean findHeartCount(String id, int productNo);
+	
 
+	/*	Deal	*/
 	List<Deal> findDealsByProductNo(int productNo);
 
 	List<Deal> findDealsByBuyer(String memberId);
+	
+
+	/*	Review	*/
+	ArrayList<Review> findReviewsByProductNo(int productNo);
 
 }

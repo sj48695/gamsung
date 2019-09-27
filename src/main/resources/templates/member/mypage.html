@@ -65,46 +65,45 @@
 									</div>
 								</div>
 								<div class="row cart_items_row accordion" id="accordionExample">
-
 									<!-- Cart Item -->
 									<div class="align-items-center align-items-start col-12"
 										 th:if="${ #lists.size(products) } > 0" th:each="product : ${products}">
 										 
 									   <div class="card-header col-12" th:id="'heading'+${product.productNo}">
 									       <div class="btn row align-items-center" data-toggle="collapse" th:data-target="'#collapse'+${product.productNo}" aria-expanded="true" th:aria-controls="'collapse'+${product.productNo}"
-									       style="display: flex;">
-									         <!-- Name -->
-										<div class="mypage_item_product d-flex flex-row align-items-center">
-											<div class="mypage_item_image">
-												<div>
-													<img src="/images/cart_1.jpg" alt="">
+										       style="display: flex;">
+										         <!-- Name -->
+												<div class="mypage_item_product d-flex flex-row align-items-center">
+													<div class="mypage_item_image">
+														<div>
+															<img src="/files/product-files/" 
+																	 th:attrappend="src=${ product.file.saveFileName }">
+														</div>
+													</div>
+													<div class="mypage_item_name_container">
+														<div class="mypage_item_name">
+															<a th:href="'/product/detail/'+${product.productNo}" th:text="${ product.name }"></a>
+														</div>
+													</div>
 												</div>
-											</div>
-											<div class="mypage_item_name_container">
-												<div class="mypage_item_name">
-													<a th:href="'/product/detail/'+${product.productNo}" th:text="${ product.name }"></a>
+												<!-- price -->
+												<div class="mypage_item_price" th:text="${ #numbers.formatInteger(product.price, 3, 'COMMA') }+'원'"></div>
+												<!-- Quantity -->
+												<div class="mypage_item_quantity" th:text="${product.count}+'개'"></div>
+												<!-- regDate -->
+												<div class="mypage_item_date" th:text="${#dates.format(product.regDate, 'yyyy-MM-dd')}"></div>
+												<!-- 상태 -->
+												<div class="mypage_item_state">
+													<select class="form-control" id="exampleFormControlSelect1">
+														<option>판매중</option>
+														<option>판매완료</option>
+														<option>거래중</option>
+														<option>거래완료</option>
+														<option>거래중지</option>
+													</select>
 												</div>
-											</div>
-										</div>
-										<!-- price -->
-										<div class="mypage_item_price" th:text="${ #numbers.formatInteger(product.price, 3, 'COMMA') }+'원'"></div>
-										<!-- Quantity -->
-										<div class="mypage_item_quantity" th:text="${product.count}+'개'"></div>
-										<!-- regDate -->
-										<div class="mypage_item_date" th:text="${#dates.format(product.regDate, 'yyyy-MM-dd')}"></div>
-										<!-- 상태 -->
-										<div class="mypage_item_state">
-											<select class="form-control" id="exampleFormControlSelect1">
-												<option>판매중</option>
-												<option>판매완료</option>
-												<option>거래중</option>
-												<option>거래완료</option>
-												<option>거래중지</option>
-											</select>
-										</div>
 									       </div>
 									   </div>
-									
 									   <div th:id="'collapse'+${product.productNo}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
 									  	 <div class="card-body mypage_info_columns align-items-center">
 									  	 	<div class="mypage_info_col col-1">요청자</div>

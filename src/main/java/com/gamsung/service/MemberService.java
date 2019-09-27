@@ -1,5 +1,7 @@
 package com.gamsung.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -46,6 +48,11 @@ public class MemberService {
 	public Member findMemberById(String id) {
 		Member member = memberMapper.findMemberById(id);
 		return member;
+	}
+
+	public List<Member> findUserList() {
+		List<Member> members = memberMapper.findUserList();
+		return members;
 	}
 
 

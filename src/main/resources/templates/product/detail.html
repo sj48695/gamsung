@@ -43,7 +43,8 @@
 					<div class="col-lg-6">
 						<div class="details_image">
 							<div class="details_image_large">
-								<img src="/images/details_1.jpg" alt="">
+								<img src="/files/product-files/" 
+															 th:attrappend="src=${ product.file.saveFileName }">
 								<div class="product_extra product_sale" th:if="${ product.type } == '흥정'">
 									<a href="categories">흥정</a>
 								</div>
@@ -74,11 +75,6 @@
 							</div>
 							
 							<!-- 찜 -->
-							<!-- <a th:onclick="'javascript:heart('+${product.productNo}+')'">
-									<font size="6"><i class="fa fa-heart-o" id="heart" aria-hidden="true"></i></font>
-							</a>	 -->
-							
-							<!-- <div th:if="${#authentication.principal.member.id} == null"> -->
 							<div th:if="${ heart } != null">
 								<a th:if="${#authentication.principal.member.id} == ${ heart.id }" th:onclick="'javascript:heart('+${product.productNo}+')'">
 										<font size="6"><i class="fa fa-heart" id="heart" style="color:#CD3B3B;"></i></font>
@@ -92,7 +88,6 @@
 											<font size="6"><i class="fa fa-heart-o" id="heart" style="color:#CD3B3B;" aria-hidden="true"></i></font>
 								</a>
 							</div>
-							<!-- </div> -->
 						</div>
 						<!-- In Stock -->
 						<div class="in_stock_container">
@@ -114,7 +109,7 @@
 								th:unless="${product.type} == '흥정'" th:value="${product.price}">
 							
 							<!-- Product Quantity -->
-							<div class="product_quantity_container">
+							<div class="product_quantity_container" th:if="${product.seller != #authentication.principal.member.id}">
 								<div th:if="${product.type} == '흥정'">
 									<div class="availability">흥정가격 : </div>
 									<div class="product_quantity clearfix px-3">
@@ -127,6 +122,12 @@
 								</div>
 								<div th:unless="${product.type} == '흥정'">
 									<div class="button cart_button"><a href="#" onclick="$('#dealForm').submit();">거래 신청</a></div>
+								</div>
+							</div>
+							<div class="product_quantity_container" th:if="${product.seller == #authentication.principal.member.id}">
+								<div class="row justify-content-center">
+									<div class="button trans_200" id="insertBoard" ><a>수정</a></div>
+									<div class="button cart_button trans_200" id="back_button" ><a>삭제</a></div>
 								</div>
 							</div>
 						</form>
@@ -158,27 +159,26 @@
 				</li>
 			</ul>
 			<div class="tab-content">
-				<div class="tab-pane fade show active py-5" id="home" role="tabpanel"
-					aria-labelledby="home-tab">
-					<div class="container py-5" th:text="${product.contents}"></div>
-				</div>
-				<div class="tab-pane fade py-5" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-					<div class="container text-center py-5" th:if="${reviewlist.toString()} == '[]'">
-						<div>등록된 리뷰가 없습니다.</div>
-					</div>
-					<div class="container text-center" 
-						th:unless="${reviewlist.toString()} == '[]'"
-					 	th:each="review : ${reviewlist}">
-						<div class="row">
-							<div class="col" th:text="${review.buyer}"></div>
-							<div class="col" th:text="${review.contents}"></div>
-							<div class="col" th:text="${#dates.format(review.regDate, 'yyyy-MM-dd')}"></div>
-						</div>
-						<hr>
-						<br>
-					</div>
-				</div>
-			</div>
+	            <div class="tab-pane fade show active py-5" id="home" role="tabpanel" aria-labelledby="home-tab">
+	               <div class="container py-5" th:text="${product.contents}"></div>
+	            </div>
+	            <div class="tab-pane fade py-5" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+	               <div class="container text-center py-5" th:if="${#lists.size(reviewlist)} <= 0">
+	                  <div>등록된 리뷰가 없습니다.</div>
+	               </div>
+	               <div class="container text-center" 
+	                  	th:if="${#lists.size(reviewlist)} > 0"
+	                   	th:each="review : ${reviewlist}">
+	                  <div class="row">
+	                     <div class="col" th:text="${review.buyer}"></div>
+	                     <div class="col" th:text="${review.contents}"></div>
+	                     <div class="col" th:text="${#dates.format(review.regDate, 'yyyy-MM-dd')}"></div>
+	                  </div>
+	                  <hr>
+	                  <br>
+	               </div>
+	            </div>
+	         </div>
 		</div>
 
 		<!-- Products -->
@@ -236,15 +236,6 @@
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-
-		<div class="container py-5">
-				<div class="col-lg-8 offset-lg-2">
-					<div class="text-center row justify-content-center">
-							<div class="button trans_200" id="insertBoard" ><a>수정</a></div>
-							<div class="button cart_button trans_200" id="back_button" ><a>삭제</a></div>
-					</div>
 			</div>
 		</div>
 	</div>

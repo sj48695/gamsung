@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -70,14 +71,27 @@ public class MemberController {
 			List<Deal> deals = productService.findDealsByProductNo(product.getProductNo());
 			product.setDeals(deals);//요청받은 거래
 		}
-System.out.println(memberId);
 		List<Deal> mydeals = productService.findDealsByBuyer(memberId);//내 거래요청
-		System.out.println(mydeals);
+		
 		model.addAttribute("products", products);
 		model.addAttribute("mydeals", mydeals);
 		
-		
 		return "member/mypage";
+	}
+	
+	@GetMapping(path= {"/list"})
+	@ResponseBody
+	public List<Member> userList() {
+			
+		List<Member> members = memberService.findUserList();
+		return members;
+	}
+	
+	@PutMapping(path= {"/delete"})
+	@ResponseBody
+	public Member userDelete() {
+		
+		return null;
 	}
 
 }

@@ -57,7 +57,7 @@
 		)
 	</insert>	
 	
-	<select id="selectFileByProductNo" parameterType="int" resultType="com.gamsung.vo.ProductFile">
+	<select id="selectProductFileByProductNo" parameterType="int" resultType="com.gamsung.vo.ProductFile">
 		select product_file_no, <include refid="productFileBasicColumns"/> 
 		from productfile 
 		where product_no = #{ productNo } and flag = true
@@ -88,6 +88,12 @@
 	
 	<select id="selectHeart" resultType="com.gamsung.vo.Heart" parameterType="hashmap">
 		select id, product_no
+		from heart
+		where id = #{id} and product_no = #{productNo}
+	</select>
+	
+	<select id="selectHeartCount" resultType="boolean" parameterType="hashmap">
+		select count(*)
 		from heart
 		where id = #{id} and product_no = #{productNo}
 	</select>
