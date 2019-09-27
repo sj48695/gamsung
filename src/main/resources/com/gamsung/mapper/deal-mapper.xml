@@ -10,6 +10,7 @@
 			product_no, 
 			count, 
 			price,
+			type,
 			receiver,
 			phone,
 			postcode,
@@ -31,6 +32,7 @@
 			#{productNo}, 
 			#{count}, 
 			#{price},
+			#{type},
 			#{receiver},
 			#{phone},
 			#{postcode},
@@ -40,4 +42,16 @@
 			#{extraAddr}
 		)
 	</insert>
+	
+	<select id="selectDealsByProductNo" resultType="com.gamsung.vo.Deal">
+		select deal_no, active,  <include refid="dealColumns"/>, reg_date
+		from deal
+		where product_no = #{productNo}
+	</select>
+	
+	<select id="selectDealsByBuyer" resultType="com.gamsung.vo.Deal">
+		select deal_no, active,  <include refid="dealColumns"/>, reg_date
+		from deal
+		where buyer = #{memberId}
+	</select>
 </mapper>

@@ -27,5 +27,6 @@ public class Product {
 	private List<ProductFile> files;
 	
 	private Member member;
+	private List<Deal> deals;
 	
 }

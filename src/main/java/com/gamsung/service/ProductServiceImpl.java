@@ -7,8 +7,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gamsung.mapper.DealMapper;
 import com.gamsung.mapper.ProductMapper;
 import com.gamsung.mapper.ReviewMapper;
+import com.gamsung.vo.Deal;
 import com.gamsung.vo.Heart;
 import com.gamsung.vo.Product;
 import com.gamsung.vo.ProductFile;
@@ -22,6 +24,9 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Autowired
 	ReviewMapper reviewMapper;
+
+	@Autowired
+	DealMapper dealMapper;
 
 	@Override
 	public Product findProductByProductNo(int productNo) {
@@ -120,6 +125,18 @@ public class ProductServiceImpl implements ProductService {
 		Heart heart = productMapper.selectHeart(params);
 		
 		return heart;
+	}
+
+	@Override
+	public List<Deal> findDealsByProductNo(int productNo) {
+		List<Deal> deals = dealMapper.selectDealsByProductNo(productNo);
+		return deals;
+	}
+
+	@Override
+	public List<Deal> findDealsByBuyer(String memberId) {
+		List<Deal> deals = dealMapper.selectDealsByBuyer(memberId);
+		return deals;
 	}
 
 }

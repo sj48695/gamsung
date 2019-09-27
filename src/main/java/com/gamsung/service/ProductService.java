@@ -3,6 +3,7 @@ package com.gamsung.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gamsung.vo.Deal;
 import com.gamsung.vo.Heart;
 import com.gamsung.vo.Product;
 import com.gamsung.vo.Review;
@@ -26,5 +27,9 @@ public interface ProductService {
 	void deleteHeart(String id, int productNo);
 
 	Heart findHeart(String id, int productNo);
+
+	List<Deal> findDealsByProductNo(int productNo);
+
+	List<Deal> findDealsByBuyer(String memberId);
 
 }

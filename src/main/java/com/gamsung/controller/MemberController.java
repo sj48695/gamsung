@@ -11,7 +11,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.gamsung.service.MemberService;
 import com.gamsung.service.ProductService;
+import com.gamsung.vo.Deal;
 import com.gamsung.vo.Member;
 import com.gamsung.vo.Product;
 
@@ -66,8 +66,15 @@ public class MemberController {
 		String memberId = auth.getName();
 		
 		List<Product> products = productService.findMyProductList(memberId);
-		
+		for(Product product : products) {
+			List<Deal> deals = productService.findDealsByProductNo(product.getProductNo());
+			product.setDeals(deals);//요청받은 거래
+		}
+System.out.println(memberId);
+		List<Deal> mydeals = productService.findDealsByBuyer(memberId);//내 거래요청
+		System.out.println(mydeals);
 		model.addAttribute("products", products);
+		model.addAttribute("mydeals", mydeals);
 		
 		
 		return "member/mypage";
