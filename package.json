@@ -1,5 +1,5 @@
 {
-  "name": "react-dashboard",
+  "name": "gamsung",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -17,6 +17,7 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-google-charts": "^3.0.15",
+    "react-modal": "^3.10.1",
     "react-router-dom": "^5.0.1",
     "sass-loader": "^8.0.0"
   },

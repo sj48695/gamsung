@@ -51,5 +51,21 @@
 		WHERE id = #{ id }
 		
 	</select>
+	
+	<select id="findUserList" resultType="com.gamsung.vo.Member">
+		SELECT id
+		,nickname
+		,pwd
+		,phone
+		,type
+		,reg_date
+		,active
+		,postcode
+		,roadAddr
+		,jibunAddr
+		,detailAddr
+		,extraAddr
+		from member
+	</select>
 
 </mapper>

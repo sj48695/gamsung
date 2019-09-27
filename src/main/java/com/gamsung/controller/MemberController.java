@@ -72,5 +72,13 @@ public class MemberController {
 		
 		return "member/mypage";
 	}
+	
+	@GetMapping(path= {"/list"})
+	@ResponseBody
+	public List<Member> userList() {
+			
+		List<Member> members = memberService.findUserList();
+		return members;
+	}
 
 }
