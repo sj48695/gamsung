@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,6 +22,7 @@ import com.gamsung.service.MemberService;
 import com.gamsung.service.ProductService;
 import com.gamsung.vo.Member;
 import com.gamsung.vo.Product;
+import com.gamsung.vo.ProductFile;
 
 @Controller
 @RequestMapping(value= "/member")
@@ -67,7 +69,10 @@ public class MemberController {
 		
 		List<Product> products = productService.findMyProductList(memberId);
 		
+		
 		model.addAttribute("products", products);
+		
+		
 		
 		
 		return "member/mypage";
@@ -79,6 +84,13 @@ public class MemberController {
 			
 		List<Member> members = memberService.findUserList();
 		return members;
+	}
+	
+	@PutMapping(path= {"/delete"})
+	@ResponseBody
+	public Member userDelete() {
+		
+		return null;
 	}
 
 }

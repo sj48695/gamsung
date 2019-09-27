@@ -43,7 +43,8 @@
 					<div class="col-lg-6">
 						<div class="details_image">
 							<div class="details_image_large">
-								<img src="/images/details_1.jpg" alt="">
+								<img src="/files/product-files/" 
+															 th:attrappend="src=${ product.file.saveFileName }">
 								<div class="product_extra product_sale" th:if="${ product.type } == '흥정'">
 									<a href="categories">흥정</a>
 								</div>
@@ -74,25 +75,9 @@
 							</div>
 							
 							<!-- 찜 -->
-							<!-- <a th:onclick="'javascript:heart('+${product.productNo}+')'">
-									<font size="6"><i class="fa fa-heart-o" id="heart" aria-hidden="true"></i></font>
-							</a>	 -->
-							
-							<!-- <div th:if="${#authentication.principal.member.id} == null"> -->
-							<div th:if="${ heart } != null">
-								<a th:if="${#authentication.principal.member.id} == ${ heart.id }" th:onclick="'javascript:heart('+${product.productNo}+')'">
-										<font size="6"><i class="fa fa-heart" id="heart" style="color:#CD3B3B;"></i></font>
-								</a>
-								<a th:unless="${#authentication.principal.member.id} == ${ heart.id }" th:onclick="'javascript:heart('+${product.productNo}+')'">
-										<font size="6"><i class="fa fa-heart-o" id="heart" style="color:#CD3B3B;" aria-hidden="true"></i></font>
-								</a>
-							</div>
-							<div th:if="${ heart } == null">
-								<a th:onclick="'javascript:heart('+${product.productNo}+')'">
-											<font size="6"><i class="fa fa-heart-o" id="heart" style="color:#CD3B3B;" aria-hidden="true"></i></font>
-								</a>
-							</div>
-							<!-- </div> -->
+							<a th:onclick="'javascript:heart('+${product.productNo}+')'">
+									<font size="6"><i class="fa fa-heart-o" aria-hidden="true"></i></font>
+							</a>	
 						</div>
 						<!-- In Stock -->
 						<div class="in_stock_container">
@@ -153,7 +138,7 @@
 				<li class="nav-item reviews_title">
 					<a class="nav-link" id="profile-tab" data-toggle="tab" 
 						href="#profile" role="tab" aria-controls="profile" aria-selected="false">
-						Reviews <span th:text="'('+${#lists.size(reviewlist)}+')'"></span>
+						Reviews <span>(1)</span>
 					</a>
 				</li>
 			</ul>
@@ -163,19 +148,8 @@
 					<div class="container py-5" th:text="${product.contents}"></div>
 				</div>
 				<div class="tab-pane fade py-5" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-					<div class="container text-center py-5" th:if="${reviewlist.toString()} == '[]'">
+					<div class="container text-center py-5">
 						<div>등록된 리뷰가 없습니다.</div>
-					</div>
-					<div class="container text-center" 
-						th:unless="${reviewlist.toString()} == '[]'"
-					 	th:each="review : ${reviewlist}">
-						<div class="row">
-							<div class="col" th:text="${review.buyer}"></div>
-							<div class="col" th:text="${review.contents}"></div>
-							<div class="col" th:text="${#dates.format(review.regDate, 'yyyy-MM-dd')}"></div>
-						</div>
-						<hr>
-						<br>
 					</div>
 				</div>
 			</div>
