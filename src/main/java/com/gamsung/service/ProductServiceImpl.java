@@ -122,4 +122,15 @@ public class ProductServiceImpl implements ProductService {
 		return heart;
 	}
 
+	@Override
+	public boolean findHeartCount(String id, int productNo) {
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("id", id);
+		params.put("productNo", productNo);
+		
+		boolean check = productMapper.selectHeartCount(params);
+		
+		return check;
+	}
+
 }

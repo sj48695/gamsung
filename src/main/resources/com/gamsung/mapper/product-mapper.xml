@@ -91,6 +91,12 @@
 		from heart
 		where id = #{id} and product_no = #{productNo}
 	</select>
+	
+	<select id="selectHeartCount" resultType="boolean" parameterType="hashmap">
+		select count(*)
+		from heart
+		where id = #{id} and product_no = #{productNo}
+	</select>
 
 </mapper>
 

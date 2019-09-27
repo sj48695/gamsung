@@ -171,39 +171,31 @@ public class ProductController {
 	}
 
 	// 찜하기
-	@GetMapping(path = "/addheart")
+	@GetMapping(path = "/heart")
 	// @RequestMapping(path = "/addheart?productNo={productNo}", method = {RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
-	public String addToHeart(Heart heart, int productNo, HttpServletRequest req) {
+	public String heart(Heart heart, int productNo, HttpServletRequest req) {
 
 		Authentication auth = (Authentication) req.getUserPrincipal();
-
+		
 		if (auth != null) {
-			heart.setId(auth.getName());
-			productService.insertHeart(heart);
-			return "success";
+			String id = auth.getName();
+
+			// 찜 했는지 아닌지 확인
+			boolean check = productService.findHeartCount(id, productNo);
+
+			heart.setId(id);
+			if (check) {
+				productService.deleteHeart(id, productNo);
+				return "removeheart";
+			} else {
+				productService.insertHeart(heart);
+				return "success";
+			}
 		} else {
-			return "redirect:/";
+			return "error";
 		}
 
 	}
-	
-	// 찜하기 취소
-		@GetMapping(path = "/removeheart")
-		// @RequestMapping(path = "/addheart?productNo={productNo}", method = {RequestMethod.POST, RequestMethod.GET})
-		@ResponseBody
-		public String removeHeart(Heart heart, int productNo, HttpServletRequest req) {
-
-			Authentication auth = (Authentication) req.getUserPrincipal();
-			String id = auth.getName();
-
-			if (auth != null) {
-				productService.deleteHeart(id,productNo);
-				return "success";
-			} else {
-				return "redirect:/";
-			}
-			
-		}
 
 }
