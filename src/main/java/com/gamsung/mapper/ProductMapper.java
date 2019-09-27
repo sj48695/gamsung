@@ -33,5 +33,7 @@ public interface ProductMapper {
 
 	boolean selectHeartCount(HashMap<String, Object> params);
 
+	List<Product> selectMyHeartList(String memberId);
+
 	
 }

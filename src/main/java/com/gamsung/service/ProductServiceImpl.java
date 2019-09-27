@@ -144,4 +144,12 @@ public class ProductServiceImpl implements ProductService {
 		return check;
 	}
 
+	@Override
+	public List<Product> findMyHeartList(String memberId) {
+		
+		List<Product> heartlist = productMapper.selectMyHeartList(memberId);
+		
+		return heartlist;
+	}
+
 }

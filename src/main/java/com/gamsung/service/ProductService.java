@@ -29,4 +29,6 @@ public interface ProductService {
 
 	boolean findHeartCount(String id, int productNo);
 
+	List<Product> findMyHeartList(String id);
+
 }

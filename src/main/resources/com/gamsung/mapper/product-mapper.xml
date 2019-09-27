@@ -97,6 +97,15 @@
 		from heart
 		where id = #{id} and product_no = #{productNo}
 	</select>
+	
+	<select id="selectMyHeartList" resultType="com.gamsung.vo.Product" parameterType="String">
+		
+		select * 
+		from product p, heart h
+		where p.product_no = h.product_no
+		and h.id = #{id};
+
+	</select>
 
 </mapper>
 

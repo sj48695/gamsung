@@ -63,15 +63,16 @@ public class MemberController {
 	
 	// 마이페이지
 	@GetMapping(path = "mypage")
-	public String mypage(HttpServletRequest req, Model model) {
+	public String mypage(HttpServletRequest req, Model model, int productNo) {
 		Authentication auth = (Authentication)req.getUserPrincipal();
 		String memberId = auth.getName();
 		
 		List<Product> products = productService.findMyProductList(memberId);
 		
+		List<Product> hearts = productService.findMyHeartList(memberId);
 		
 		model.addAttribute("products", products);
-		
+		model.addAttribute("hearts", hearts);
 		
 		
 		
