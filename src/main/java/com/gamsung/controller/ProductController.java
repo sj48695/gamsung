@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -26,6 +27,7 @@ import com.gamsung.vo.Heart;
 import com.gamsung.vo.Member;
 import com.gamsung.vo.Product;
 import com.gamsung.vo.ProductFile;
+import com.gamsung.vo.Review;
 
 
 @Controller
@@ -40,17 +42,36 @@ public class ProductController {
 
 	@GetMapping(path = "detail/{productNo}")
 	public String productDetail(@PathVariable int productNo, Model model, HttpServletRequest req) {
-		Product product = productService.findProductByProductNo(productNo);
-		Member member = memberService.findMemberById(product.getSeller());
-		String[] jibun = member.getJibunAddr().split(" ");
-		String addr = "";
-		for (int i = 0; i < jibun.length - 1; i++) {
-			addr = addr + " " + jibun[i];
+
+		
+		Authentication auth = (Authentication)req.getUserPrincipal();
+		if( auth != null) {
+			String id = auth.getName();
+			
+			if(id != null) {
+				Heart heart = productService.findHeart(id, productNo);
+				model.addAttribute("heart", heart);
+			}
 		}
+		
+		Product product = productService.findProductByProductNo(productNo);
+		
+	    ArrayList<Review> reviewlist = productService.findReviewsByProductNo(productNo);
+	    
+		Member member = memberService.findMemberById(product.getSeller());
+		String addr = "";
+		if( member.getJibunAddr() != null ) {
+			String[] jibun = member.getJibunAddr().split(" ");
+			for (int i = 0; i < jibun.length - 1; i++) {
+				addr = addr + " " + jibun[i];
+			}
+		}
+		//System.out.println(heart);
+		
 		model.addAttribute("addr", addr);
-
 		model.addAttribute("product", product);
-
+		model.addAttribute("reviewlist", reviewlist);
+		 
 		return "product/detail";
 	}
 
@@ -166,5 +187,23 @@ public class ProductController {
 		}
 
 	}
+	
+	// 찜하기 취소
+		@GetMapping(path = "/removeheart")
+		// @RequestMapping(path = "/addheart?productNo={productNo}", method = {RequestMethod.POST, RequestMethod.GET})
+		@ResponseBody
+		public String removeHeart(Heart heart, int productNo, HttpServletRequest req) {
+
+			Authentication auth = (Authentication) req.getUserPrincipal();
+			String id = auth.getName();
+
+			if (auth != null) {
+				productService.deleteHeart(id,productNo);
+				return "success";
+			} else {
+				return "redirect:/";
+			}
+			
+		}
 
 }

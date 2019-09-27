@@ -1,6 +1,7 @@
 package com.gamsung.mapper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -25,7 +26,10 @@ public interface ProductMapper {
 	List<Product> selectMyProductList(String memberId);
 
 	void insertHeart(Heart heart);
-	
-	
+
+	void deleteHeart(HashMap<String, Object> param);
+
+	Heart selectHeart(HashMap<String, Object> params);
+
 	
 }
