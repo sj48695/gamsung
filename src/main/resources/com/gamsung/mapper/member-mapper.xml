@@ -28,28 +28,58 @@
 	</insert>
 	
 	<select id="findByUsername" parameterType="String" resultType="com.gamsung.vo.Member">
-		SELECT id, nickname, pwd, phone, type, reg_date, active,postcode, roadAddr, jibunAddr, detailAddr, extraAddr
+		SELECT id
+		, nickname
+		, pwd
+		, phone
+		, type
+		, reg_date
+		, active
+		, postcode
+		, roadAddr
+		, jibunAddr
+		, detailAddr
+		, extraAddr
+		, blackList
 		FROM member
 		WHERE id = #{ username } and active = 1
 		
 	</select>
 	
 	<select id="findMemberById" parameterType="String" resultType="com.gamsung.vo.Member">
-		SELECT id, 
-			nickname, 
-			pwd, 
-			phone, 
-			type, 
-			reg_date, 
-			active, 
-			postcode, 
-			roadAddr, 
-			jibunAddr, 
-			detailAddr, 
-			extraAddr
+		SELECT id
+		, nickname
+		, pwd
+		, phone
+		, type
+		, reg_date
+		, active
+		, postcode
+		, roadAddr
+		, jibunAddr
+		, detailAddr
+		, extraAddr
+		, blackList
 		FROM member
 		WHERE id = #{ id }
 		
+	</select>
+	
+	<select id="findUserList" resultType="com.gamsung.vo.Member">
+		SELECT id
+		, nickname
+		, pwd
+		, phone
+		, type
+		, reg_date
+		, active
+		, postcode
+		, roadAddr
+		, jibunAddr
+		, detailAddr
+		, extraAddr
+		, blackList
+		from member
 	</select>
 
 </mapper>

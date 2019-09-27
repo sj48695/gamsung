@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -75,6 +76,21 @@ public class MemberController {
 		
 		
 		return "member/mypage";
+	}
+	
+	@GetMapping(path= {"/list"})
+	@ResponseBody
+	public List<Member> userList() {
+			
+		List<Member> members = memberService.findUserList();
+		return members;
+	}
+	
+	@PutMapping(path= {"/delete"})
+	@ResponseBody
+	public Member userDelete() {
+		
+		return null;
 	}
 
 }
