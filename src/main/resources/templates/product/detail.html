@@ -36,14 +36,15 @@
 		</div>
 
 		<!-- Product Details -->
-		<div class="product_details">
+		<div class="product_details" >
 			<div class="container">
 				<div class="row details_row">
 					<!-- Product Image -->
-					<div class="col-lg-6">
+					<div class="col-lg-6" >
+					
 						<div class="details_image">
-							<div class="details_image_large">
-								<img src="/images/details_1.jpg" alt="">
+						
+							<div class="details_image_large" >
 								<div class="product_extra product_sale" th:if="${ product.type } == '흥정'">
 									<a href="categories">흥정</a>
 								</div>
@@ -51,12 +52,7 @@
 									<a href="categories">일반</a>
 								</div>
 							</div>
-							<div class="details_image_thumbnails d-flex flex-row align-items-start justify-content-between">
-								<div class="details_image_thumbnail active" data-image="/images/details_1.jpg"><img src="/images/details_1.jpg" alt=""></div>
-								<div class="details_image_thumbnail" data-image="/images/details_2.jpg"><img src="/images/details_2.jpg" alt=""></div>
-								<div class="details_image_thumbnail" data-image="/images/details_3.jpg"><img src="/images/details_3.jpg" alt=""></div>
-								<div class="details_image_thumbnail" data-image="/images/details_4.jpg"><img src="/images/details_4.jpg" alt=""></div>
-							</div>
+						</div>
 						</div>
 					</div>
 
