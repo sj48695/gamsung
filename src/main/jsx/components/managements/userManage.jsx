@@ -1,14 +1,43 @@
 import React, {Component} from 'react';
 
-class UserManage extends Component {
+import axios from 'axios';
 
-    componentDidMount() {
-        console.log('test');
+import * as ManageService from '../../services/ManageService.js';
+
+class UserManage extends Component {
+    
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+           defaultChecked: ''
+        }
+ 
+        
+        this.handleActive = this.handleActive.bind(this);
     }
+    handleActive(e) {
+        const {members} = this.props;
+        //const { key } = this;
+
+        const id = e.target.value;
+        const member = members.find(m => m.id === id);
+        ActiveManage(member)
+                     .then(result =>{
+                         result.data;
+                         ManageService.getUserList();
+                     })
+                     .catch(err =>{
+                         console.log(err);
+                     })
+    }
+
 
     render(){
 
         const { members } = this.props;
+        //const { handleActive } = this.state;
 
         const UserRaws = members.map( member => {
             return(
@@ -16,7 +45,18 @@ class UserManage extends Component {
                     <td>{ member.id }</td>
                     <td>{ member.nickname }</td>
                     <td>{ member.regDate }</td>
-                    <td>{ member.active }</td>
+                    <td>
+                        <label className="switch">
+                            <input type="checkbox" defaultChecked={member.active} value={member.id} onChange={this.handleActive}></input>
+                            <span className="slider round"></span>
+                        </label>
+                    </td>
+                    <td>
+                        <label className="switch">
+                            <input type="checkbox" value={member.active}></input>
+                            <span className="slider round"></span>
+                        </label>
+                    </td>
                 </tr>
             )
         })
@@ -30,6 +70,7 @@ class UserManage extends Component {
                             <td>별명</td>
                             <td>가입날짜</td>
                             <td>상태</td>
+                            <td>블랙리스트</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,3 +82,18 @@ class UserManage extends Component {
     }
 }
 export default UserManage;
+
+export const ActiveManage = (member) =>{
+    return new Promise( (resolve, reject) => {
+        axios.post("delete",  member)
+             .then((result) =>{
+                 const data = result.data;
+                 resolve(data);
+                 return;
+             })
+             .catch((err)=>{
+                 reject(err.message);
+                 return;
+             })
+    })
+}

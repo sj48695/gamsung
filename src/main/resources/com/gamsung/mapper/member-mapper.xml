@@ -81,5 +81,17 @@
 		, blackList
 		from member
 	</select>
+	
+	<update id="deleteById" parameterType="java.lang.String">
+		UPDATE member
+		SET active = 0
+		WHERE id = #{ id }
+	</update>
+	
+	<update id="rebackById" parameterType="java.lang.String">
+		UPDATE member
+		SET active = 1
+		WHERE id = #{ id }
+	</update>
 
 </mapper>

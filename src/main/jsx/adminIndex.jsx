@@ -3,7 +3,7 @@ import ReactDom from 'react-dom';
 
 import App from './components/App.jsx'
 
-import './styles/menu.scss';
+import './styles/management.scss';
 
 ReactDom.render(
     <App />,

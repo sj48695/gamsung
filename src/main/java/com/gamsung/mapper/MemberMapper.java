@@ -17,4 +17,8 @@ public interface MemberMapper {
 
 	List<Member> findUserList();
 
+	void deleteById(String id);
+
+	void rebackById(String id);
+
 }
