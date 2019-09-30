@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.gamsung.service.MemberService;
 import com.gamsung.service.ProductService;
 import com.gamsung.vo.Deal;
+import com.gamsung.vo.Heart;
 import com.gamsung.vo.Member;
 import com.gamsung.vo.Product;
 
@@ -68,6 +69,8 @@ public class MemberController {
 		Authentication auth = (Authentication)req.getUserPrincipal();
 		String memberId = auth.getName();
 		
+		Member member = memberService.findMemberById(memberId);
+		
 		List<Product> products = productService.findMyProductList(memberId);
 		for(Product product : products) {
 			List<Deal> deals = productService.findDealsByProductNo(product.getProductNo());
@@ -78,6 +81,7 @@ public class MemberController {
 		//내가 찜한 목록
 		List<Product> hearts = productService.findMyHeartList(memberId);
 
+		model.addAttribute("member", member);
 		model.addAttribute("products", products);
 		model.addAttribute("hearts", hearts);		
 		model.addAttribute("mydeals", mydeals);

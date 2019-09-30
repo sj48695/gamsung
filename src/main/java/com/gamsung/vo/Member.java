@@ -19,4 +19,6 @@ public class Member {
 	private String detailAddr;
 	private String extraAddr;
 	private boolean blackList;
+	private String imgFileName;
+	private String introduction;
 }

@@ -15,6 +15,5 @@ public class ProductFile {
 	private String saveFileName;
 	private String rawFileName;
 	private boolean flag;
-	
-	
+		
 }
