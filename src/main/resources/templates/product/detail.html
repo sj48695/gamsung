@@ -200,18 +200,23 @@
 	               <div class="container py-5" th:text="${product.contents}"></div>
 	            </div>
 	            <div class="tab-pane fade py-5" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-	               <div class="container text-center py-5" th:if="${#lists.size(reviewlist)} <= 0">
-	                  <div>등록된 리뷰가 없습니다.</div>
-	               </div>
-	               <div class="container text-center" 
-	                  	th:if="${#lists.size(reviewlist)} > 0"
-	                   	th:each="review : ${reviewlist}">
-	                  <div class="row">
-	                     <div class="col" th:text="${review.buyer}"></div>
-	                     <div class="col" th:text="${review.contents}"></div>
-	                     <div class="col" th:text="${#dates.format(review.regDate, 'yyyy-MM-dd')}"></div>
+	               
+	               <div class="container text-center">
+                   	 <div class="row" style="font-size: 14pt ;font-weight: 900;">
+	                  	<div class="col" >별점</div>
+	                  	<div class="col" >작성자</div>
+	                  	<div class="col" >내용</div>
+	                  	<div class="col" >날짜</div>
+	                  </div><hr>
+	                  <div class="row py-3"
+	                  		th:if="${#lists.size(reviewlist)} > 0"
+	                   		th:each="review : ${reviewlist}">
+	                  	<div class="col" th:text="${review.buyer}"></div>
+	                  	<div class="col" th:text="${review.buyer}"></div>
+	                  	<div class="col" th:text="${review.contents}"></div>
+	                  	<div class="col" th:text="${#dates.format(review.regDate, 'yyyy-MM-dd')}"></div>
 	                  </div>
-	                  <hr>
+	                  <div class="row py-5" th:if="${#lists.size(reviewlist)} <= 0">등록된 리뷰가 없습니다.</div>
 	                  <br>
 	               </div>
 	            </div>
