@@ -50,7 +50,11 @@
 							          <a href="/member/register">회원가입</a>
 							    </div>
 							    <div sec:authorize="isAuthenticated()">
-							    	<span th:if="${#authentication.principal.member.type} eq 'ROLE_USER' or 'ROLE_BLACKLIST'">
+							    	<span th:if="${#authentication.principal.member.type} eq 'ROLE_USER'">
+							    	<a href="/member/mypage"><span sec:authentication="principal.member.nickname"></span>
+							           		님 환영합니다.</a>
+							    	</span>
+							    	<span th:if="${#authentication.principal.member.type} eq 'ROLE_BLACKLIST'">
 							    	<a href="/member/mypage"><span sec:authentication="principal.member.nickname"></span>
 							           		님 환영합니다.</a>
 							    	</span>
