@@ -21,10 +21,13 @@
     "react-modal": "^3.10.1",
     "react-number-format": "^4.2.0",
     "react-router-dom": "^5.0.1",
+
+    "sass": "^1.22.12",
     "sass-loader": "^8.0.0",
     "react-stomp": "^4.1.0",
     "react-talk": "^1.0.0",
     "username-generator": "^1.1.0"
+
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",

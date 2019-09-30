@@ -12,9 +12,9 @@ class App extends Component {
 
     render(){
         return(
-        <div className="gide-main">
+        <div className="container">
             <Header />
-            <div className="gide-body">
+            <div className="gide-main">
                 <ManageManager />
             </div>
         </div>

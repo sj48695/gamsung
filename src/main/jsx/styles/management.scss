@@ -59,7 +59,7 @@
    margin-top: 40px;
    padding: 10px 20px;
     
-   color: saddlebrown;
+   color: black;
    background-color: #ffffff;
 }
 
@@ -129,3 +129,11 @@
     border-radius: 50%;
   }
 
+/*=============================================
+                    table
+==============================================*/
+
+.thead {
+  background-color: black;
+  color: white;
+}

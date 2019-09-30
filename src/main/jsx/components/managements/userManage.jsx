@@ -56,30 +56,30 @@ class UserManage extends Component {
 
         const UserRaws = members.map( member => {
             return(
-                <tr key={ member.id }>
-                    <td>{ member.id }</td>
-                    <td>{ member.nickname }</td>
-                    <td>{ member.regDate }</td>
-                    <td>
-                        <label className="switch">
-                            <input type="checkbox" defaultChecked={member.active} value={member.id} onChange={this.handleActive}></input>
-                            <span className="slider round"></span>
-                        </label>
-                    </td>
-                    <td>
-                        <label className="switch">
-                            <input type="checkbox" defaultChecked={member.blackList} value={member.id} onChange={this.handleBlackList}></input>
-                            <span className="slider round"></span>
-                        </label>
-                    </td>
-                </tr>
+                    <tr key={ member.id }>
+                        <td>{ member.id }</td>
+                        <td>{ member.nickname }</td>
+                        <td>{ member.regDate }</td>
+                        <td>
+                            <label className="switch">
+                                <input type="checkbox" defaultChecked={member.active} value={member.id} onChange={this.handleActive}></input>
+                                <span className="slider round"></span>
+                            </label>
+                        </td>
+                        <td>
+                            <label className="switch">
+                                <input type="checkbox" defaultChecked={member.blackList} value={member.id} onChange={this.handleBlackList}></input>
+                                <span className="slider round"></span>
+                            </label>
+                        </td>
+                    </tr>
             )
         })
 
         return(
             <div>
-                <table>
-                    <thead>
+                <table className="table">
+                    <thead className="thead">
                         <tr>
                             <td>아이디</td>
                             <td>별명</td>
