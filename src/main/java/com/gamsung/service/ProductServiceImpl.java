@@ -172,4 +172,10 @@ public class ProductServiceImpl implements ProductService {
 		return heartlist;
 	}
 
+	@Override
+	public void insertReview(Review review) {
+		reviewMapper.insertReview(review); 
+		
+	}
+
 }

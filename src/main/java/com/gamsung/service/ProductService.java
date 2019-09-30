@@ -42,4 +42,6 @@ public interface ProductService {
 	/*	Review	*/
 	ArrayList<Review> findReviewsByProductNo(int productNo);
 
+	void insertReview(Review review);
+
 }
