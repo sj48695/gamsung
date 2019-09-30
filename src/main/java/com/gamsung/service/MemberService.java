@@ -64,6 +64,15 @@ public class MemberService {
 		}
 	}
 
+	public void activateBlackList(Member member, String id) {
+		if(member.isBlackList() == false) {
+			memberMapper.activateBlackList(id);
+		} else {
+			memberMapper.deactivateBlackList(id);
+		}
+		
+	}
+
 
 
 
