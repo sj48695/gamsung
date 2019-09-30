@@ -60,6 +60,7 @@
 		, detailAddr
 		, extraAddr
 		, blackList
+		, introduction
 		FROM member
 		WHERE id = #{ id }
 		

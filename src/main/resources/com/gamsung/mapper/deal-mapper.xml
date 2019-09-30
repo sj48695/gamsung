@@ -52,7 +52,7 @@
 		where buyer = #{buyer} and product_no = #{productNo} and deleted=false
 	</select>
 	
-	<select id="selectDealIng" resultType="com.gamsung.vo.Deal">
+	<select id="selectDealByDealNo" resultType="com.gamsung.vo.Deal">
 		select deal_no, active,  <include refid="dealColumns"/>, reg_date
 		from deal
 		where deal_no = #{dealNo} and deleted=false

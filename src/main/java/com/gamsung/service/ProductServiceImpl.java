@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.gamsung.mapper.DealMapper;
 import com.gamsung.mapper.ProductMapper;
 import com.gamsung.mapper.ReviewMapper;
+import com.gamsung.vo.Deal;
 import com.gamsung.vo.Heart;
 import com.gamsung.vo.Product;
 import com.gamsung.vo.ProductFile;
@@ -153,8 +154,21 @@ public class ProductServiceImpl implements ProductService {
 		boolean check = productMapper.selectHeartCount(params);
 		
 		return check;
-	}	
 
+	}
+	
+	@Override
+	public List<Product> findMyHeartList(String memberId) {
+		
+		List<Product> heartlist = productMapper.selectMyHeartList(memberId);
+		
+		for(Product product : heartlist) {
+			product.setFile(productMapper.selectProductFileByProductNo(product.getProductNo()));
+		}
+		
+		return heartlist;
+	}
+	
 	/* Review	*/
 	
 	@Override
@@ -164,12 +178,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> findMyHeartList(String memberId) {
-		
-		List<Product> heartlist = productMapper.selectMyHeartList(memberId);
-		
-		return heartlist;
+	public void insertReview(Review review) {
+		reviewMapper.insertReview(review);
 	}
-
 
 }

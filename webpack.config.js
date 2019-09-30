@@ -4,7 +4,11 @@ module.exports = {
     context: path.resolve(__dirname, 'src/main/jsx'),
     entry: {
         // main: './App.jsx',
-        admin:'./adminIndex.jsx'
+        admin:'./adminIndex.jsx',
+        myProducts:'./containers/mypage/myProducts.jsx',
+        myRequestProducts:'./containers/mypage/myRequestProducts.jsx',
+        // message:'./containers/mypage/message.jsx'
+
     },
     devtool: 'sourcemaps',
     cache: true,
