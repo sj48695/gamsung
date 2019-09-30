@@ -2,7 +2,7 @@ import * as axios from 'axios';
 
 export const updateDealActive = (dealNo, active) => {
     return new Promise((resolve, reject) => {
-        axios.put(`/deal/accept/${dealNo}/${active}`)
+        axios.put(`/deal/active/${dealNo}/${active}`)
             .then((result) => {
                 console.log(result.data);
                 const data = result.data;
