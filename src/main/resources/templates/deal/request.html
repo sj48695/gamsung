@@ -97,7 +97,7 @@
 		
 		<div class="checkout">
 			<div class="container">
-				<form action="/deal/request" id="checkout_form" class="checkout_form" method="post">
+				<form action="/deal/request" id="request_form" class="checkout_form" method="post">
 					<input type="hidden" name="productNo" th:value="${ product.productNo }">
 					<input type="hidden" name="buyer" th:value="${ #authentication.principal.member.id }">
 					<input type="hidden" name="count" th:value="1">
@@ -196,6 +196,8 @@
 											<input type="text" class="checkout_input checkout_address_2" id="extraAddress" name="extraAddr" placeholder="참고항목">
 										</div>
 									</div>
+									<div class="button order_button"><a onclick="alert('요청되었습니다.');$('#request_form').submit();">거래요청</a></div>
+							
 								</div>
 							</div>
 						</div>

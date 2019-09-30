@@ -116,5 +116,13 @@ public class MemberController {
 		
 		return "{ \"result\": \"sucess\"}";
 	}
+	
+	@PostMapping(path= {"/blacklist"})
+	@ResponseBody
+	public String activeBlackList(@RequestBody Member member) {
+		memberService.activateBlackList(member, member.getId());
+		
+		return "{ \"result\": \"sucess\"}";
+	}
 
 }

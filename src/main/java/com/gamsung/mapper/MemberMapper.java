@@ -21,4 +21,8 @@ public interface MemberMapper {
 
 	void rebackById(String id);
 
+	void activateBlackList(String id);
+
+	void deactivateBlackList(String id);
+
 }
