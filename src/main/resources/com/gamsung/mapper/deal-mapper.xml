@@ -20,9 +20,6 @@
 			extra_addr
 	</sql>
 
-
-
-
 	<!-- Order -->
 	<insert id="insertDeal" parameterType="com.gamsung.vo.Deal">
 		INSERT INTO deal(
@@ -46,12 +43,26 @@
 	<select id="selectDealsByProductNo" resultType="com.gamsung.vo.Deal">
 		select deal_no, active,  <include refid="dealColumns"/>, reg_date
 		from deal
-		where product_no = #{productNo}
+		where product_no = #{productNo} and deleted=false
 	</select>
 	
 	<select id="selectDealsByBuyer" resultType="com.gamsung.vo.Deal">
 		select deal_no, active,  <include refid="dealColumns"/>, reg_date
 		from deal
-		where buyer = #{memberId}
+		where buyer = #{buyer} and product_no = #{productNo} and deleted=false
 	</select>
+	
+	<select id="selectDealIng" resultType="com.gamsung.vo.Deal">
+		select deal_no, active,  <include refid="dealColumns"/>, reg_date
+		from deal
+		where deal_no = #{dealNo} and deleted=false
+	</select>
+	
+	<update id="updateDealActive" parameterType="hashmap">
+		update deal set active = #{dealActive} where deal_no = #{dealNo}
+	</update>
+	
+	<update id="deleteDeal" parameterType="int">
+		update deal set deleted = true where deal_no = #{dealNo}
+	</update>
 </mapper>

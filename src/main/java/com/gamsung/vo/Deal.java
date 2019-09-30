@@ -9,7 +9,7 @@ public class Deal {
 
 	private int dealNo;
 	private String buyer;
-	private String productNo;
+	private int productNo;
 	private String type;
 	private String active;
 	private int count;
