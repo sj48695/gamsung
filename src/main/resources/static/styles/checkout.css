@@ -1034,7 +1034,7 @@ section
 }
 .order_list_bar
 {
-	margin-bottom: 59px;
+	margin-bottom: 36px;
 }
 .order_list_title,
 .order_list_value
@@ -1045,11 +1045,11 @@ section
 }
 .order_list li:not(:last-child)
 {
-	margin-bottom: 53px;
+	margin-bottom: 30px;
 }
 .payment_options
 {
-	margin-top: 80px;
+	margin-top: 70px;
 }
 .payment_option
 {
@@ -1106,12 +1106,12 @@ section
 	font-weight: 400;
 	font-style: italic;
 	color: #6c6a74;
-	margin-top: 70px;
+	margin-top: 40px;
 }
 .order_button
 {
 	width: 100%;
-	margin-top: 83px;
+	margin-top: 43px;
 }
 
 /*********************************

@@ -123,7 +123,7 @@
 							<span th:text="${#dates.format(product.regDate, 'yyyy-MM-dd')}"></span>
 						</div>
 						
-						<form action="/deal/" method="post" id="dealForm">
+						<form action="/deal/requestForm" method="post" id="dealForm">
 							<input type="hidden" name="productNo" th:value="${product.productNo}">
 							<input type="hidden" name="price" placeholder="흥정가격"  
 								th:unless="${product.type} == '흥정'" th:value="${product.price}">
@@ -150,6 +150,21 @@
 								<div class="row justify-content-center">
 									<div class="button trans_200" id="insertBoard" ><a>수정</a></div>
 									<div class="button cart_button trans_200" id="back_button" ><a>삭제</a></div>
+								</div>
+							</div>
+							<div class="product_quantity_container" th:if="${ id }== null">
+								<div th:if="${product.type} == '흥정'">
+									<div class="availability">흥정가격 : </div>
+									<div class="product_quantity clearfix px-3">
+										<input class="w-75" type="text" name="price" 
+											th:placeholder="${ #numbers.formatInteger(product.price,3,'COMMA') }" 
+											th:value="${product.price}">
+										<span style="left:auto;">원</span>
+									</div>
+									<div class="button cart_button"><a onclick="alert('로그인한 회원만 이용 가능합니다.');$('#dealForm').submit();">거래 신청</a></div>
+								</div>
+								<div th:unless="${product.type} == '흥정'">
+									<div class="button cart_button"><a onclick="alert('로그인한 회원만 이용 가능합니다.');$('#dealForm').submit();">거래 신청</a></div>
 								</div>
 							</div>
 						</form>

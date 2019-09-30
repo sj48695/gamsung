@@ -26,6 +26,8 @@ public interface ProductMapper {
 	List<Product> selectMyProductList(String memberId);
 	
 	List<Product> selectMyRequestProductList(String memberId);
+	
+	void updateProductCount(int productNo);
 
 	void insertHeart(Heart heart);
 
@@ -36,6 +38,7 @@ public interface ProductMapper {
 	boolean selectHeartCount(HashMap<String, Object> params);
 
 	List<Product> selectMyHeartList(String memberId);
+
 
 
 	
