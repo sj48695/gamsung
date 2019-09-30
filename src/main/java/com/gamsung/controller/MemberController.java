@@ -5,7 +5,6 @@ package com.gamsung.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.gamsung.service.MemberService;
 import com.gamsung.service.ProductService;
-import com.gamsung.vo.Deal;
 import com.gamsung.vo.Member;
 import com.gamsung.vo.Product;
 
@@ -69,21 +66,38 @@ public class MemberController {
 		String memberId = auth.getName();
 		
 		List<Product> products = productService.findMyProductList(memberId);
-		for(Product product : products) {
-			List<Deal> deals = productService.findDealsByProductNo(product.getProductNo());
-			product.setDeals(deals);//요청받은 거래
-		}
-		List<Deal> mydeals = productService.findDealsByBuyer(memberId);//내 거래요청
+		List<Product> requestProducts = productService.findMyRequestProductList(memberId);
 		
 		//내가 찜한 목록
 		List<Product> hearts = productService.findMyHeartList(memberId);
 
 		model.addAttribute("products", products);
 		model.addAttribute("hearts", hearts);		
-		model.addAttribute("mydeals", mydeals);
-
+		model.addAttribute("requestProducts", requestProducts);
 		
 		return "member/mypage";
+	}
+	
+	@GetMapping(path = "/mypage/products")
+	@ResponseBody
+	public List<Product> mypageProducts(HttpServletRequest req) {
+		Authentication auth = (Authentication)req.getUserPrincipal();
+		String memberId = auth.getName();
+		
+		List<Product> products = productService.findMyProductList(memberId);
+		
+		return products;
+	}
+	
+	@GetMapping(path = "/mypage/requestProducts")
+	@ResponseBody
+	public List<Product> mypageRequestProducts(HttpServletRequest req) {
+		Authentication auth = (Authentication)req.getUserPrincipal();
+		String memberId = auth.getName();
+		
+		List<Product> requestProducts = productService.findMyRequestProductList(memberId);
+		
+		return requestProducts;
 	}
 	
 	@GetMapping(path= {"/list"})
@@ -99,6 +113,14 @@ public class MemberController {
 	public String userDelete(@RequestBody Member member) {
 		
 		memberService.deleteById(member,member.getId());
+		
+		return "{ \"result\": \"sucess\"}";
+	}
+	
+	@PostMapping(path= {"/blacklist"})
+	@ResponseBody
+	public String activeBlackList(@RequestBody Member member) {
+		memberService.activateBlackList(member, member.getId());
 		
 		return "{ \"result\": \"sucess\"}";
 	}

@@ -22,6 +22,7 @@
 <link rel="stylesheet" type="text/css" th:href="@{/styles/mypage/css/tabstyles.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/styles/mypage/css/mypage.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/styles/mypage/css/pe-icon-7-stroke.css}">
+
 </head>
 <body>
 	<div class="newsletter" layout:fragment="content">
@@ -51,111 +52,10 @@
 					</nav>
 					<div class="content-wrap">
 						<section id="section-topline-1">
-							<div class="container">
-								<div class="row">
-									<div class="col">
-										<!-- Column Titles -->
-										<div class="mypage_info_columns clearfix">
-											<div class="mypage_info_col mypage_info_col_product">상품명</div>
-											<div class="mypage_info_col mypage_info_col_price">가격</div>
-											<div class="mypage_info_col mypage_info_col_quantity">갯수</div>
-											<div class="mypage_info_col mypage_info_col_date">날짜</div>
-											<div class="mypage_info_col mypage_info_col_state">상태</div>
-										</div>
-									</div>
-								</div>
-								<div class="row cart_items_row accordion" id="accordionExample">
-									<!-- Cart Item -->
-									<div class="align-items-center align-items-start col-12"
-										 th:if="${ #lists.size(products) } > 0" th:each="product : ${products}">
-										 
-									   <div class="card-header col-12" th:id="'heading'+${product.productNo}">
-									       <div class="btn row align-items-center" data-toggle="collapse" th:data-target="'#collapse'+${product.productNo}" aria-expanded="true" th:aria-controls="'collapse'+${product.productNo}"
-										       style="display: flex;">
-										         <!-- Name -->
-												<div class="mypage_item_product d-flex flex-row align-items-center">
-													<div class="mypage_item_image">
-														<div>
-															<img src="/files/product-files/" 
-																	 th:attrappend="src=${ product.file.saveFileName }">
-														</div>
-													</div>
-													<div class="mypage_item_name_container">
-														<div class="mypage_item_name">
-															<a th:href="'/product/detail/'+${product.productNo}" th:text="${ product.name }"></a>
-														</div>
-													</div>
-												</div>
-												<!-- price -->
-												<div class="mypage_item_price" th:text="${ #numbers.formatInteger(product.price, 3, 'COMMA') }+'원'"></div>
-												<!-- Quantity -->
-												<div class="mypage_item_quantity" th:text="${product.count}+'개'"></div>
-												<!-- regDate -->
-												<div class="mypage_item_date" th:text="${#dates.format(product.regDate, 'yyyy-MM-dd')}"></div>
-												<!-- 상태 -->
-												<div class="mypage_item_state">
-													<select class="form-control" id="exampleFormControlSelect1">
-														<option>판매중</option>
-														<option>판매완료</option>
-														<option>거래중</option>
-														<option>거래완료</option>
-														<option>거래중지</option>
-													</select>
-												</div>
-									       </div>
-									   </div>
-									   <div th:id="'collapse'+${product.productNo}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-									  	 <div class="card-body mypage_info_columns align-items-center">
-									  	 	<div class="mypage_info_col col-1">요청자</div>
-									     	<div class="mypage_info_col col-2">택배/직거래</div>
-									     	<div class="mypage_info_col col-3">가격</div>
-									     	<div class="mypage_info_col col-1">수량</div>
-									     	<div class="mypage_info_col col-2">요청일</div>
-									     	<div class="mypage_info_col col-3" >수락/거절</div>
-									     </div>
-									     <div class="card-body row align-items-center px-0 mx-1" style="border-bottom: solid 1px" 
-									     	th:if="${#lists.size(product.deals)}>0" th:each="deal : ${product.deals}">
-									     	<div class="mypage_info_col col-1" th:text="${deal.buyer}"></div>
-									     	<div class="mypage_info_col col-2" th:text="${deal.type}"></div>
-									     	<div class="mypage_info_col col-3" th:text="${#numbers.formatInteger(deal.price,3,'COMMA')}+'원'"></div>
-									     	<div class="mypage_info_col col-1" th:text="${deal.count}+'개'"></div>
-									     	<div class="mypage_info_col col-2" th:text="${#dates.format(deal.regDate, 'yyyy-MM-dd')}"></div>
-									     	<div class="mypage_info_col col-1 newsletter_button m-0 ml-4" ><span>수락</span></div>
-									     	<div class="mypage_info_col col-1 newsletter_button m-0 ml-1" ><span>거절</span></div>
-									     	<div class="mypage_info_col col-12">&nbsp;</div>
-									     	<div class="mypage_info_col col-1"></div>
-									     	<div class="mypage_info_col col-2 text-left" th:text="' ＞ [수신자 : '+${deal.receiver}"></div>
-									     	<div class="mypage_info_col col-3 text-left" th:text="'전화번호 : '+ ${deal.phone}"></div>
-									     	<div class="mypage_info_col col-5 text-left" th:text="'주소 : '+${deal.postcode}+' '+ ${deal.roadAddr}+' '+${deal.detailAddr}+']'"></div>
-									     </div>
-									      <div class="card-body row" th:unless="${#lists.size(product.deals)}>0" >
-									     	<div class="col">요청받은 거래가 없습니다.</div>
-									     </div>
-									   </div>
-									 </div>
-										
-								</div>
-							</div>	
+							<div class="container" id="myProducts"></div>	
 						</section>
 						<section id="section-topline-2">
-							<div class="card-body row align-items-center px-0 mx-1" style="border-bottom: solid 1px" 
-						     	th:if="${#lists.size(mydeals)}>0" th:each="mydeal : ${mydeals}">
-						     	<div class="mypage_info_col col-1" th:text="${mydeal.buyer}"></div>
-						     	<div class="mypage_info_col col-2" th:text="${mydeal.type}"></div>
-						     	<div class="mypage_info_col col-3" th:text="${#numbers.formatInteger(mydeal.price,3,'COMMA')}+'원'"></div>
-						     	<div class="mypage_info_col col-1" th:text="${mydeal.count}+'개'"></div>
-						     	<div class="mypage_info_col col-2" th:text="${#dates.format(mydeal.regDate, 'yyyy-MM-dd')}"></div>
-						     	<div class="mypage_info_col col-1 newsletter_button m-0 ml-4" ><span>수락</span></div>
-						     	<div class="mypage_info_col col-1 newsletter_button m-0 ml-1" ><span>거절</span></div>
-						     	<div class="mypage_info_col col-12">&nbsp;</div>
-						     	<div class="mypage_info_col col-1"></div>
-						     	<div class="mypage_info_col col-2 text-left" th:text="' ＞ [수신자 : '+${mydeal.receiver}"></div>
-						     	<div class="mypage_info_col col-3 text-left" th:text="'전화번호 : '+ ${mydeal.phone}"></div>
-						     	<div class="mypage_info_col col-5 text-left" th:text="'주소 : '+${mydeal.postcode}+' '+ ${mydeal.roadAddr}+' '+${mydeal.detailAddr}+']'"></div>
-						     </div>
-						      <div class="card-body row" th:unless="${#lists.size(mydeals)}>0" >
-						     	<div class="col">요청한 거래가 없습니다.</div>
-						     </div>
+							<div class="container" id="myRequestProducts"></div>
 						</section>
 						<section id="section-topline-3">
 							<div class="row">
@@ -193,12 +93,17 @@
 							  <span class="starR2">별5_오른쪽</span>
 							</div>
 						</section>
-						<section id="section-topline-5"><p>5</p></section>
+						<section id="section-topline-5">
+							<div class="container" id="message"></div>
+						</section>
 						<section id="section-topline-6"><p>6</p></section>
 					</div><!-- /content -->
 				</div><!-- /tabs -->
 			</section>
 		</div>
+		<script type="text/javascript" th:src="@{/js/react/myProducts.bundle.js}"></script>
+		<script type="text/javascript" th:src="@{/js/react/myRequestProducts.bundle.js}"></script>
+		<!-- <script type="text/javascript" th:src="@{/js/react/message.bundle.js}"></script> -->
 	</div>
 </body>
 </html>

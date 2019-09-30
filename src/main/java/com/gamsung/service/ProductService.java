@@ -22,6 +22,10 @@ public interface ProductService {
 
 	List<Product> findMyProductList(String memberId);
 	
+	List<Product> findMyRequestProductList(String memberId);
+	
+	void updateProductCount(int productNo);
+	
 	/*	Heart	*/
 
 	void insertHeart(Heart heart);
@@ -33,11 +37,6 @@ public interface ProductService {
 	boolean findHeartCount(String id, int productNo);
 
 	List<Product> findMyHeartList(String memberId);
-
-	/*	Deal	*/
-	List<Deal> findDealsByProductNo(int productNo);
-
-	List<Deal> findDealsByBuyer(String memberId);
 
 	/*	Review	*/
 	ArrayList<Review> findReviewsByProductNo(int productNo);

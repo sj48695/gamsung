@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.gamsung.mapper.DealMapper;
 import com.gamsung.mapper.ProductMapper;
 import com.gamsung.mapper.ReviewMapper;
-import com.gamsung.vo.Deal;
 import com.gamsung.vo.Heart;
 import com.gamsung.vo.Product;
 import com.gamsung.vo.ProductFile;
@@ -34,8 +33,7 @@ public class ProductServiceImpl implements ProductService {
 	public Product findProductByProductNo(int productNo) {
 
 		Product product = productMapper.selectProductByProductNo(productNo);
-		
-		//
+
 		ProductFile file = productMapper.selectProductFileByProductNo(product.getProductNo());
 		product.setFile(file);
 		
@@ -58,10 +56,8 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public Integer registerProductTx(Product product) {
-		System.out.println(product);
 		productMapper.insertProduct(product);
 		int newProductNo = product.getProductNo();
-		System.out.println(product);
 		
 		// 대표이미지
 		ProductFile titleFile = product.getFile();
@@ -80,9 +76,7 @@ public class ProductServiceImpl implements ProductService {
 		// 이미지
 		for (ProductFile file : product.getFiles()) {
 			file.setProductNo(productNo);
-			System.out.println(file);
 			productMapper.insertProductFile(file);
-			System.out.println(file);
 		}
 		
 	}
@@ -91,13 +85,33 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> findMyProductList(String memberId) {
 		
 		List<Product> products = productMapper.selectMyProductList(memberId);
-		
-		//
 		for(Product product : products) {
 			product.setFile(productMapper.selectProductFileByProductNo(product.getProductNo()));
+			product.setDeals(dealMapper.selectDealsByProductNo(product.getProductNo()));//요청받은 거래
 		}
 		
 		return products;
+	}
+	
+
+	@Override
+	public List<Product> findMyRequestProductList(String memberId) {
+		List<Product> products = productMapper.selectMyRequestProductList(memberId);
+		for(Product product : products) {
+			product.setFile(productMapper.selectProductFileByProductNo(product.getProductNo()));
+			HashMap<String, Object> params = new HashMap<String, Object>();
+			params.put("buyer", memberId);
+			params.put("productNo", product.getProductNo());
+
+			product.setDeals(dealMapper.selectDealsByBuyer(params));//요청한 거래
+		}
+		
+		return products;
+	}
+
+	@Override
+	public void updateProductCount(int productNo) {
+		productMapper.updateProductCount(productNo);
 	}
 	
 	/*	Heart	*/
@@ -139,22 +153,7 @@ public class ProductServiceImpl implements ProductService {
 		boolean check = productMapper.selectHeartCount(params);
 		
 		return check;
-	}
-	
-	/*	Deal	*/
-
-	@Override
-	public List<Deal> findDealsByProductNo(int productNo) {
-		List<Deal> deals = dealMapper.selectDealsByProductNo(productNo);
-		return deals;
-	}
-
-	@Override
-	public List<Deal> findDealsByBuyer(String memberId) {
-		List<Deal> deals = dealMapper.selectDealsByBuyer(memberId);
-		return deals;
-	}
-	
+	}	
 
 	/* Review	*/
 	
@@ -174,8 +173,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public void insertReview(Review review) {
-		reviewMapper.insertReview(review); 
-		
+		reviewMapper.insertReview(review);
 	}
 
 }
