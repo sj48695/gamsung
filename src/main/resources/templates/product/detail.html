@@ -123,7 +123,7 @@
 							<span th:text="${#dates.format(product.regDate, 'yyyy-MM-dd')}"></span>
 						</div>
 						
-						<form action="/deal/" method="post" id="dealForm">
+						<form action="/deal/requestForm" method="post" id="dealForm">
 							<input type="hidden" name="productNo" th:value="${product.productNo}">
 							<input type="hidden" name="price" placeholder="흥정가격"  
 								th:unless="${product.type} == '흥정'" th:value="${product.price}">
@@ -150,6 +150,21 @@
 								<div class="row justify-content-center">
 									<div class="button trans_200" id="insertBoard" ><a>수정</a></div>
 									<div class="button cart_button trans_200" id="back_button" ><a>삭제</a></div>
+								</div>
+							</div>
+							<div class="product_quantity_container" th:if="${ id }== null">
+								<div th:if="${product.type} == '흥정'">
+									<div class="availability">흥정가격 : </div>
+									<div class="product_quantity clearfix px-3">
+										<input class="w-75" type="text" name="price" 
+											th:placeholder="${ #numbers.formatInteger(product.price,3,'COMMA') }" 
+											th:value="${product.price}">
+										<span style="left:auto;">원</span>
+									</div>
+									<div class="button cart_button"><a onclick="alert('로그인한 회원만 이용 가능합니다.');$('#dealForm').submit();">거래 신청</a></div>
+								</div>
+								<div th:unless="${product.type} == '흥정'">
+									<div class="button cart_button"><a onclick="alert('로그인한 회원만 이용 가능합니다.');$('#dealForm').submit();">거래 신청</a></div>
 								</div>
 							</div>
 						</form>
@@ -185,18 +200,23 @@
 	               <div class="container py-5" th:text="${product.contents}"></div>
 	            </div>
 	            <div class="tab-pane fade py-5" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-	               <div class="container text-center py-5" th:if="${#lists.size(reviewlist)} <= 0">
-	                  <div>등록된 리뷰가 없습니다.</div>
-	               </div>
-	               <div class="container text-center" 
-	                  	th:if="${#lists.size(reviewlist)} > 0"
-	                   	th:each="review : ${reviewlist}">
-	                  <div class="row">
-	                     <div class="col" th:text="${review.buyer}"></div>
-	                     <div class="col" th:text="${review.contents}"></div>
-	                     <div class="col" th:text="${#dates.format(review.regDate, 'yyyy-MM-dd')}"></div>
+	               
+	               <div class="container text-center">
+                   	 <div class="row" style="font-size: 14pt ;font-weight: 900;">
+	                  	<div class="col" >별점</div>
+	                  	<div class="col" >작성자</div>
+	                  	<div class="col" >내용</div>
+	                  	<div class="col" >날짜</div>
+	                  </div><hr>
+	                  <div class="row py-3"
+	                  		th:if="${#lists.size(reviewlist)} > 0"
+	                   		th:each="review : ${reviewlist}">
+	                  	<div class="col" th:text="${review.buyer}"></div>
+	                  	<div class="col" th:text="${review.buyer}"></div>
+	                  	<div class="col" th:text="${review.contents}"></div>
+	                  	<div class="col" th:text="${#dates.format(review.regDate, 'yyyy-MM-dd')}"></div>
 	                  </div>
-	                  <hr>
+	                  <div class="row py-5" th:if="${#lists.size(reviewlist)} <= 0">등록된 리뷰가 없습니다.</div>
 	                  <br>
 	               </div>
 	            </div>

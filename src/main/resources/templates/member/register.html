@@ -7,94 +7,82 @@
 <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/animate.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/styles/main_styles.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/checkout.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/styles/responsive.css}">
 <meta charset="utf-8">
 <title>register page</title>
 </head>
 <body>
-    <div class="container" layout:fragment="content">
-    
-    	<div>
-	  	 <div class="container" style="margin-top:20%">
-	  	 	<div>
-	  	 		<h2>회원가입</h2>
-	  	 	</div>
-	  	 	<div>
-	  	 		<form action="#" th:action="@{/member/registerIn}" method="POST">
-		  	 		<div>
-			  	 		<label for="id">id</label>
-			  	 		<input
-			  	 			type="text"
-			  	 			id="id" name="id"
-			  	 			class="checkout_input"/>
-		  	 		</div>
-		  	 		<div>
-			  	 		<label for="nickname">nickname</label>
-			  	 		<input
-			  	 			type="text"
-			  	 			id="nickname" name="nickname"
-			  	 			class="checkout_input"/>
-		  	 		</div>
-			  	 	<div>
-			  	 		<label for="pwd">password</label>
-			  	 		<input
-			  	 			type="password"
-			  	 			id="pwd" name="pwd"
-			  	 			class="checkout_input"/>
-			  	 	</div>
-	  	 	
-			  	 	<div>
-			  	 		<label for="phone">phone</label>
-			  	 		<input
-			  	 			type="text"
-			  	 			id="phone" name="phone"
-			  	 			class="checkout_input"/>
-			  	 	</div>
-			  	 	<div class="col-6">
-					<!-- Zipcode -->
-						<label for="postcode">Zipcode*</label>
-						<input type="text"  name="postcode" id="postcode" class="checkout_input" required="required">
+	<div class="row justify-content-center py-5 my-5" layout:fragment="content">
+		<div class="checkout_form_container py-5 my-5 w-50">
+			<h3 class="text-center">회원가입</h3>
+			<form action="#" th:action="@{/member/registerIn}" method="POST">
+				<div class="row justify-content-between">
+					<div class="col-6">
+						<div class="form-group">
+							<label for="id">id</label> 
+							<input type="text" id="id" name="id" class="checkout_input" />
+						</div>
+						<div class="form-group">
+							<label for="nickname">nickname</label> 
+							<input type="text" id="nickname" name="nickname" class="checkout_input" />
+						</div>
+						<div class="form-group">
+							<label for="pwd">password</label> 
+							<input type="password" id="pwd" name="pwd" class="checkout_input" />
+						</div>
+						<div class="form-group">
+							<label for="phone">phone</label> 
+							<input type="text" id="phone" name="phone" class="checkout_input" />
+						</div>
+					
 					</div>
 					<div class="col-6">
-					<div class="button ml-auto" style="height: 50px;"><a href="#" class="addrBtn">주소 불러오기</a></div>
+						<!-- Zipcode -->
+						<label for="postcode" >Zipcode*</label> 
+						<div class="row">
+							<div class="form-group col-6">
+								<input type="text" class="checkout_input" 
+									id="postcode"  name="postcode" placeholder="우편번호" required="required">
+							</div>
+							<div class="form-group col-6">
+								<div class="button ml-auto w-100" style="height: 50px">
+									<a href="#" class="addrBtn">주소 불러오기</a>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<!-- Address -->
+							<label for="roadAddress">RoadAddress*</label> 
+							<input type="text" class="checkout_input"
+								id="roadAddress" name="roadAddr" placeholder="도로명주소">
+						</div>
+						<div class="form-group">
+							<label for="jibunAddr">Jibun*</label> 
+							<input type="text" class="checkout_input"
+								id="jibunAddress" name="jibunAddr" placeholder="지번주소">
+						</div>
+						<div class="form-group row">
+							<div class="form-group col-6">
+								<label for="detailAddr">Detail*</label> 
+								<input type="text" class="checkout_input"
+									id="detailAddress" name="detailAddr" placeholder="상세주소">
+							</div>
+							<div class="form-group col-6">
+								<label for="address">Extra*</label> 
+								<input type="text" class="checkout_input"
+									id="extraAddress" name="extraAddr" placeholder="참고항목">
+							</div>
+						</div>
 					</div>
-										
-					<div class="col-12">
-					<!-- Address -->
-					<label for="address">Address*</label>
-						<input type="text" class="checkout_input" id="roadAddress" name="roadAddr" placeholder="도로명주소">
-					</div>
-					<div class="col-12">
-						<input type="text" class="checkout_input checkout_address_2" id="jibunAddress" name="jibunAddr" placeholder="지번주소">
-					</div>
-					<div class="col-6">
-						<input type="text" class="checkout_input checkout_address_2" id="detailAddress" name="detailAddr" placeholder="상세주소">
-					</div>
-					<div class="col-6">
-						<input type="text" class="checkout_input checkout_address_2" id="extraAddress" name="extraAddr" placeholder="참고항목">
-					</div>
-				  	 <div class="btn">
-				  	 	<span>
-							<button class="btn" id="registerBtn" type="submit">회원등록</button>
-						</span>
-						<span>
-							<button id="cancelBtn" class="btn">취소</button>
-						</span>
-					</div>
-	  	 	  	</form>
+				</div>
+				<div class="row justify-content-center">
+					<button class="newsletter_button col-5 mt-0" id="registerBtn" type="submit"><span>회원등록</span></button>
+					<button class="newsletter_button col-5 mt-0 ml-5" onclick="location.href='/member/login'"><span>취소</span></button>
+				</div>
+			</form>
 
-	  	 	</div>
-	  	 </div>	
-	  	 </div> 
-<script type="text/javascript" src="//code.jquery.com/jquery-3.1.1.min.js"></script>
-<script type="text/javascript">
-$(function(){
-	$('#cancelBtn').on('click', function(event){
-		location.href="/member/login";
-	})
-})
-</script>
+		</div>
 	</div>
-	
 </body>
 </html>

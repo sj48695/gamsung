@@ -1,0 +1,100 @@
+@charset "UTF-8";
+
+html{
+	
+	font-size: 12px;
+}
+.wrapper {
+	
+	background-color: #edeff0;
+	
+	align-items: center;
+	
+	width: 400px;
+	padding: 20px;
+	margin: 20px auto;
+	background-color: #ffffff;
+}
+
+.pager {
+	margin: 0 0 3.75rem;
+	font-size: 0;
+	text-align: center;
+}
+
+.pager__item {
+	display: inline-block;
+	vertical-align: top;
+	font-size: 1.125rem;
+	font-weight: bold;
+	margin: 0 2px;
+}
+
+.pager__item.active .pager__link {
+	background-color: #797979;
+	border-color: #797979;
+	color: #fff;
+	text-decoration: none;
+}
+
+.pager__item--prev svg, .pager__item--next svg {
+	width: 8px;
+	height: 12px;
+}
+
+.pager__item--next .pager__link svg {
+	-webkit-transform: rotate(180deg);
+	transform: rotate(180deg);
+	-webkit-transform-origin: center center;
+	transform-origin: center center;
+}
+
+.pager__link {
+	position: relative;
+	border-radius: 4px;
+	display: block;
+	text-align: center;
+	width: 2.625rem;
+	height: 2.625rem;
+	line-height: 2.625rem;
+	margin-left: -1px;
+	color: #2f3640;
+	text-decoration: none;
+	transition: 0.3s;
+}
+
+.pager__link:hover, .pager__link:focus, .pager__link:active {
+	background-color: #797979;
+	border-color: #797979;
+	color: #fff;
+	text-decoration: none;
+}
+
+.pager__link:hover svg path, .pager__link:focus svg path, .pager__link:active svg path
+	{
+	fill: #fff;
+}
+
+.pager .pager__item.active+.pager__item .pager__link, .pager .pager__item:hover+.pager__item .pager__link
+	{
+	border-left-color: #797979;
+}
+
+@media screen and (max-width: 576px) {
+	.pager__item {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	.pager__item.active, .pager__item:first-of-type, .pager__item:last-of-type,
+		.pager__item:nth-of-type(2), .pager__item:nth-last-of-type(2) {
+		position: initial;
+		top: initial;
+		left: initial;
+	}
+	.pager__item.active+li {
+		position: initial;
+		top: initial;
+		left: initial;
+	}
+}

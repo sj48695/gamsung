@@ -68,6 +68,19 @@
 		from product
 		where seller = #{seller}
 	</select>
+	
+	<select id="selectMyRequestProductList" resultType="com.gamsung.vo.Product" parameterType="String">
+		select seller, name, contents, d.count, d.price, category, view, d.type, p.product_no, d.reg_date
+		from product p inner join deal d
+		on p.product_no = d.product_no
+		where buyer = #{buyer} and deleted = false
+	</select>
+	
+	<update id="updateProductCount">
+		update product set count = count - 1 where product_no = #{productNo}
+	</update>
+	
+	<!-- Heart -->
 
 	<insert id="insertHeart" parameterType="com.gamsung.vo.Heart">
 		insert into heart(

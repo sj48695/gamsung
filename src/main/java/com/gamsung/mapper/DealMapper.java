@@ -1,5 +1,6 @@
 package com.gamsung.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -13,6 +14,13 @@ public interface DealMapper {
 
 	List<Deal> selectDealsByProductNo(int productNo);
 
-	List<Deal> selectDealsByBuyer(String memberId);
+	List<Deal> selectDealsByBuyer(HashMap<String, Object> params);
+	
+	Deal selectDealByDealNo(int dealNo);
+
+	void updateDealActive(HashMap<String, Object> params);
+
+	void deleteDeal(int dealNo);
+
 
 }

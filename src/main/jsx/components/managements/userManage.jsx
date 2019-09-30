@@ -16,6 +16,7 @@ class UserManage extends Component {
  
         
         this.handleActive = this.handleActive.bind(this);
+        this.handleBlackList = this.handleBlackList.bind(this);
     }
     handleActive(e) {
         const {members} = this.props;
@@ -33,38 +34,52 @@ class UserManage extends Component {
                      })
     }
 
+    handleBlackList(e) {
+        const {members} = this.props;
+
+        const id = e.target.value;
+        const member = members.find(m => m.id === id);
+        BlackListManage(member)
+                     .then(result =>{
+                         result.data;
+                         ManageService.getUserList();
+                     })
+                     .catch(err =>{
+                         console.log(err);
+                     })
+    }
+
 
     render(){
 
         const { members } = this.props;
-        //const { handleActive } = this.state;
 
         const UserRaws = members.map( member => {
             return(
-                <tr key={ member.id }>
-                    <td>{ member.id }</td>
-                    <td>{ member.nickname }</td>
-                    <td>{ member.regDate }</td>
-                    <td>
-                        <label className="switch">
-                            <input type="checkbox" defaultChecked={member.active} value={member.id} onChange={this.handleActive}></input>
-                            <span className="slider round"></span>
-                        </label>
-                    </td>
-                    <td>
-                        <label className="switch">
-                            <input type="checkbox" value={member.active}></input>
-                            <span className="slider round"></span>
-                        </label>
-                    </td>
-                </tr>
+                    <tr key={ member.id }>
+                        <td>{ member.id }</td>
+                        <td>{ member.nickname }</td>
+                        <td>{ member.regDate }</td>
+                        <td>
+                            <label className="switch">
+                                <input type="checkbox" defaultChecked={member.active} value={member.id} onChange={this.handleActive}></input>
+                                <span className="slider round"></span>
+                            </label>
+                        </td>
+                        <td>
+                            <label className="switch">
+                                <input type="checkbox" defaultChecked={member.blackList} value={member.id} onChange={this.handleBlackList}></input>
+                                <span className="slider round"></span>
+                            </label>
+                        </td>
+                    </tr>
             )
         })
 
         return(
             <div>
-                <table>
-                    <thead>
+                <table className="table">
+                    <thead className="thead">
                         <tr>
                             <td>아이디</td>
                             <td>별명</td>
@@ -86,6 +101,21 @@ export default UserManage;
 export const ActiveManage = (member) =>{
     return new Promise( (resolve, reject) => {
         axios.post("delete",  member)
+             .then((result) =>{
+                 const data = result.data;
+                 resolve(data);
+                 return;
+             })
+             .catch((err)=>{
+                 reject(err.message);
+                 return;
+             })
+    })
+}
+
+export const BlackListManage = (member) =>{
+    return new Promise( (resolve, reject) => {
+        axios.post("blacklist",  member)
              .then((result) =>{
                  const data = result.data;
                  resolve(data);
