@@ -8,6 +8,7 @@ module.exports = {
         myProducts:'./containers/mypage/myProducts.jsx',
         myRequestProducts:'./containers/mypage/myRequestProducts.jsx',
         // message:'./containers/mypage/message.jsx'
+
     },
     devtool: 'sourcemaps',
     cache: true,

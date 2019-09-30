@@ -1,7 +1,5 @@
 package com.gamsung.controller;
 
-
-
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -65,12 +63,15 @@ public class MemberController {
 		Authentication auth = (Authentication)req.getUserPrincipal();
 		String memberId = auth.getName();
 		
+		Member member = memberService.findMemberById(memberId);
+		
 		List<Product> products = productService.findMyProductList(memberId);
 		List<Product> requestProducts = productService.findMyRequestProductList(memberId);
 		
 		//내가 찜한 목록
 		List<Product> hearts = productService.findMyHeartList(memberId);
 
+		model.addAttribute("member", member);
 		model.addAttribute("products", products);
 		model.addAttribute("hearts", hearts);		
 		model.addAttribute("requestProducts", requestProducts);

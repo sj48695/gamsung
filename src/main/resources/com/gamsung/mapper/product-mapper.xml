@@ -63,8 +63,6 @@
 		where product_no = #{ productNo } and flag = true
 	</select>
 	
-	
-	
 	<select id="selectMyProductList" resultType="com.gamsung.vo.Product" parameterType="String">
 		select <include refid="productColumns" />, product_no, reg_date
 		from product
@@ -112,11 +110,13 @@
 	</select>
 	
 	<select id="selectMyHeartList" resultType="com.gamsung.vo.Product" parameterType="String">
-		select p.name, h.product_no 
+		select <include refid="productColumns" />, h.product_no
 		from product p, heart h
 		where p.product_no = h.product_no
-		and h.id = #{id};
+		and h.id = #{id}
+		order by h.reg_date desc
 	</select>
+	
 
 </mapper>
 

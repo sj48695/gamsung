@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import dateFormat from 'dateformat';
 import axios from 'axios';
 
 import * as ManageService from '../../services/ManageService.js';
@@ -59,7 +59,7 @@ class UserManage extends Component {
                     <tr key={ member.id }>
                         <td>{ member.id }</td>
                         <td>{ member.nickname }</td>
-                        <td>{ member.regDate }</td>
+                        <td>{dateFormat(member.regDate, 'yyyy-mm-dd')}</td>
                         <td>
                             <label className="switch">
                                 <input type="checkbox" defaultChecked={member.active} value={member.id} onChange={this.handleActive}></input>

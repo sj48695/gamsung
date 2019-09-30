@@ -99,7 +99,7 @@ public class ProductController {
 
 	@PostMapping(path = "/write")
 	public String write(Product product, Model model, HttpServletRequest Hreq, MultipartHttpServletRequest req ) {
-		 Authentication auth = (Authentication)Hreq.getUserPrincipal();
+		Authentication auth = (Authentication)Hreq.getUserPrincipal();
 
 		product.setSeller(auth.getName());
 		
