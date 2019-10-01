@@ -19,6 +19,16 @@
 		on d.deal_no = r.deal_no
 		where d.product_no = ${productNo} 
 	</select>
+	
+	<insert id="insertReview" parameterType="com.gamsung.vo.Review">
+		insert into review(
+			deal_no, contents
+		)
+		values(
+			#{dealNo},
+			#{contents}
+		)
+	</insert>
 
 	
 

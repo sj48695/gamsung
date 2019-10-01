@@ -17,4 +17,12 @@ public interface MemberMapper {
 
 	List<Member> findUserList();
 
+	void deleteById(String id);
+
+	void rebackById(String id);
+
+	void activateBlackList(String id);
+
+	void deactivateBlackList(String id);
+
 }

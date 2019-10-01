@@ -60,6 +60,7 @@
 		, detailAddr
 		, extraAddr
 		, blackList
+		, introduction
 		FROM member
 		WHERE id = #{ id }
 		
@@ -81,5 +82,29 @@
 		, blackList
 		from member
 	</select>
+	
+	<update id="deleteById" parameterType="String">
+		UPDATE member
+		SET active = 0
+		WHERE id = #{ id }
+	</update>
+	
+	<update id="rebackById" parameterType="String">
+		UPDATE member
+		SET active = 1
+		WHERE id = #{ id }
+	</update>
+	
+	<update id="activateBlackList" parameterType="String">
+		UPDATE member
+		SET blackList = 1, type= "ROLE_BLACKLIST"
+		WHERE id = #{ id }
+	</update>
+	
+	<update id="deactivateBlackList" parameterType="String">
+		UPDATE member
+		SET blackList = 0, type= "ROLE_USER"
+		WHERE id = #{ id }	
+	</update>
 
 </mapper>

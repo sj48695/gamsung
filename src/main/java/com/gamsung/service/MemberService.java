@@ -55,6 +55,25 @@ public class MemberService {
 		return members;
 	}
 
+	public void deleteById(Member member, String id) {
+			
+		if(member.isActive() == true) {
+			memberMapper.deleteById(member.getId());
+		} else {
+			memberMapper.rebackById(member.getId());
+		}
+	}
+
+	public void activateBlackList(Member member, String id) {
+		if(member.isBlackList() == false) {
+			memberMapper.activateBlackList(id);
+		} else {
+			memberMapper.deactivateBlackList(id);
+		}
+		
+	}
+
+
 
 
 }

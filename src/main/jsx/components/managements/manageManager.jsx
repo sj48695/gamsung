@@ -4,7 +4,6 @@ import Modal from 'react-modal';
 import UserManage from './userManage.jsx';
 
 import * as ManageService from '../../services/ManageService.js';
-import { domainToASCII } from 'url';
 
 class ManageManager extends Component {
 
@@ -13,6 +12,7 @@ class ManageManager extends Component {
         this.state = {
             members: []
         }
+
     }
 
     getUserList() {
@@ -27,6 +27,8 @@ class ManageManager extends Component {
             return;
         })
     }
+
+
 
     componentDidMount() {
         this.getUserList();

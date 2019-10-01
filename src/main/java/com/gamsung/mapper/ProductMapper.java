@@ -21,11 +21,15 @@ public interface ProductMapper {
 
 	void insertProductFile(ProductFile file);
 
-	ProductFile selectFileByProductNo(int productNo); //대표이미지
+	ProductFile selectProductFileByProductNo(int productNo); //대표이미지
 	
-	List<ProductFile> selectFilesByProductNo(int productNo); //다중이미지
+	List<ProductFile> selectProductFilesByProductNo(int productNo); //다중이미지
 	
 	List<Product> selectMyProductList(String memberId);
+	
+	List<Product> selectMyRequestProductList(String memberId);
+	
+	void updateProductCount(int productNo);
 
 	void insertHeart(Heart heart);
 
@@ -35,6 +39,7 @@ public interface ProductMapper {
 
 	boolean selectHeartCount(HashMap<String, Object> params);
 
+	List<Product> selectMyHeartList(String memberId);
 	
 
 	

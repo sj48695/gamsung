@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.gamsung.common.Util;
+import com.gamsung.service.DealService;
 import com.gamsung.service.MemberService;
 import com.gamsung.service.ProductService;
 import com.gamsung.vo.Heart;
@@ -35,6 +36,9 @@ public class ProductController {
 
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private DealService dealService;
 
 	@Autowired
 	private MemberService memberService;
@@ -50,6 +54,8 @@ public class ProductController {
 			if(id != null) {
 				Heart heart = productService.findHeart(id, productNo);
 				model.addAttribute("heart", heart);
+				
+				model.addAttribute("id", id);
 			}
 		}
 		
@@ -93,7 +99,7 @@ public class ProductController {
 
 	@PostMapping(path = "/write")
 	public String write(Product product, Model model, HttpServletRequest Hreq, MultipartHttpServletRequest req ) {
-		 Authentication auth = (Authentication)Hreq.getUserPrincipal();
+		Authentication auth = (Authentication)Hreq.getUserPrincipal();
 
 		product.setSeller(auth.getName());
 		
@@ -196,6 +202,58 @@ public class ProductController {
 			return "error";
 		}
 
+	}
+	
+	@GetMapping(path = "reviewWrite")
+	public String reviewWriteForm() {
+		
+		return "product/reviewwrite";
+	}
+	
+	@PostMapping(path = "reviewWrite")
+	public String reviewWrite(MultipartHttpServletRequest req, Review review, Model model) {
+		
+		Authentication auth = (Authentication) req.getUserPrincipal();
+		//String id = auth.getName();
+		
+		
+		
+//		MultipartFile mf = req.getFile("attach");
+//		if(mf != null) {
+//			
+//			ServletContext application = req.getServletContext();
+//			String path = application.getRealPath("/resources/upload-files");
+//			
+//			String userFileName = mf.getOriginalFilename();
+//			if (userFileName.contains("\\")) {
+//				userFileName = userFileName.substring(userFileName.lastIndexOf("\\") + 1);
+//			}
+//			
+//			String savedFileName = Util.makeUniqueFileName(userFileName);
+//			
+//			try {
+//				mf.transferTo(new File(path, savedFileName));
+//											
+//				ReviewFile reviewFile = new ReviewFile();
+//				reviewFile.setUserFileName(userFileName);
+//				reviewFile.setSavedFileName(savedFileName);
+//				ArrayList<ReviewFile> files = new ArrayList<ReviewFile>();
+//				files.add(reviewFile);
+//				review.setFiles(files);
+//				System.out.println(review);
+//				reviewService.registerReview(review);
+//				
+//			}catch(Exception ex) {
+//				ex.printStackTrace();
+//			}
+//			
+//		}
+		review.setDealNo(11);
+		productService.insertReview(review);
+		
+		model.addAttribute("review",review);
+		
+		return "redirect:product/detail/";
 	}
 
 }

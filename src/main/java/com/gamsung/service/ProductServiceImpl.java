@@ -7,8 +7,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gamsung.mapper.DealMapper;
 import com.gamsung.mapper.ProductMapper;
 import com.gamsung.mapper.ReviewMapper;
+import com.gamsung.vo.Deal;
 import com.gamsung.vo.Heart;
 import com.gamsung.vo.Product;
 import com.gamsung.vo.ProductFile;
@@ -23,18 +25,21 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	ReviewMapper reviewMapper;
 
+	@Autowired
+	DealMapper dealMapper;
+
+	/*	Product	*/
+	
 	@Override
 	public Product findProductByProductNo(int productNo) {
 
 		Product product = productMapper.selectProductByProductNo(productNo);
 		
-		//
-		ProductFile titleFile = productMapper.selectFileByProductNo(product.getProductNo());
+		//detail 이미지
+		ProductFile titleFile = productMapper.selectProductFileByProductNo(product.getProductNo());
 		product.setFile(titleFile);
-		List<ProductFile> files = productMapper.selectFilesByProductNo(product.getProductNo());
+		List<ProductFile> files = productMapper.selectProductFilesByProductNo(product.getProductNo());
 		product.setFiles(files);
-		
-		
 		
 		return product;
 
@@ -46,25 +51,17 @@ public class ProductServiceImpl implements ProductService {
 		ArrayList<Product> products = productMapper.selectProducts();
 		
 		for(Product product : products) {
-			ProductFile file = productMapper.selectFileByProductNo(product.getProductNo());
+			ProductFile file = productMapper.selectProductFileByProductNo(product.getProductNo());
 			product.setFile(file);
 		}
 		
 		return products;
 	}
-
-//	@Override
-//	public void writeProduct(Product product) {
-//		productMapper.insertProduct(product);
-//		
-//	}
-
+	
 	@Override
 	public Integer registerProductTx(Product product) {
-		System.out.println(product);
 		productMapper.insertProduct(product);
 		int newProductNo = product.getProductNo();
-		System.out.println(product);
 		
 		// 대표이미지
 		ProductFile titleFile = product.getFile();
@@ -83,9 +80,7 @@ public class ProductServiceImpl implements ProductService {
 		// 이미지
 		for (ProductFile file : product.getFiles()) {
 			file.setProductNo(productNo);
-			System.out.println(file);
 			productMapper.insertProductFile(file);
-			System.out.println(file);
 		}
 		
 	}
@@ -94,14 +89,36 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> findMyProductList(String memberId) {
 		
 		List<Product> products = productMapper.selectMyProductList(memberId);
-		
-		//
 		for(Product product : products) {
-			product.setFile(productMapper.selectFileByProductNo(product.getProductNo()));
+			product.setFile(productMapper.selectProductFileByProductNo(product.getProductNo()));
+			product.setDeals(dealMapper.selectDealsByProductNo(product.getProductNo()));//요청받은 거래
 		}
 		
 		return products;
 	}
+	
+
+	@Override
+	public List<Product> findMyRequestProductList(String memberId) {
+		List<Product> products = productMapper.selectMyRequestProductList(memberId);
+		for(Product product : products) {
+			product.setFile(productMapper.selectProductFileByProductNo(product.getProductNo()));
+			HashMap<String, Object> params = new HashMap<String, Object>();
+			params.put("buyer", memberId);
+			params.put("productNo", product.getProductNo());
+
+			product.setDeals(dealMapper.selectDealsByBuyer(params));//요청한 거래
+		}
+		
+		return products;
+	}
+
+	@Override
+	public void updateProductCount(int productNo) {
+		productMapper.updateProductCount(productNo);
+	}
+	
+	/*	Heart	*/
 
 	@Override
 	public void insertHeart(Heart heart) {
@@ -121,12 +138,6 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ArrayList<Review> findReviewsByProductNo(int productNo) {
-		ArrayList<Review> reviewlist = reviewMapper.selectReviewsByProductNo(productNo);
-		return reviewlist;
-	}
-
-	@Override
 	public Heart findHeart(String id, int productNo) {
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("id", id);
@@ -136,7 +147,7 @@ public class ProductServiceImpl implements ProductService {
 		
 		return heart;
 	}
-
+	
 	@Override
 	public boolean findHeartCount(String id, int productNo) {
 		HashMap<String, Object> params = new HashMap<String, Object>();
@@ -146,6 +157,32 @@ public class ProductServiceImpl implements ProductService {
 		boolean check = productMapper.selectHeartCount(params);
 		
 		return check;
+
+	}
+	
+	@Override
+	public List<Product> findMyHeartList(String memberId) {
+		
+		List<Product> heartlist = productMapper.selectMyHeartList(memberId);
+		
+		for(Product product : heartlist) {
+			product.setFile(productMapper.selectProductFileByProductNo(product.getProductNo()));
+		}
+		
+		return heartlist;
+	}
+	
+	/* Review	*/
+	
+	@Override
+	public ArrayList<Review> findReviewsByProductNo(int productNo) {
+		ArrayList<Review> reviewlist = reviewMapper.selectReviewsByProductNo(productNo);
+		return reviewlist;
+	}
+
+	@Override
+	public void insertReview(Review review) {
+		reviewMapper.insertReview(review);
 	}
 
 }

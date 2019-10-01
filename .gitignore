@@ -34,3 +34,8 @@ build/
 
 ### node ###
 node_modules/
+
+### yarn ###
+
+/yarn.lock
+/webpack.config.js

@@ -57,25 +57,36 @@
 		)
 	</insert>	
 	
-	<select id="selectFileByProductNo" parameterType="int" resultType="com.gamsung.vo.ProductFile">
+	<select id="selectProductFileByProductNo" parameterType="int" resultType="com.gamsung.vo.ProductFile">
 		select product_file_no, <include refid="productFileBasicColumns"/> 
 		from productfile 
 		where product_no = #{ productNo } and flag = true
 	</select>
 	
-	<select id="selectFilesByProductNo" parameterType="int" resultType="com.gamsung.vo.ProductFile">
+	<select id="selectProductFilesByProductNo" parameterType="int" resultType="com.gamsung.vo.ProductFile">
 		select product_file_no, <include refid="productFileBasicColumns"/> 
 		from productfile 
 		where product_no = #{ productNo } and flag = false
 	</select>
-	
-	
 	
 	<select id="selectMyProductList" resultType="com.gamsung.vo.Product" parameterType="String">
 		select <include refid="productColumns" />, product_no, reg_date
 		from product
 		where seller = #{seller}
 	</select>
+	
+	<select id="selectMyRequestProductList" resultType="com.gamsung.vo.Product" parameterType="String">
+		select seller, name, contents, d.count, d.price, category, view, d.type, p.product_no, d.reg_date
+		from product p inner join deal d
+		on p.product_no = d.product_no
+		where buyer = #{buyer} and deleted = false
+	</select>
+	
+	<update id="updateProductCount">
+		update product set count = count - 1 where product_no = #{productNo}
+	</update>
+	
+	<!-- Heart -->
 
 	<insert id="insertHeart" parameterType="com.gamsung.vo.Heart">
 		insert into heart(
@@ -103,6 +114,15 @@
 		from heart
 		where id = #{id} and product_no = #{productNo}
 	</select>
+	
+	<select id="selectMyHeartList" resultType="com.gamsung.vo.Product" parameterType="String">
+		select <include refid="productColumns" />, h.product_no
+		from product p, heart h
+		where p.product_no = h.product_no
+		and h.id = #{id}
+		order by h.reg_date desc
+	</select>
+	
 
 </mapper>
 
