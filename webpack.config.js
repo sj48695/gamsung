@@ -7,6 +7,7 @@ module.exports = {
         admin:'./adminIndex.jsx',
         myProducts:'./containers/mypage/myProducts.jsx',
         myRequestProducts:'./containers/mypage/myRequestProducts.jsx',
+        myEditUserData:'./containers/mypage/myEditUserData.jsx',
         // message:'./containers/mypage/message.jsx'
 
     },
