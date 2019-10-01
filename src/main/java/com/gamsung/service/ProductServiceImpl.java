@@ -29,8 +29,12 @@ public class ProductServiceImpl implements ProductService {
 		Product product = productMapper.selectProductByProductNo(productNo);
 		
 		//
-		ProductFile file = productMapper.selectFileByProductNo(product.getProductNo());
-		product.setFile(file);
+		ProductFile titleFile = productMapper.selectFileByProductNo(product.getProductNo());
+		product.setFile(titleFile);
+		List<ProductFile> files = productMapper.selectFilesByProductNo(product.getProductNo());
+		product.setFiles(files);
+		
+		
 		
 		return product;
 

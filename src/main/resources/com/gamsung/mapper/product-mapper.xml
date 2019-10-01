@@ -63,6 +63,12 @@
 		where product_no = #{ productNo } and flag = true
 	</select>
 	
+	<select id="selectFilesByProductNo" parameterType="int" resultType="com.gamsung.vo.ProductFile">
+		select product_file_no, <include refid="productFileBasicColumns"/> 
+		from productfile 
+		where product_no = #{ productNo } and flag = false
+	</select>
+	
 	
 	
 	<select id="selectMyProductList" resultType="com.gamsung.vo.Product" parameterType="String">
