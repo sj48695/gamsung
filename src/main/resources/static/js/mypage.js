@@ -1,6 +1,13 @@
 $(function() {
+	$('#profileImg').on("click", function(e){
+		$('#profileImgFile').trigger("click");
+	});
 	
-
+	$("#profileImgFile").on("change", function(e){
+		e.preventDefault();
+		submitProfileImage();
+	});
+	
 	/*별점*/
 	
 	$('.starRev span').click(function() {
@@ -32,3 +39,30 @@ function heart(productno){
 		}
 	});
 }
+
+//프로필 이미지를 ajax로 전송
+//jpg, jpeg, png, gif, bmp포맷만 등록이 가능하도록 제한해야 한다.
+function submitProfileImage(){
+	var profileImgFile = document.querySelector("#profileImgFile").files[0];
+	var formData = new FormData();
+	//폼 객체에 파일추가, append("변수명", 값)
+	formData.append("profileImgFile", profileImgFile);
+	
+	$.ajax({
+		type: "post",
+		url: "/member/mypage/fileUpload",
+		contentType: false,
+		dataType: "text",
+		processData: false,
+		data: formData,
+		success: function(resp){
+			if(resp == 'success'){
+				
+			}
+		}, error:function(resp){
+			alert("통신 실패...");
+		}
+	});
+}
+
+

@@ -60,6 +60,7 @@
 		, detailAddr
 		, extraAddr
 		, blackList
+		, img_file_name
 		, introduction
 		FROM member
 		WHERE id = #{ id }
@@ -106,5 +107,18 @@
 		SET blackList = 0, type= "ROLE_USER"
 		WHERE id = #{ id }	
 	</update>
+	
+	<update id="updateProfileImg" parameterType="com.gamsung.vo.Member">
+		update member 
+		set img_file_name = #{imgFileName}
+		where id = #{id} 
+	</update>
+	
+	<select id="selectProfileImgById" resultType="com.gamsung.vo.Member" parameterType="String" >
+		select img_file_name
+		from member
+		where id = #{id}
+	</select>
+	
 
 </mapper>
