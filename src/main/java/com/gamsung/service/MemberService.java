@@ -73,6 +73,16 @@ public class MemberService {
 		
 	}
 
+	public void updateProfileImg(Member member) {
+		memberMapper.updateProfileImg(member);
+		
+	}
+
+	public Member findProfileImgById(String memberId) {
+		Member member = memberMapper.selectProfileImgById(memberId);
+		return member;
+	}
+
 
 
 

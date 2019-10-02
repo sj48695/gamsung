@@ -25,4 +25,8 @@ public interface MemberMapper {
 
 	void deactivateBlackList(String id);
 
+	void updateProfileImg(Member member);
+
+	Member selectProfileImgById(String memberId);
+
 }

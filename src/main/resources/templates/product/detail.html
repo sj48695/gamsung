@@ -69,46 +69,38 @@
 							<div class="row justify-content-between">
 								<div class="row col">
 									<div class="col-12">
-										<div class="details_name" th:text="${ product.name }"></div> | <span th:text="${ product.category }"></span>
+										<div class="details_name" th:text="${ product.name }"></div> | 
+										<span th:text="${ product.category }"></span>
 									</div>
-									<div class="details_price col-12"
-										th:text="${ #numbers.formatInteger(product.price,3,'COMMA') }+'원'"></div>
+									<div class="details_price col-12" th:text="${ #numbers.formatInteger(product.price,3,'COMMA') }+'원'"></div>
 								</div>
-
+								
 								<!-- 찜 -->
 								<div th:if="${ id } != null and ${ id } != ${ product.seller }">
 									<div th:if="${ heart } != null">
-										<a
-											th:if="${#authentication.principal.member.id} == ${ heart.id }"
-											th:onclick="'javascript:heart('+${product.productNo}+')'">
-											<font size="6"><i class="fa fa-heart" id="heart"
-												style="color: #CD3B3B;"></i></font>
-										</a> <a
-											th:unless="${#authentication.principal.member.id} == ${ heart.id }"
-											th:onclick="'javascript:heart('+${product.productNo}+')'">
-											<font size="6"><i class="fa fa-heart-o" id="heart"
-												style="color: #CD3B3B;" aria-hidden="true"></i></font>
+										<a th:if="${#authentication.principal.member.id} == ${ heart.id }" th:onclick="'javascript:heart('+${product.productNo}+')'">
+											<font size="6"><i class="fa fa-heart" id="heart" style="color:#CD3B3B;"></i></font>
+										</a>
+										<a th:unless="${#authentication.principal.member.id} == ${ heart.id }" th:onclick="'javascript:heart('+${product.productNo}+')'">
+											<font size="6"><i class="fa fa-heart-o" id="heart" style="color:#CD3B3B;" aria-hidden="true"></i></font>
 										</a>
 									</div>
 									<div th:if="${ heart } == null">
 										<a th:onclick="'javascript:heart('+${product.productNo}+')'">
-											<font size="6"><i class="fa fa-heart-o" id="heart"
-												style="color: #CD3B3B;" aria-hidden="true"></i></font>
+											<font size="6"><i class="fa fa-heart-o" id="heart" style="color:#CD3B3B;" aria-hidden="true"></i></font>
 										</a>
 									</div>
 								</div>
 								<div th:if="${ id } == null">
 									<a th:onclick="'javascript:heart('+${product.productNo}+')'">
-										<font size="6"><i class="fa fa-heart-o" id="heart"
-											style="color: #CD3B3B;" aria-hidden="true"></i></font>
+										<font size="6"><i class="fa fa-heart-o" id="heart" style="color:#CD3B3B;" aria-hidden="true"></i></font>
 									</a>
 								</div>
 							</div>
-
 							<!-- In Stock -->
 							<div class="in_stock_container">
 								<div class="availability">작성자 : </div>
-								<span th:text="${ product.seller }" th:onClick="javascript()"></span>
+								<span th:text="${ product.seller }"></span>
 							</div>
 							<div class="in_stock_container">
 								<div class="availability">판매지역 : </div>
@@ -118,22 +110,22 @@
 								<div class="availability">등록일 : </div>
 								<span th:text="${#dates.format(product.regDate, 'yyyy-MM-dd')}"></span>
 							</div>
-
+						
 							<form action="/deal/requestForm" method="post" id="dealForm">
-								<input type="hidden" name="productNo" th:value="${product.productNo}"> 
-								<input type="hidden" name="price" placeholder="흥정가격"
+								<input type="hidden" name="productNo" th:value="${product.productNo}">
+								<input type="hidden" name="price" placeholder="흥정가격"  
 									th:unless="${product.type} == '흥정'" th:value="${product.price}">
-
+								
 								<!-- Product Quantity -->
-								<div class="product_quantity_container"
+								<div class="product_quantity_container" 
 									th:if="${product.seller} != ${id} and ${id} != null">
 									<div th:if="${product.type} == '흥정'">
-										<div class="availability">흥정가격 :</div>
+										<div class="availability">흥정가격 : </div>
 										<div class="product_quantity clearfix px-3">
-											<input class="w-75" type="text" name="price"
-												th:placeholder="${ #numbers.formatInteger(product.price,3,'COMMA') }"
-												th:value="${product.price}"> 
-											<span style="left: auto;">원</span>
+											<input class="w-75" type="text" name="price" 
+												th:placeholder="${ #numbers.formatInteger(product.price,3,'COMMA') }" 
+												th:value="${product.price}">
+											<span style="left:auto;">원</span>
 										</div>
 										<div class="button cart_button">
 											<a href="#" onclick="$('#dealForm').submit();">거래 신청</a>
@@ -224,8 +216,8 @@
 					</div>
 				</div>
 			</div>
+			
 			<!-- Products -->
-		
 			<div class="newsletter products">
 				<div class="container">
 					<div class="row">
@@ -278,7 +270,6 @@
 					</div>
 				</div>
 			</div>
-			
 		</div>
 	</div>
 </body>
