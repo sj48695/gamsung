@@ -43,7 +43,7 @@ public class ChatController {
 //    1:1
     @MessageMapping("/info")
     @SendToUser("/queue/info")
-    public String info(String message, SimpMessageHeaderAccessor messageHeaderAccessor) {
+    public InChatMessageVO info(InChatMessageVO message, SimpMessageHeaderAccessor messageHeaderAccessor) {
 //    	Member talker= messageHeaderAccessor.getSessionAttributes().get(SESSION).get(USER_SESSION_KEY);
     	System.out.println("info message : "+message);
     	return message;

@@ -86,6 +86,6 @@ function sendContent(contents){
 	var query={}
 	query.sender=sendNickName;
 	query.contents = contents;
-//	stompClient.send('/app/hello',{}, JSON.stringify(query));
-	stompClient.send('/app/info',{}, JSON.stringify(query));
+	stompClient.send('/app/hello',{}, JSON.stringify(query));
+//	stompClient.send('/app/info',{}, JSON.stringify(query));
 }

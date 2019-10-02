@@ -7,12 +7,8 @@ module.exports = {
         admin:'./adminIndex.jsx',
         myProducts:'./containers/mypage/myProducts.jsx',
         myRequestProducts:'./containers/mypage/myRequestProducts.jsx',
-<<<<<<< HEAD
-        message:'./containers/mypage/message.jsx'
-=======
-        myEditUserData:'./containers/mypage/myEditUserData.jsx',
-        // message:'./containers/mypage/message.jsx'
->>>>>>> branch 'master' of https://github.com/sj48695/gamsung.git
+        // message:'./containers/mypage/message.jsx',
+        myEditUserData:'./containers/mypage/myEditUserData.jsx'
 
     },
     devtool: 'sourcemaps',
