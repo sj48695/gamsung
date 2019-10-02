@@ -199,7 +199,7 @@
 	            <div class="tab-pane fade show active py-5" id="home" role="tabpanel" aria-labelledby="home-tab">
 	               <div class="container py-5" th:text="${product.contents}"></div>
 	            </div>
-	            <div class="tab-pane fade py-5" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+	            <div class="tab-pane fade py-3" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 	               
 	               <div class="container text-center">
                    	 <div class="row" style="font-size: 14pt ;font-weight: 900;">
@@ -216,7 +216,7 @@
 	                  	<div class="col" th:text="${review.contents}"></div>
 	                  	<div class="col" th:text="${#dates.format(review.regDate, 'yyyy-MM-dd')}"></div>
 	                  </div>
-	                  <div class="row py-5" th:if="${#lists.size(reviewlist)} <= 0">등록된 리뷰가 없습니다.</div>
+	                  <div class="row py-5 justify-content-center" th:if="${#lists.size(reviewlist)} <= 0">등록된 리뷰가 없습니다.</div>
 	                  <br>
 	               </div>
 	            </div>

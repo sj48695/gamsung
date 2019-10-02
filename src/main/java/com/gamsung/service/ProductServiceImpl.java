@@ -15,6 +15,7 @@ import com.gamsung.vo.Heart;
 import com.gamsung.vo.Product;
 import com.gamsung.vo.ProductFile;
 import com.gamsung.vo.Review;
+import com.gamsung.vo.ReviewFile;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -178,8 +179,33 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public void insertReview(Review review) {
+	public Integer insertReview(Review review) {
 		reviewMapper.insertReview(review);
+		int newDealNo = review.getDealNo();
+		
+		insertReviewFiles(review, newDealNo);
+		
+		return newDealNo;
+	}
+	
+	@Override
+	public void insertReviewFiles(Review review, int dealNo) {
+		// 이미지
+		for (ReviewFile file : review.getFiles()) {
+			file.setDealNo(dealNo);
+			reviewMapper.insertReviewFile(file);
+		}
+		
+	}
+
+	@Override
+	public List<Review> selectReview(String memberId) {
+		List<Review> reviewlist = reviewMapper.selectReview(memberId);
+		for(Review review : reviewlist) {
+			Deal deal = dealMapper.selectDealByDealNo(review.getDealNo());
+			review.setProductNo(deal.getProductNo());
+		}
+		return reviewlist;
 	}
 
 }

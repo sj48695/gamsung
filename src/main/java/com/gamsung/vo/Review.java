@@ -1,6 +1,8 @@
 package com.gamsung.vo;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -12,5 +14,7 @@ public class Review {
 	private Date regDate;
 	
 	private String buyer;
+	private int productNo;
 	
+	private ArrayList<ReviewFile> files;
 }
