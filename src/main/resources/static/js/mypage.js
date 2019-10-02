@@ -23,8 +23,8 @@ $(function() {
 //	});
 	//소켓서버 접속, 정보셋팅, 응답 fn 정의
 	connect(function(obj){
-		var message = '('+obj.sendNickName+')'+' - '+obj.contents;
-		$('#greetings').append('<tr><td>'+message+'</td></tr>');
+		var message = obj.contents;
+		$('#greetings').append('<div class="text-right">'+message+'</div>');
 		$('#contents').val('');
 	});
 	
@@ -81,10 +81,23 @@ function submitProfileImage(){
 	});
 }
 
-
 /*chat*/
-var sendNickName = $("#nickname").val();
-var senderId = $("#id").val();
+function chatpop(){
+
+	var seller = $('#seller').attr('value');	 
+    //팝업창출력
+    //width : 300px크기
+    //height : 300px크기
+    //top : 100px 위의 화면과 100px 차이해서 위치
+    //left : 100px 왼쪽화면과 100px 차이해서 위치
+    //툴바 X, 메뉴바 X, 스크롤바 X , 크기조절 X
+    window.open('/member/chatting/'+seller,'popName',
+                'width=700,height=900,top=100,left=100,toolbar=no,menubar=no,scrollbars=no,resizable=no,status=no');
+}
+var senderNickName = $("#senderNickName").val();
+var senderId = $("#senderId").val();
+var receiverNickName = $("#receiverNickName").val();
+var receiverId = $("#receiverId").val();
 
 function connect(fn){
 	var socket = new SockJS('http://localhost:8088/websocket');
@@ -94,33 +107,18 @@ function connect(fn){
 		stompClient.subscribe('/topic/roomId', function(obj){
 			fn(JSON.parse(obj.body));
 		});
-		stompClient.subscribe('/topic/out', function(obj){
-			fn(JSON.parse(obj.body));
-		});
-		stompClient.subscribe('/topic/in', function(obj){
-			fn(JSON.parse(obj.body));
-		});
 		stompClient.subscribe('/queue/info', function(obj){
 			fn(JSON.parse(obj.body));
 		});
-		stompClient.send("/app/in",{},sendNickName+' is in chatroom');
 	});
-}
-
-function disconnect(){
-	if(stompClient!==null){
-		stompClient.send("/app/out", {},sendNickName+ 'is out chatroom');
-		stompClient.disconnect();
-	}
-	console.log('Disconnected');
 }
 
 function sendContent(contents){
 	var query={}
-	query.sendNickName=sendNickName;
+	query.senderNickName=senderNickName;
 	query.sender=senderId;
+	query.receiverNickName=receiverNickName;
+	query.receiver=receiverId;
 	query.contents = contents;
-	query.type="send";
 	stompClient.send('/app/hello',{}, JSON.stringify(query));
-//	stompClient.send('/app/info',{}, JSON.stringify(query));
 }

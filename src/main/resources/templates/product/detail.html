@@ -100,7 +100,11 @@
 							<!-- In Stock -->
 							<div class="in_stock_container">
 								<div class="availability">작성자 : </div>
-								<span th:text="${ product.seller }"></span>
+								<span th:text="${ product.seller }"></span>&nbsp;
+								<span>
+								<input type="hidden" id="seller" th:value="${ product.seller }">
+								<i class="fa fa-envelope-open" onclick="chatpop()"></i>&nbsp;
+								<i class="fa fa-bullhorn" onclick="blackpop()"></i></span>
 							</div>
 							<div class="in_stock_container">
 								<div class="availability">판매지역 : </div>

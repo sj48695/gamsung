@@ -120,38 +120,10 @@
 							  <span class="starR1">별5_왼쪽</span>
 							  <span class="starR2">별5_오른쪽</span>
 							</div>
-							
 						</section>
 						<section id="section-topline-5">
-							<div class="container" id="message">
-								<input type="hidden" id="nickname" th:value="${#authentication.principal.member.nickname}">
-								<input type="hidden" id="id" th:value="${#authentication.principal.member.id}">
-								<div id="main-content" class="container">
-								    <div class="row">
-								        <div class="col-md-6">
-								            <form class="form-inline">
-								                <div class="form-group">
-								                    <label for="contents">보낼 메세지</label>
-								                    <input type="text" id="contents" class="form-control" placeholder="보낼 메세지">
-								                </div>
-								                <button id="send" class="btn btn-default" type="button">Send</button>
-								            </form>
-								        </div>
-								    </div>
-								    <div class="row">
-								        <div class="col-md-12">
-								            <table id="conversation" class="table table-striped">
-								                <thead>
-								                <tr>
-								                    <th>Greetings</th>
-								                </tr>
-								                </thead>
-								                <tbody id="greetings">
-								                </tbody>
-								            </table>
-								        </div>
-								    </div>
-								</div>
+							<div class="container">
+								
 							</div>
 						</section>
 						<section id="section-topline-6"><div id="editUserData"></div></section>
@@ -162,8 +134,6 @@
 		<script type="text/javascript" th:src="@{/js/react/myProducts.bundle.js}"></script>
 		<script type="text/javascript" th:src="@{/js/react/myRequestProducts.bundle.js}"></script>
 		<!-- <script type="text/javascript" th:src="@{/js/react/message.bundle.js}"></script> -->
-	    <script type="text/javascript" th:src="@{/js/socket/sockjs.min.js}"></script>
-	    <script type="text/javascript" th:src="@{/js/socket/stomp.min.js}"></script>
 		<script type="text/javascript" th:src="@{/js/react/myEditUserData.bundle.js}"></script>
 	</div>
 </body>
