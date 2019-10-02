@@ -24,8 +24,15 @@
 		select product_no, reg_date,
 		<include refid="productColumns" />
 		from product
+		WHERE deleted = false 
 		order by product_no desc
 	</select>
+	
+	<update id="deleteProduct" parameterType="int">
+		UPDATE product
+		SET DELETED = true
+		WHERE product_no = #{ productNo }
+	</update>
 	
 	<insert id="insertProduct"  parameterType="com.gamsung.vo.Product"
 			useGeneratedKeys="true" keyColumn="product_no" keyProperty="productNo">
@@ -61,6 +68,12 @@
 		select product_file_no, <include refid="productFileBasicColumns"/> 
 		from productfile 
 		where product_no = #{ productNo } and flag = true
+	</select>
+	
+	<select id="selectProductFilesByProductNo" parameterType="int" resultType="com.gamsung.vo.ProductFile">
+		select product_file_no, <include refid="productFileBasicColumns"/> 
+		from productfile 
+		where product_no = #{ productNo } and flag = false
 	</select>
 	
 	<select id="selectMyProductList" resultType="com.gamsung.vo.Product" parameterType="String">

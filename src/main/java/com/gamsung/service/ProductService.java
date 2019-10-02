@@ -47,5 +47,8 @@ public interface ProductService {
 	
 	List<Review> selectReview(String memberId);
 
+	void deleteProduct(int productNo);
+
+
 
 }
