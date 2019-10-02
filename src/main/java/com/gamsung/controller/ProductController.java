@@ -28,6 +28,7 @@ import com.gamsung.vo.Member;
 import com.gamsung.vo.Product;
 import com.gamsung.vo.ProductFile;
 import com.gamsung.vo.Review;
+import com.gamsung.vo.ReviewFile;
 
 
 @Controller
@@ -308,9 +309,9 @@ public class ProductController {
 
 	}
 	
-	@GetMapping(path = "reviewWrite")
-	public String reviewWriteForm() {
-		
+	@GetMapping(path = "reviewWrite/{dealNo}")
+	public String reviewWriteForm(@PathVariable int dealNo, Model model) {
+		model.addAttribute("dealNo", dealNo);
 		return "product/reviewwrite";
 	}
 	
@@ -318,46 +319,55 @@ public class ProductController {
 	public String reviewWrite(MultipartHttpServletRequest req, Review review, Model model) {
 		
 		Authentication auth = (Authentication) req.getUserPrincipal();
-		//String id = auth.getName();
+		
+		review.setBuyer(auth.getName());
 		
 		
+		ServletContext application = req.getServletContext();
+		String path = application.getRealPath("/files/review-files");// 최종 파일 저장 경로
+		System.out.println("================================>"+path);
+		String userFileName = "";
+		try {
+			List<MultipartFile> img = req.getFiles("imgFile");
+
+			if (img != null) {
+				File file = new File(path);
+				ArrayList<ReviewFile> files = new ArrayList<ReviewFile>();
+
+				for (int i = 0; i < img.size(); i++) {
+					userFileName = img.get(i).getOriginalFilename();
+					if (userFileName.contains("\\")) { // iexplore 경우
+						// C:\AAA\BBB\CCC.png -> CCC.png
+						userFileName = userFileName.substring(userFileName.lastIndexOf("\\") + 1);
+					}
+					if (userFileName != null && userFileName.length() > 0) { // 내용이 있는 경우
+
+						System.out.println(userFileName + " 업로드");
+						// 파일 업로드 소스 여기에 삽입
+						String uniqueFileName = Util.makeUniqueFileName(path, userFileName);// 파일이름_1.jpg
+						file = new File(path, uniqueFileName);
+						img.get(i).transferTo(file);
+
+						ReviewFile reviewFile = new ReviewFile();
+						reviewFile.setSaveFileName(uniqueFileName);
+						reviewFile.setRawFileName(userFileName);
+						files.add(reviewFile);
+						review.setFiles(files);
+
+						System.out.println(files);
+					}
+				}
+			}
+			System.out.println(review);
+			productService.insertReview(review);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-//		MultipartFile mf = req.getFile("attach");
-//		if(mf != null) {
-//			
-//			ServletContext application = req.getServletContext();
-//			String path = application.getRealPath("/resources/upload-files");
-//			
-//			String userFileName = mf.getOriginalFilename();
-//			if (userFileName.contains("\\")) {
-//				userFileName = userFileName.substring(userFileName.lastIndexOf("\\") + 1);
-//			}
-//			
-//			String savedFileName = Util.makeUniqueFileName(userFileName);
-//			
-//			try {
-//				mf.transferTo(new File(path, savedFileName));
-//											
-//				ReviewFile reviewFile = new ReviewFile();
-//				reviewFile.setUserFileName(userFileName);
-//				reviewFile.setSavedFileName(savedFileName);
-//				ArrayList<ReviewFile> files = new ArrayList<ReviewFile>();
-//				files.add(reviewFile);
-//				review.setFiles(files);
-//				System.out.println(review);
-//				reviewService.registerReview(review);
-//				
-//			}catch(Exception ex) {
-//				ex.printStackTrace();
-//			}
-//			
-//		}
-		review.setDealNo(11);
-		productService.insertReview(review);
+		model.addAttribute("review", review);
+
 		
-		model.addAttribute("review",review);
-		
-		return "redirect:product/detail/";
+		return "redirect:/product/categories";
 	}
 	
 	//window창
