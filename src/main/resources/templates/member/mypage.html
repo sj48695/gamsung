@@ -5,13 +5,14 @@
 	  layout:decorator="layouts/main">
 <head>
 <style>
-.photo2 {
+.profile {
     width: 120px; 
     height: 120px;
     margin-bottom: 20px;
     object-fit: cover;
     object-position: top;
     border-radius: 50%;
+    position:relative; bottom: 50px;
 }
 </style>
 <link rel="stylesheet" type="text/css" th:href="@{/styles/main_styles.css}">
@@ -30,42 +31,22 @@
 		<div class="container py-5">
 			<section>
 				<div class="py-5">
-					<div class="px-5" style="float:left">
-						<div style="position:relative; left:95px; top:120px">
-							<a class="btn" data-toggle="modal" data-target="#exampleModal">
-								<i class="fa fa-camera"></i>
-							</a>
-						</div>
-						<!-- Modal -->
-						<div class="modal fade" id="exampleModal" tabindex="-1"
-							role="dialog" aria-labelledby="exampleModalLabel"
-							aria-hidden="true">
-							<div class="modal-dialog" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLabel">Modal
-											title</h5>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-										</button>
-									</div>
-									<div class="modal-body">...</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary"
-											data-dismiss="modal">Close</button>
-										<button type="button" class="btn btn-primary">Save
-											changes</button>
-									</div>
-								</div>
+					<form method="post" action="/mypage/fileUpload" enctype="multipart/form-data">
+						<div class="px-5" style="float:left">
+							<div style="position:relative; left:90px; top:70px;z-index:10;">
+									<i class="fa fa-camera"></i>
 							</div>
+							 <img class="profile" id="profileImg" th:src="'/files/profile-files/'+${profile.imgFileName}" th:onclick="#profileImgFile"/>
+								<!-- <img class="profile" id="profileImg" th:src="'/files/profile-files/'+${member.imgFileName}" th:onclick="submitProfileImage();"/> -->
+								<input type="file" name="profileFile" id="profileImgFile">
 						</div>
-						<img class='photo2' src="/images/mong.jpg" />
-					</div>
+					</form>
 					<div>
-						<h3><span sec:authentication="principal.member.nickname"></span>의 상점</h3>
-						<div th:text="${member.introduction}">
-						</div>
+						<h3><span th:text="${member.nickname}"></span>의 상점</h3>
+						<div th:text="${member.introduction}"></div>
+						<a  style="position:relative;">
+								<i class="fa fa-edit"></i>
+						</a>
 					</div>
 				</div>
 				<div class="tabs tabs-style-topline">
@@ -139,17 +120,19 @@
 							  <span class="starR1">별5_왼쪽</span>
 							  <span class="starR2">별5_오른쪽</span>
 							</div>
+							
 						</section>
 						<section id="section-topline-5">
 							<div class="container" id="message">
-								<input type="hidden" id="hiddenToken" th:value="${#authentication.principal.member.nickname}">
+								<input type="hidden" id="nickname" th:value="${#authentication.principal.member.nickname}">
+								<input type="hidden" id="id" th:value="${#authentication.principal.member.id}">
 								<div id="main-content" class="container">
 								    <div class="row">
 								        <div class="col-md-6">
 								            <form class="form-inline">
 								                <div class="form-group">
-								                    <label for="name">보낼 메세지</label>
-								                    <input type="text" id="name" class="form-control" placeholder="보낼 메세지">
+								                    <label for="contents">보낼 메세지</label>
+								                    <input type="text" id="contents" class="form-control" placeholder="보낼 메세지">
 								                </div>
 								                <button id="send" class="btn btn-default" type="button">Send</button>
 								            </form>

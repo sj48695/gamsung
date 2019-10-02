@@ -1,6 +1,13 @@
 $(function() {
+	$('#profileImg').on("click", function(e){
+		$('#profileImgFile').trigger("click");
+	});
 	
-
+	$("#profileImgFile").on("change", function(e){
+		e.preventDefault();
+		submitProfileImage();
+	});
+	
 	/*별점*/
 	
 	$('.starRev span').click(function() {
@@ -16,14 +23,14 @@ $(function() {
 //	});
 	//소켓서버 접속, 정보셋팅, 응답 fn 정의
 	connect(function(obj){
-		var message = '('+obj.sender+')'+' - '+obj.contents;
+		var message = '('+obj.sendNickName+')'+' - '+obj.contents;
 		$('#greetings').append('<tr><td>'+message+'</td></tr>');
-		$('#name').val('');
+		$('#contents').val('');
 	});
 	
 	//메세지 전송
 	$('#send').click(function(){
-		sendContent($('#name').val());
+		sendContent($('#contents').val());
 	})
 });
 
@@ -49,9 +56,35 @@ function heart(productno){
 	});
 }
 
+//프로필 이미지를 ajax로 전송
+//jpg, jpeg, png, gif, bmp포맷만 등록이 가능하도록 제한해야 한다.
+function submitProfileImage(){
+	var profileImgFile = document.querySelector("#profileImgFile").files[0];
+	var formData = new FormData();
+	//폼 객체에 파일추가, append("변수명", 값)
+	formData.append("profileImgFile", profileImgFile);
+	
+	$.ajax({
+		type: "post",
+		url: "/member/mypage/fileUpload",
+		contentType: false,
+		dataType: "text",
+		processData: false,
+		data: formData,
+		success: function(resp){
+			if(resp == 'success'){
+				
+			}
+		}, error:function(resp){
+			alert("통신 실패...");
+		}
+	});
+}
+
 
 /*chat*/
-var sendNickName = $("#hiddenToken").val();
+var sendNickName = $("#nickname").val();
+var senderId = $("#id").val();
 
 function connect(fn){
 	var socket = new SockJS('http://localhost:8088/websocket');
@@ -84,8 +117,10 @@ function disconnect(){
 
 function sendContent(contents){
 	var query={}
-	query.sender=sendNickName;
+	query.sendNickName=sendNickName;
+	query.sender=senderId;
 	query.contents = contents;
+	query.type="send";
 	stompClient.send('/app/hello',{}, JSON.stringify(query));
 //	stompClient.send('/app/info',{}, JSON.stringify(query));
 }

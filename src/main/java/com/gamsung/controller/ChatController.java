@@ -22,7 +22,7 @@ public class ChatController {
     @SendTo("/topic/roomId")
     public InChatMessageVO broadcasting(InChatMessageVO message) {
     	
-    	System.out.println("message : "+message.getContents());
+    	System.out.println("message : "+message);
 		return message;
     }
 

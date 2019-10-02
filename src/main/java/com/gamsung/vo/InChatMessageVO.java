@@ -8,7 +8,6 @@ import lombok.Data;
 public class InChatMessageVO {
 	
 	private int message_no;
-	private int product_no;
 	private String sender;
 	private String contents;
 	private String type;
