@@ -114,16 +114,16 @@ public class ProductController {
 			if (titleImg != null) {
 				userFileName = titleImg.getOriginalFilename();
 				if (userFileName.contains("\\")) { // iexplore 경우
-					// C:\AAA\BBB\CCC.png -> CCC.png
+
 					userFileName = userFileName.substring(userFileName.lastIndexOf("\\") + 1);
 				}
 				if (userFileName != null && userFileName.length() > 0) { // 내용이 있는 경우
 					if (userFileName.contains("\\")) { // iexplore 경우
-						// C:\AAA\BBB\CCC.png -> CCC.png
+						
 						userFileName = userFileName.substring(userFileName.lastIndexOf("\\") + 1);
 					}
 					String uniqueFileName = Util.makeUniqueFileName(path, userFileName);// 파일이름_1.jpg
-					// String uniqueFileName=Util.makeUniqueFileName(fileName);//고유한 파일이름.jpg
+					
 					titleImg.transferTo(new File(path, uniqueFileName));// 파일 저장
 
 					ProductFile productFile = new ProductFile();
@@ -143,7 +143,7 @@ public class ProductController {
 				for (int i = 0; i < img.size(); i++) {
 					userFileName = img.get(i).getOriginalFilename();
 					if (userFileName.contains("\\")) { // iexplore 경우
-						// C:\AAA\BBB\CCC.png -> CCC.png
+						
 						userFileName = userFileName.substring(userFileName.lastIndexOf("\\") + 1);
 					}
 					if (userFileName != null && userFileName.length() > 0) { // 내용이 있는 경우
@@ -170,11 +170,115 @@ public class ProductController {
 			e.printStackTrace();
 		}
 		
-		//productService.writeProduct(product);
+		
 		model.addAttribute("product", product);
 
 		return "redirect:/product/categories";
 	}
+	
+	
+	@GetMapping(path = "/delete/{productNo}")
+	public String delete(@PathVariable int productNo) {
+	      
+	      productService.deleteProduct(productNo);
+	          
+	      return "redirect:/product/categories"; 
+	    
+	}
+	
+	@GetMapping(path = "/update/{productNo}")
+	public String updateForm(@PathVariable  int productNo, Model model) {
+
+		
+		
+		Product product = productService.findProductByProductNo(productNo);
+		
+		if(product == null) {
+			return "redirect:/product/categories";
+		}
+		
+		model.addAttribute("product", product);
+		
+		return "/product/update";
+	}
+	
+	@PostMapping(path = "/update")
+	public String update(MultipartHttpServletRequest req, Product product, Model model) {
+
+		ServletContext application = req.getServletContext();
+		String path = application.getRealPath("/files/product-files");// 최종 파일 저장 경로
+		String userFileName = "";
+		try {
+			
+			MultipartFile titleImg = req.getFile("titleImgFile");
+			if (titleImg != null) {
+				userFileName = titleImg.getOriginalFilename();
+				if (userFileName.contains("\\")) { // iexplore 경우
+					
+					userFileName = userFileName.substring(userFileName.lastIndexOf("\\") + 1);
+				}
+				if (userFileName != null && userFileName.length() > 0) { // 내용이 있는 경우
+					if (userFileName.contains("\\")) { 
+						userFileName = userFileName.substring(userFileName.lastIndexOf("\\") + 1);
+					}
+					String uniqueFileName = Util.makeUniqueFileName(path, userFileName);// 파일이름_1.jpg
+					
+					titleImg.transferTo(new File(path, uniqueFileName));// 파일 저장
+
+					ProductFile productFile = new ProductFile();
+					productFile.setSaveFileName(uniqueFileName);
+					productFile.setFlag(true);
+					productFile.setProductNo(product.getProductNo());
+					
+					//productService.updateProductFile(productFile);
+					
+					product.setFile(productFile);
+					
+				}
+			}
+
+			List<MultipartFile> img = req.getFiles("imgFile");
+
+			if (img != null) {
+				File file = new File(path);
+				ArrayList<ProductFile> files = new ArrayList<ProductFile>();
+
+				for (int i = 0; i < img.size(); i++) {
+					userFileName = img.get(i).getOriginalFilename();
+					if (userFileName.contains("\\")) { // iexplore 경우
+						// C:\AAA\BBB\CCC.png -> CCC.png
+						userFileName = userFileName.substring(userFileName.lastIndexOf("\\") + 1);
+					}
+					if (userFileName != null && userFileName.length() > 0) { // 내용이 있는 경우
+
+						System.out.println(userFileName + " 업로드");
+						// 파일 업로드 소스 여기에 삽입
+						String uniqueFileName = Util.makeUniqueFileName(path, userFileName);// 파일이름_1.jpg
+						file = new File(path, uniqueFileName);
+						img.get(i).transferTo(file);
+
+						ProductFile productFile = new ProductFile();
+						productFile.setSaveFileName(uniqueFileName);
+						productFile.setFlag(false);
+						productFile.setProductNo(product.getProductNo());
+						files.add(productFile);
+						
+						product.setFiles(files);
+						
+						productService.insertProductFiles(product, product.getProductNo());
+					}
+				}
+			}
+			// 데이터 저장
+			//productService.updateProduct(product);
+			model.addAttribute("product", product);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/product/detail/" + product.getProductNo();
+	}
+	
 
 	// 찜하기
 	@GetMapping(path = "/heart")
@@ -254,6 +358,18 @@ public class ProductController {
 		model.addAttribute("review",review);
 		
 		return "redirect:product/detail/";
+	}
+	
+	//window창
+	@GetMapping(path = "/black")
+	public String blackForm(Model model, HttpServletRequest req ) {
+		Authentication auth = (Authentication)req.getUserPrincipal();
+		auth.getPrincipal();
+		
+		List<Product> products = productService.findProducts();
+		model.addAttribute("products", products);
+		
+		return "/product/black"; 
 	}
 
 }

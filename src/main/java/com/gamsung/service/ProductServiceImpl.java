@@ -34,9 +34,12 @@ public class ProductServiceImpl implements ProductService {
 	public Product findProductByProductNo(int productNo) {
 
 		Product product = productMapper.selectProductByProductNo(productNo);
-
-		ProductFile file = productMapper.selectProductFileByProductNo(product.getProductNo());
-		product.setFile(file);
+		
+		//detail 이미지
+		ProductFile titleFile = productMapper.selectProductFileByProductNo(product.getProductNo());
+		product.setFile(titleFile);
+		List<ProductFile> files = productMapper.selectProductFilesByProductNo(product.getProductNo());
+		product.setFiles(files);
 		
 		return product;
 
@@ -180,6 +183,12 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void insertReview(Review review) {
 		reviewMapper.insertReview(review);
+	}
+
+	@Override
+	public void deleteProduct(int productNo) {
+		productMapper.deleteProduct(productNo);
+		
 	}
 
 }

@@ -57,12 +57,13 @@
 						</ul>
 					</div>
 				</div>
-				<div class="sorting_container ml-md-auto">
+				<div class="sorting_container ml-md-auto"> 
 					<form action="#">
 						<input type="text" class="search_input" placeholder="Search" required="required">
-					</form>
+					</form>	
 				</div>
 			</div>
+			
 				<div class="product_grid">
 					<!-- Product -->
 					<div class="product" th:if="${ #lists.size(products) } > 0" th:each="product : ${products}">
