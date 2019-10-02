@@ -1,6 +1,7 @@
 package com.gamsung.controller;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +33,8 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	private ProductService productService;
@@ -181,6 +185,32 @@ public class MemberController {
 	public String activeBlackList(@RequestBody Member member) {
 		memberService.activateBlackList(member, member.getId());
 		
+		return "{ \"result\": \"sucess\"}";
+	}
+	
+	@GetMapping(path= {"openEditor"})
+	@ResponseBody
+	public String openEditor() {
+		
+		return "{ \"result\": \"sucess\"}";
+	}
+	
+	@PostMapping(path= {"/mypage/confirmpwd"})
+	@ResponseBody
+	public String confrimPwd(@RequestBody HashMap<String, String> pwd, HttpServletRequest req) throws Exception{
+		Authentication auth = (Authentication) req.getUserPrincipal();
+		String id =  auth.getName();
+		
+		Member member = memberService.findMemberById(id);
+		
+		String password = member.getPwd();
+		
+		boolean confirmpwd = passwordEncoder.matches(pwd.get("pwd"), password);
+			
+		if(confirmpwd != true) {
+			return "{ \"result\": \"failure\"}";
+			
+		}
 		return "{ \"result\": \"sucess\"}";
 	}
 

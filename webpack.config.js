@@ -7,7 +7,9 @@ module.exports = {
         admin:'./adminIndex.jsx',
         myProducts:'./containers/mypage/myProducts.jsx',
         myRequestProducts:'./containers/mypage/myRequestProducts.jsx',
-        // message:'./containers/mypage/message.jsx'
+        // message:'./containers/mypage/message.jsx',
+        myEditUserData:'./containers/mypage/myEditUserData.jsx'
+
     },
     devtool: 'sourcemaps',
     cache: true,

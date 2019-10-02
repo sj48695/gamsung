@@ -1,7 +1,9 @@
 import React,{Component} from 'react';
+import { Route } from 'react-router-dom';
 
 import Header from './header.js';
 import ManageManager from './managements/manageManager.jsx';
+import ReportManager from './reports/reportManager.jsx';
 
 class App extends Component {
     constructor(props) {
@@ -15,7 +17,8 @@ class App extends Component {
         <div className="container">
             <Header />
             <div className="gide-main">
-                <ManageManager />
+                <Route exact path="/member/admin" title="managements" component={ManageManager}  />
+                <Route  path="/member/report" title="reports" component={ReportManager} />
             </div>
         </div>
         )

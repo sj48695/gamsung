@@ -46,6 +46,11 @@
 		    <artifactId>thymeleaf-extras-springsecurity5</artifactId>
 		</dependency>
 
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.9.10</version>
+		</dependency>
 
 		
 		<dependency>
@@ -118,7 +123,24 @@
 		    <artifactId>commons-io</artifactId>
 		    <version>2.6</version>
 		</dependency>
-
+		
+		<!-- Messaging : https://mvnrepository.com/artifact/org.springframework/spring-messaging -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-messaging</artifactId>
+		</dependency>
+		
+		<!-- WebSocket : https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-websocket -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-websocket</artifactId>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+		<dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
