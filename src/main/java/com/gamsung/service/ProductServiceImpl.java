@@ -185,4 +185,10 @@ public class ProductServiceImpl implements ProductService {
 		reviewMapper.insertReview(review);
 	}
 
+	@Override
+	public void deleteProduct(int productNo) {
+		productMapper.deleteProduct(productNo);
+		
+	}
+
 }

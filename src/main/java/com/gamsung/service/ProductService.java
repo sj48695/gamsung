@@ -43,4 +43,7 @@ public interface ProductService {
 
 	void insertReview(Review review);
 
+	void deleteProduct(int productNo);
+
+
 }

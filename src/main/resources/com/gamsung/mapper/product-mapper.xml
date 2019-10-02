@@ -24,8 +24,15 @@
 		select product_no, reg_date,
 		<include refid="productColumns" />
 		from product
+		WHERE deleted = false 
 		order by product_no desc
 	</select>
+	
+	<update id="deleteProduct" parameterType="int">
+		UPDATE product
+		SET DELETED = true
+		WHERE product_no = #{ productNo }
+	</update>
 	
 	<insert id="insertProduct"  parameterType="com.gamsung.vo.Product"
 			useGeneratedKeys="true" keyColumn="product_no" keyProperty="productNo">
@@ -79,7 +86,7 @@
 		select seller, name, contents, d.count, d.price, category, view, d.type, p.product_no, d.reg_date
 		from product p inner join deal d
 		on p.product_no = d.product_no
-		where buyer = #{buyer} and deleted = false
+		where buyer = #{buyer} and d.deleted = false
 	</select>
 	
 	<update id="updateProductCount">
