@@ -141,7 +141,35 @@
 							</div>
 						</section>
 						<section id="section-topline-5">
-							<div class="container" id="message"></div>
+							<div class="container" id="message">
+								<input type="hidden" id="hiddenToken" th:value="${#authentication.principal.member.nickname}">
+								<div id="main-content" class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="name">보낼 메세지</label>
+                    <input type="text" id="name" class="form-control" placeholder="보낼 메세지">
+                </div>
+                <button id="send" class="btn btn-default" type="button">Send</button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table id="conversation" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Greetings</th>
+                </tr>
+                </thead>
+                <tbody id="greetings">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+							</div>
 						</section>
 						<section id="section-topline-6"><p>6</p></section>
 					</div><!-- /content -->
@@ -150,6 +178,8 @@
 		</div>
 		<script type="text/javascript" th:src="@{/js/react/myProducts.bundle.js}"></script>
 		<script type="text/javascript" th:src="@{/js/react/myRequestProducts.bundle.js}"></script>
+    <script th:src="@{/js/socket/sockjs.min.js}"></script>
+    <script th:src="@{/js/socket/stomp.min.js}"></script>
 		<!-- <script type="text/javascript" th:src="@{/js/react/message.bundle.js}"></script> -->
 	</div>
 </body>
