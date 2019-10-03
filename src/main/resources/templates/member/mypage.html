@@ -87,7 +87,7 @@
 													<div style="position: relative;top: 10px;left: 200px ">
 														<div>
 															<a th:onclick="'javascript:heart('+${heart.productNo}+')'">
-																<font size="6"><i class="fa fa-heart" id="heart"
+																<font size="6"><i class="fa fa-heart" th:id="'heart'+${heart.productNo}"
 																	style="color: #CD3B3B;"></i></font>
 															</a>
 														</div>

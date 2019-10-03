@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -96,6 +97,19 @@ public class MemberController {
 		return "member/mypage";
 	}
 	
+	//상점
+	@GetMapping(path = "store/{id}")
+	public String store(Model model, @PathVariable String id) {
+		
+		Member member = memberService.findMemberById(id);
+		List<Product> products = productService.findMyProductList(id);
+		
+		model.addAttribute("member", member);
+		model.addAttribute("products", products);
+		
+		return "member/store";
+	}
+	
 	@GetMapping(path = "mypage/fileUpload")
 	public String fileUpload() {
 		return "mypage";
@@ -158,7 +172,7 @@ public class MemberController {
 		return member.getIntroduction();
 	}
 	
-	@PostMapping(path = "/mypage/products")
+	@GetMapping(path = "/mypage/products")
 	@ResponseBody
 	public List<Product> mypageProducts(HttpServletRequest req) {
 		Authentication auth = (Authentication)req.getUserPrincipal();
