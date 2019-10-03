@@ -55,9 +55,9 @@ function heart(productno){
 		data:{productNo : productno},
 		success:function(data, status, xhr){
 				 if(data == "success") {
-	                 $('#heart').attr("class","fa fa-heart");
+	                 $('#heart'+productno).attr("class","fa fa-heart");
 	             }else if(data == "removeheart"){
-	                 $('#heart').attr("class","fa fa-heart-o");
+	                 $('#heart'+productno).attr("class","fa fa-heart-o");
 	             }else if(data == "error"){
 	            	 alert("로그인 후 이용가능합니다.");
 	             }

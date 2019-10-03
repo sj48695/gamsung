@@ -34,4 +34,6 @@ public interface MemberMapper {
 	void updateIntroduction(Member member);
 
 
+	Member selectStoreById(String id);
+
 }

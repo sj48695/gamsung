@@ -91,7 +91,9 @@ public class MemberService {
 
 	}
 
-
-
+	public Member findStoreById(String id) {
+		Member member = memberMapper.selectStoreById(id);
+		return member;
+	}
 
 }
