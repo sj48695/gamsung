@@ -157,6 +157,7 @@ public class ProductController {
 
 						ProductFile productFile = new ProductFile();
 						productFile.setSaveFileName(uniqueFileName);
+						productFile.setRawFileName(userFileName);
 						productFile.setFlag(false);
 						files.add(productFile);
 						product.setFiles(files);
@@ -260,6 +261,7 @@ public class ProductController {
 
 					ProductFile productFile = new ProductFile();
 					productFile.setSaveFileName(uniqueFileName);
+					productFile.setRawFileName(userFileName);
 					productFile.setFlag(true);
 					productFile.setProductNo(product.getProductNo());
 					
@@ -292,6 +294,7 @@ public class ProductController {
 
 						ProductFile productFile = new ProductFile();
 						productFile.setSaveFileName(uniqueFileName);
+						productFile.setRawFileName(userFileName);
 						productFile.setFlag(false);
 						productFile.setProductNo(product.getProductNo());
 						files.add(productFile);
