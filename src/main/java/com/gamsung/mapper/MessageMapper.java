@@ -12,6 +12,4 @@ public interface MessageMapper {
 
 	List<InChatMessageVO> selectMessageList(HashMap<String, String> params);
 
-	void insertMessage(InChatMessageVO message);
-
 }
