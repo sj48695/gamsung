@@ -339,7 +339,10 @@ $(function () {
 		$('.product_images').empty();
 		readURL(this, $(".product_images"));
 	});
-	
+	$("#review_writeForm").on("change", "#imgFile", function (event) {
+		$('.product_images').empty();
+		readURL(this, $(".product_images"));
+	});
 	
 	$("#dealForm").on("click","#back_button", function(event){
 		var productNo = $(this).attr("data-productNo");
