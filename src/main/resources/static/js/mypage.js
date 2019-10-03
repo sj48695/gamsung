@@ -13,6 +13,7 @@ $(function() {
 	$('.starRev span').click(function() {
 		$(this).parent().children('span').removeClass('on');
 		$(this).addClass('on').prevAll('span').addClass('on');
+		$("#rating").val($(this).attr('data-star'));
 		return false;
 	});
 

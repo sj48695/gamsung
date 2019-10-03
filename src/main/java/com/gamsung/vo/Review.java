@@ -11,6 +11,7 @@ public class Review {
 
 	private int dealNo;
 	private String contents;
+	private float rating;
 	private Date regDate;
 	
 	private String buyer;
