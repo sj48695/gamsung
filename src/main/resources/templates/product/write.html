@@ -98,7 +98,7 @@
 										<option value="의류/잡화">의류/잡화</option>
 										<option value="생활용품">생활용품</option>
 										<option value="기타">기타</option>
-									</select> <br>		<hr>
+									</select> <br><hr>
 					
 					Seller : <input type="hidden" name="seller" th:text="${#authentication.principal.member.nickname}"><br>	<hr>
 					
@@ -108,7 +108,7 @@
 					Price : <input type="text" name="price" 
 										style="width: 250px" class="form-control" /><br>
 				
-					Content : <textarea name="contents" 
+					Content : <textarea name="contents"  
 									style="width: 550px" rows="10" class="form-control"></textarea><br>
 				
 					Count : <input type="text" name="count" 
@@ -128,7 +128,7 @@
 	<div class="newsletter">
 				<div class="col-lg-8 offset-lg-2">
 					<div class="newsletter_content text-center">
-							<button class="newsletter_button trans_200" id="insertBoard" ><span>판매등록</span></button>
+							<button class="newsletter_button trans_200" ><span>판매등록</span></button>
 							<button type="button" class="newsletter_button trans_200" id="back_button" 
 								onclick="history.back();"><span>취소</span></button>
 					</div>
