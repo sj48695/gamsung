@@ -73,6 +73,11 @@ public class MemberService {
 		
 	}
 
+	public void UpdateUser(Member member) {
+		memberMapper.Update(member);
+
+	}
+
 
 
 

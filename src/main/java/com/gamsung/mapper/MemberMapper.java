@@ -25,4 +25,6 @@ public interface MemberMapper {
 
 	void deactivateBlackList(String id);
 
+	void Update(Member member);
+
 }

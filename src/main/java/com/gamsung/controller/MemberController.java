@@ -150,10 +150,27 @@ public class MemberController {
 		boolean confirmpwd = passwordEncoder.matches(pwd.get("pwd"), password);
 			
 		if(confirmpwd != true) {
-			return "{ \"result\": \"failure\"}";
+			return "failure";
 			
 		}
-		return "{ \"result\": \"sucess\"}";
+		return "success";
+	}
+	
+	@GetMapping(path= {"/mypage/userData"})
+	@ResponseBody
+	public Member userData(HttpServletRequest req) {
+		Authentication auth = (Authentication)req.getUserPrincipal();
+		String id = auth.getName();
+		Member member = memberService.findMemberById(id);
+		
+		return member; 
+	}
+	
+	@PostMapping(path = { "/mypage/userUpdate" })
+	@ResponseBody
+	public String userUpdate(@RequestBody Member member) {
+		 memberService.UpdateUser(member);
+		return "success";
 	}
 
 }

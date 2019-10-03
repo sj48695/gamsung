@@ -106,5 +106,18 @@
 		SET blackList = 0, type= "ROLE_USER"
 		WHERE id = #{ id }	
 	</update>
+	
+	<update id="Update" parameterType="com.gamsung.vo.Member">
+		UPDATE member
+		SET 
+		 nickname = #{ nickname }
+		,	phone = #{ phone }
+		, postcode = #{ postcode }
+		, roadAddr = #{ roadAddr }
+		, jibunAddr = #{ jibunAddr }
+		, detailAddr = #{ detailAddr }
+		, extraAddr = #{ extraAddr }
+		WHERE id = #{ id }			
+	</update>
 
 </mapper>
