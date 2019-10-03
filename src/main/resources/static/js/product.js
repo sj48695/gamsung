@@ -315,7 +315,7 @@ function readURL(input,target) {
 	}
 }
 
-function javascript(){
+function blackpop(){
 	 
     //팝업창출력
     //width : 300px크기

@@ -21,7 +21,10 @@
     "react-dom": "^16.9.0",
     "react-google-charts": "^3.0.15",
     "react-modal": "^3.10.1",
+    "react-new-window": "^0.1.2",
+    "react-popout": "^1.0.2",
     "react-number-format": "^4.3.0",
+
     "react-router-dom": "^5.0.1",
     "react-stomp": "^4.1.0",
     "react-talk": "^1.0.0",
