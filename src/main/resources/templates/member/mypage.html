@@ -30,24 +30,29 @@
 	<div class="newsletter" layout:fragment="content">
 		<div class="container py-5">
 			<section>
-				<div class="py-5">
-					<form method="post" action="/mypage/fileUpload" enctype="multipart/form-data">
+				<div class="py-2">
+					<form method="post" action="/member/mypage/introduction" id="introduction" enctype="multipart/form-data">
 						<div class="px-5" style="float:left">
 							<div style="position:relative; left:90px; top:70px;z-index:10;">
-									<i class="fa fa-camera"></i>
+									<i class="fa fa-camera" id="profileImgIcon"></i>
 							</div>
-							 <img class="profile" id="profileImg" th:src="'/files/profile-files/'+${profile.imgFileName}" th:onclick="#profileImgFile"/>
+							 <img class="profile" th:src="'/files/profile-files/'+${member.imgFileName}" />
 								<!-- <img class="profile" id="profileImg" th:src="'/files/profile-files/'+${member.imgFileName}" th:onclick="submitProfileImage();"/> -->
-								<input type="file" name="profileFile" id="profileImgFile">
+								<input type="file" name="profileFile" id="profileImgFile" accept="image/*" style="display:none">
 						</div>
-					</form>
+					
 					<div>
 						<h3><span th:text="${member.nickname}"></span>의 상점</h3>
-						<div th:text="${member.introduction}"></div>
-						<a  style="position:relative;">
-								<i class="fa fa-edit"></i>
-						</a>
+						<div id="intro_div" class="row">
+						
+								<i id="update" class="fa fa-edit col-2" th:data-introduction="${member.introduction}"></i>
+							<div id="intro_view" class="col-8 row" th:text="${member.introduction}"></div>
+							<!-- <textarea class="form-control" id="intro" name="introduction" th:text="${member.introduction}"></textarea> -->
+						 
+						</div>
+						 
 					</div>
+					</form>
 				</div>
 				<div class="tabs tabs-style-topline">
 					<nav>

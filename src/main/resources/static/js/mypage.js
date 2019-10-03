@@ -1,11 +1,23 @@
 $(function() {
-	$('#profileImg').on("click", function(e){
+	// 프로필 이미지를 클릭하면 input[type=file] 창이 뜨게 하는 이벤트 리스너 등록
+	$('#profileImgIcon').on("click", function(e){
 		$('#profileImgFile').trigger("click");
 	});
 	
+	// 프로필 사진이 등록되면 이를 감지하여 프로필 사진을 전송
 	$("#profileImgFile").on("change", function(e){
 		e.preventDefault();
 		submitProfileImage();
+	});
+	
+	//소개글 수정 아이콘 눌렀을 때
+	$('#update').on("click", function(e){
+		
+		var introduction = $(this).attr('data-introduction');
+		$('#intro_view').empty();
+		$('#intro_view').html('<textarea class="form-control col-8" id="intro" name="introduction">'+introduction+'</textarea>\
+				<a class="btn bnt-primary col-2" onclick="javascript:introduction();">수정</a>');
+		$(this).remove();
 	});
 	
 	/*별점*/
@@ -71,12 +83,32 @@ function submitProfileImage(){
 		dataType: "text",
 		processData: false,
 		data: formData,
-		success: function(resp){
-			if(resp == 'success'){
-				
-			}
+		success: function(data, resp){
+			//통신 성공
+			$(".profile").attr('src','/files/profile-files/'+ data);
 		}, error:function(resp){
 			alert("통신 실패...");
+		}
+	});
+}
+
+/*소개글*/
+function introduction(){
+	var formData = $("#introduction").serialize();
+	var intro = $('#intro').val();
+	$.ajax({
+		url:"/member/mypage/introduction",
+		methods:"post",
+		data:formData,
+		success:function(data, status, xhr){
+				$("#intro_div").empty();
+				$("#intro_div").html('<i id="update" class="fa fa-edit col-2" data-introduction="'+data+'"></i>\
+						<div id="intro_view" class="col-8 row">'+intro+'</div>');
+			
+        	 alert("수정성공!");
+		},
+		error:function(status, xhr, err){
+			alert("수정할 수 없습니다.\n" + err);
 		}
 	});
 }

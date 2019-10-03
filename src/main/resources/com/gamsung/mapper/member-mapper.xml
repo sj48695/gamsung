@@ -120,5 +120,10 @@
 		where id = #{id}
 	</select>
 	
+	<update id="updateIntroduction" parameterType="com.gamsung.vo.Member">
+		update member
+		set introduction = #{introduction}
+		where id = #{id}
+	</update>
 
 </mapper>
