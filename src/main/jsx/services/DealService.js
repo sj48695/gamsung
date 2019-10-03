@@ -20,6 +20,9 @@ export const updateDealActive = (dealNo, active) => {
 export const deleteDeal = (dealNo) => {
     return new Promise((resolve, reject) => {
         axios.delete(`/deal/delete/${dealNo}`)
+
+
+
             .then((result) => {
                 console.log(result.data);
                 const data = result.data;

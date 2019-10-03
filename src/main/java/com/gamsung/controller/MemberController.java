@@ -26,6 +26,7 @@ import com.gamsung.service.MemberService;
 import com.gamsung.service.ProductService;
 import com.gamsung.vo.Member;
 import com.gamsung.vo.Product;
+import com.gamsung.vo.Review;
 
 @Controller
 @RequestMapping(value= "/member")
@@ -80,6 +81,8 @@ public class MemberController {
 		List<Product> products = productService.findMyProductList(memberId);
 		List<Product> requestProducts = productService.findMyRequestProductList(memberId);
 		
+		List<Review> reviews = productService.selectReview(memberId);
+		
 		//내가 찜한 목록
 		List<Product> hearts = productService.findMyHeartList(memberId);
 
@@ -88,6 +91,7 @@ public class MemberController {
 		model.addAttribute("products", products);
 		model.addAttribute("hearts", hearts);		
 		model.addAttribute("requestProducts", requestProducts);
+		model.addAttribute("reviews", reviews);
 		
 		return "member/mypage";
 	}

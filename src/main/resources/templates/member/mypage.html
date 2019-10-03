@@ -48,9 +48,7 @@
 								<i id="update" class="fa fa-edit col-2" th:data-introduction="${member.introduction}"></i>
 							<div id="intro_view" class="col-8 row" th:text="${member.introduction}"></div>
 							<!-- <textarea class="form-control" id="intro" name="introduction" th:text="${member.introduction}"></textarea> -->
-						 
 						</div>
-						 
 					</div>
 					</form>
 				</div>
@@ -111,8 +109,18 @@
 							</div>
 						</section>
 						<section id="section-topline-4">
-						<button class="newsletter_button" onclick="location.href='/product/reviewWrite'"><span>리뷰 작성</span></button>
-						
+							
+							<div class="row py-3"
+		                  			th:if="${#lists.size(reviews)} > 0"
+		                   			th:each="review : ${reviews}">
+		                  		<div class="col">
+		                  			<a th:href="'/product/detail/'+${review.productNo}" th:text="${review.contents}"></a>
+		                  		</div>
+		                  		<div class="col" th:text="${#dates.format(review.regDate, 'yyyy-MM-dd')}"></div>
+		                  	</div>
+							
+						<!-- <button class="newsletter_button" onclick="location.href='/product/reviewWrite'"><span>리뷰 작성</span></button> -->
+							
 							<div class="starRev">
 							  <span class="starR1 on">별1_왼쪽</span>
 							  <span class="starR2">별1_오른쪽</span>

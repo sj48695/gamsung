@@ -5,6 +5,10 @@
 
 <mapper namespace="com.gamsung.mapper.ReviewMapper">
 
+<!-- <sql id="reviewFileBasicColumns">
+		product_no, save_file_name, raw_file_name
+	</sql>
+ -->
 
 	<!-- Review -->
 
@@ -29,6 +33,30 @@
 			#{contents}
 		)
 	</insert>
+	
+	<insert id="insertReviewFile" parameterType="com.gamsung.vo.ReviewFile">
+		INSERT INTO reviewfile (
+			deal_no, save_file_name, raw_file_name
+		)
+		VALUES (
+			  #{ dealNo } 
+	        , #{ saveFileName }
+	        , #{ rawFileName }
+		)
+	</insert>
+		
+	<select id="selectReview" resultType="com.gamsung.vo.Review" parameterType="string">
+		select r.deal_no, r.contents, r.reg_date, d.buyer, d.product_no
+		from review r INNER JOIN deal d
+		on d.deal_no = r.deal_no
+		where d.buyer = #{id}
+	</select>
+	
+	<!-- <select id="selectreviewFileByProductNo" parameterType="int" resultType="com.gamsung.vo.reviewFile">
+		select review_file_no, <include refid="reviewFileBasicColumns"/> 
+		from reviewfile 
+		where product_no = #{ productNo }
+	</select> -->
 
 	
 
