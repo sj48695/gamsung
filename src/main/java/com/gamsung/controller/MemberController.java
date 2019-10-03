@@ -158,14 +158,13 @@ public class MemberController {
 		return member.getIntroduction();
 	}
 	
-	@PostMapping(path = "/mypage/products")
+	@GetMapping(path = "/mypage/products")
 	@ResponseBody
 	public List<Product> mypageProducts(HttpServletRequest req) {
 		Authentication auth = (Authentication)req.getUserPrincipal();
 		String memberId = auth.getName();
 		
 		List<Product> products = productService.findMyProductList(memberId);
-		
 		return products;
 	}
 	
@@ -176,7 +175,6 @@ public class MemberController {
 		String memberId = auth.getName();
 		
 		List<Product> requestProducts = productService.findMyRequestProductList(memberId);
-		
 		return requestProducts;
 	}
 	

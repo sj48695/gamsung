@@ -26,11 +26,12 @@
 	
 	<insert id="insertReview" parameterType="com.gamsung.vo.Review">
 		insert into review(
-			deal_no, contents
+			deal_no, contents, rating
 		)
 		values(
 			#{dealNo},
-			#{contents}
+			#{contents},
+			#{rating}
 		)
 	</insert>
 	

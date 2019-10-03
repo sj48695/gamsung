@@ -43,6 +43,8 @@ public class SecurityConfig
 			.antMatchers("/member/admin").access("hasRole('ROLE_ADMIN')")
 			.antMatchers("/member/mypage").access("hasAnyRole('ROLE_USER, ROLE_BLACKLIST')")
 			.antMatchers("/product/write").access("hasRole('ROLE_USER')")
+			.antMatchers("/product/update/**").access("hasRole('ROLE_USER')")
+			.antMatchers("/member/chatting/**").access("hasRole('ROLE_USER')")
 			.antMatchers("/deal/requestForm").access("hasRole('ROLE_USER')")
 			.anyRequest().permitAll()
 			.and()
