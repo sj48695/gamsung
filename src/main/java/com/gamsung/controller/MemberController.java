@@ -105,6 +105,8 @@ public class MemberController {
 	@PostMapping(path = "/mypage/fileUpload", produces = "text/plain;charset=utf-8")
 	@ResponseBody
 	public String fileUpload(MultipartHttpServletRequest req, HttpServletRequest request){
+		
+		Member member = new Member();
 		Authentication auth = (Authentication)request.getUserPrincipal();
 		String memberId = auth.getName();
 		
@@ -129,7 +131,6 @@ public class MemberController {
 					// String uniqueFileName=Util.makeUniqueFileName(fileName);//고유한 파일이름.jpg
 					profileImg.transferTo(new File(path, uniqueFileName));// 파일 저장
 					
-					Member member = new Member();
 					member.setId(memberId);
 					member.setImgFileName(uniqueFileName);
 					
@@ -142,7 +143,19 @@ public class MemberController {
 			e.printStackTrace();
 		}
 		
-		return "success";
+		return member.getImgFileName();
+	}
+	
+	@GetMapping(path = "/mypage/introduction")
+	@ResponseBody
+	public String writeIntroduction(HttpServletRequest req, Member member) {
+		Authentication auth = (Authentication)req.getUserPrincipal();
+		String memberId = auth.getName();
+	
+		member.setId(memberId);
+		memberService.updateIntroduction(member);
+		
+		return member.getIntroduction();
 	}
 	
 	@GetMapping(path = "/mypage/products")
@@ -152,7 +165,6 @@ public class MemberController {
 		String memberId = auth.getName();
 		
 		List<Product> products = productService.findMyProductList(memberId);
-		
 		return products;
 	}
 	
@@ -163,7 +175,6 @@ public class MemberController {
 		String memberId = auth.getName();
 		
 		List<Product> requestProducts = productService.findMyRequestProductList(memberId);
-		
 		return requestProducts;
 	}
 	

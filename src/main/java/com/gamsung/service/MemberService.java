@@ -83,6 +83,11 @@ public class MemberService {
 		return member;
 	}
 
+	public void updateIntroduction(Member member) {
+		memberMapper.updateIntroduction(member);
+		
+	}
+
 
 
 

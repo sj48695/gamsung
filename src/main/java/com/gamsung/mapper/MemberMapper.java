@@ -29,4 +29,6 @@ public interface MemberMapper {
 
 	Member selectProfileImgById(String memberId);
 
+	void updateIntroduction(Member member);
+
 }
