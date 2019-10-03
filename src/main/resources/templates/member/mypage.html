@@ -24,30 +24,39 @@
 <link rel="stylesheet" type="text/css" th:href="@{/styles/mypage/css/tabstyles.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/styles/mypage/css/mypage.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/styles/mypage/css/pe-icon-7-stroke.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/animate.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/main_styles.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/checkout.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/responsive.css}">
 
 </head>
 <body>
 	<div class="newsletter" layout:fragment="content">
 		<div class="container py-5">
 			<section>
-				<div class="py-5">
-					<form method="post" action="/mypage/fileUpload" enctype="multipart/form-data">
+				<div class="py-2">
+					<form method="post" action="/member/mypage/introduction" id="introduction" enctype="multipart/form-data">
 						<div class="px-5" style="float:left">
 							<div style="position:relative; left:90px; top:70px;z-index:10;">
-									<i class="fa fa-camera"></i>
+									<i class="fa fa-camera" id="profileImgIcon"></i>
 							</div>
-							 <img class="profile" id="profileImg" th:src="'/files/profile-files/'+${profile.imgFileName}" th:onclick="#profileImgFile"/>
+							 <img class="profile" th:src="'/files/profile-files/'+${member.imgFileName}" />
 								<!-- <img class="profile" id="profileImg" th:src="'/files/profile-files/'+${member.imgFileName}" th:onclick="submitProfileImage();"/> -->
-								<input type="file" name="profileFile" id="profileImgFile">
+								<input type="file" name="profileFile" id="profileImgFile" accept="image/*" style="display:none">
 						</div>
-					</form>
+					
 					<div>
 						<h3><span th:text="${member.nickname}"></span>의 상점</h3>
-						<div th:text="${member.introduction}"></div>
-						<a  style="position:relative;">
-								<i class="fa fa-edit"></i>
-						</a>
+						<div id="intro_div" class="row">
+						
+								<i id="update" class="fa fa-edit col-2" th:data-introduction="${member.introduction}"></i>
+							<div id="intro_view" class="col-8 row" th:text="${member.introduction}"></div>
+							<!-- <textarea class="form-control" id="intro" name="introduction" th:text="${member.introduction}"></textarea> -->
+						</div>
 					</div>
+					</form>
 				</div>
 				<div class="tabs tabs-style-topline">
 					<nav>
@@ -84,7 +93,7 @@
 													<div style="position: relative;top: 10px;left: 200px ">
 														<div>
 															<a th:onclick="'javascript:heart('+${heart.productNo}+')'">
-																<font size="6"><i class="fa fa-heart" id="heart"
+																<font size="6"><i class="fa fa-heart" th:id="'heart'+${heart.productNo}"
 																	style="color: #CD3B3B;"></i></font>
 															</a>
 														</div>
@@ -106,8 +115,18 @@
 							</div>
 						</section>
 						<section id="section-topline-4">
-						<button class="newsletter_button" onclick="location.href='/product/reviewWrite'"><span>리뷰 작성</span></button>
-						
+							
+							<div class="row py-3"
+		                  			th:if="${#lists.size(reviews)} > 0"
+		                   			th:each="review : ${reviews}">
+		                  		<div class="col">
+		                  			<a th:href="'/product/detail/'+${review.productNo}" th:text="${review.contents}"></a>
+		                  		</div>
+		                  		<div class="col" th:text="${#dates.format(review.regDate, 'yyyy-MM-dd')}"></div>
+		                  	</div>
+							
+						<!-- <button class="newsletter_button" onclick="location.href='/product/reviewWrite'"><span>리뷰 작성</span></button> -->
+							
 							<div class="starRev">
 							  <span class="starR1 on">별1_왼쪽</span>
 							  <span class="starR2">별1_오른쪽</span>
@@ -122,37 +141,11 @@
 							</div>
 						</section>
 						<section id="section-topline-5">
-							<div class="container" id="message">
-								<input type="hidden" id="hiddenToken" th:value="${#authentication.principal.member.nickname}">
-								<div id="main-content" class="container">
-								    <div class="row">
-								        <div class="col-md-6">
-								            <form class="form-inline">
-								                <div class="form-group">
-								                    <label for="name">보낼 메세지</label>
-								                    <input type="text" id="name" class="form-control" placeholder="보낼 메세지">
-								                </div>
-								                <button id="send" class="btn btn-default" type="button">Send</button>
-								            </form>
-								        </div>
-								    </div>
-								    <div class="row">
-								        <div class="col-md-12">
-								            <table id="conversation" class="table table-striped">
-								                <thead>
-								                <tr>
-								                    <th>Greetings</th>
-								                </tr>
-								                </thead>
-								                <tbody id="greetings">
-								                </tbody>
-								            </table>
-								        </div>
-								    </div>
-								</div>
+							<div class="container">
+								
 							</div>
 						</section>
-						<section id="section-topline-6"><div id="editUserData"></div></section>
+						<section id="section-topline-6"><div id="userDetail"></div></section>
 					</div><!-- /content -->
 				</div><!-- /tabs -->
 			</section>
@@ -160,8 +153,6 @@
 		<script type="text/javascript" th:src="@{/js/react/myProducts.bundle.js}"></script>
 		<script type="text/javascript" th:src="@{/js/react/myRequestProducts.bundle.js}"></script>
 		<!-- <script type="text/javascript" th:src="@{/js/react/message.bundle.js}"></script> -->
-	    <script type="text/javascript" th:src="@{/js/socket/sockjs.min.js}"></script>
-	    <script type="text/javascript" th:src="@{/js/socket/stomp.min.js}"></script>
 		<script type="text/javascript" th:src="@{/js/react/myEditUserData.bundle.js}"></script>
 	</div>
 </body>

@@ -121,7 +121,7 @@ class DealActive extends Component {
                             <span>구매완료</span>
                         </div>
                         <div className="deal_button col" >
-                            <a id="결제" href="#">리뷰등록</a>
+                            <a id="결제" href={`/product/reviewWrite/${dealNo}`}>리뷰등록</a>
                         </div>
                     </Fragment>
                 );

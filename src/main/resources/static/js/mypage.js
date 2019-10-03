@@ -1,11 +1,23 @@
 $(function() {
-	$('#profileImg').on("click", function(e){
+	// 프로필 이미지를 클릭하면 input[type=file] 창이 뜨게 하는 이벤트 리스너 등록
+	$('#profileImgIcon').on("click", function(e){
 		$('#profileImgFile').trigger("click");
 	});
 	
+	// 프로필 사진이 등록되면 이를 감지하여 프로필 사진을 전송
 	$("#profileImgFile").on("change", function(e){
 		e.preventDefault();
 		submitProfileImage();
+	});
+	
+	//소개글 수정 아이콘 눌렀을 때
+	$('#update').on("click", function(e){
+		
+		var introduction = $(this).attr('data-introduction');
+		$('#intro_view').empty();
+		$('#intro_view').html('<textarea class="form-control col-8" id="intro" name="introduction">'+introduction+'</textarea>\
+				<a class="btn bnt-primary col-2" onclick="javascript:introduction();">수정</a>');
+		$(this).remove();
 	});
 	
 	/*별점*/
@@ -13,6 +25,7 @@ $(function() {
 	$('.starRev span').click(function() {
 		$(this).parent().children('span').removeClass('on');
 		$(this).addClass('on').prevAll('span').addClass('on');
+		$("#rating").val($(this).attr('data-star'));
 		return false;
 	});
 
@@ -23,14 +36,14 @@ $(function() {
 //	});
 	//소켓서버 접속, 정보셋팅, 응답 fn 정의
 	connect(function(obj){
-		var message = '('+obj.sender+')'+' - '+obj.contents;
-		$('#greetings').append('<tr><td>'+message+'</td></tr>');
-		$('#name').val('');
+		var message = obj.contents;
+		$('#greetings').append('<div class="text-right">'+message+'</div>');
+		$('#contents').val('');
 	});
 	
 	//메세지 전송
 	$('#send').click(function(){
-		sendContent($('#name').val());
+		sendContent($('#contents').val());
 	})
 });
 
@@ -42,9 +55,9 @@ function heart(productno){
 		data:{productNo : productno},
 		success:function(data, status, xhr){
 				 if(data == "success") {
-	                 $('#heart').attr("class","fa fa-heart");
+	                 $('#heart'+productno).attr("class","fa fa-heart");
 	             }else if(data == "removeheart"){
-	                 $('#heart').attr("class","fa fa-heart-o");
+	                 $('#heart'+productno).attr("class","fa fa-heart-o");
 	             }else if(data == "error"){
 	            	 alert("로그인 후 이용가능합니다.");
 	             }
@@ -71,19 +84,54 @@ function submitProfileImage(){
 		dataType: "text",
 		processData: false,
 		data: formData,
-		success: function(resp){
-			if(resp == 'success'){
-				
-			}
+		success: function(data, resp){
+			//통신 성공
+			$(".profile").attr('src','/files/profile-files/'+ data);
 		}, error:function(resp){
 			alert("통신 실패...");
 		}
 	});
 }
 
+/*소개글*/
+function introduction(){
+	var formData = $("#introduction").serialize();
+	var intro = $('#intro').val();
+	$.ajax({
+		url:"/member/mypage/introduction",
+		methods:"post",
+		data:formData,
+		success:function(data, status, xhr){
+				$("#intro_div").empty();
+				$("#intro_div").html('<i id="update" class="fa fa-edit col-2" data-introduction="'+data+'"></i>\
+						<div id="intro_view" class="col-8 row">'+intro+'</div>');
+			
+        	 alert("수정성공!");
+		},
+		error:function(status, xhr, err){
+			alert("수정할 수 없습니다.\n" + err);
+		}
+	});
+}
+
 
 /*chat*/
-var sendNickName = $("#hiddenToken").val();
+function chatpop(){
+
+	var seller = $('#seller').attr('value');	
+    //팝업창출력
+    //width : 300px크기
+    //height : 300px크기
+    //top : 100px 위의 화면과 100px 차이해서 위치
+    //left : 100px 왼쪽화면과 100px 차이해서 위치
+    //툴바 X, 메뉴바 X, 스크롤바 X , 크기조절 X
+    window.open('/member/chatting/'+seller,'popName',
+                'width=700,height=900,top=100,left=100,toolbar=no,menubar=no,scrollbars=no,resizable=no,status=no');
+}
+var senderNickName = $("#senderNickName").val();
+var senderId = $("#senderId").val();
+var receiverNickName = $("#receiverNickName").val();
+var receiverId = $("#receiverId").val();
 
 function connect(fn){
 	var socket = new SockJS('http://localhost:8088/websocket');
@@ -93,32 +141,18 @@ function connect(fn){
 		stompClient.subscribe('/topic/roomId', function(obj){
 			fn(JSON.parse(obj.body));
 		});
-		stompClient.subscribe('/topic/out', function(obj){
-			fn(JSON.parse(obj.body));
-		});
-		stompClient.subscribe('/topic/in', function(obj){
-			fn(JSON.parse(obj.body));
-		});
 		stompClient.subscribe('/queue/info', function(obj){
 			fn(JSON.parse(obj.body));
 		});
-		stompClient.send("/app/in",{},sendNickName+' is in chatroom');
 	});
-}
-
-function disconnect(){
-	if(stompClient!==null){
-		stompClient.send("/app/out", {},sendNickName+ 'is out chatroom');
-		stompClient.disconnect();
-	}
-	console.log('Disconnected');
 }
 
 function sendContent(contents){
 	var query={}
-	query.sender=sendNickName;
+	query.senderNickName=senderNickName;
+	query.sender=senderId;
+	query.receiverNickName=receiverNickName;
+	query.receiver=receiverId;
 	query.contents = contents;
-//	stompClient.send('/app/hello',{}, JSON.stringify(query));
-	stompClient.send('/app/info',{}, JSON.stringify(query));
+	stompClient.send('/app/hello',{}, JSON.stringify(query));
 }
-

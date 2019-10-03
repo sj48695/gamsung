@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko" 
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="layouts/main">
+<head>
+<style>
+.profile {
+    width: 120px; 
+    height: 120px;
+    margin-bottom: 20px;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 50%;
+    position:relative; 
+    bottom: 10px;
+}
+</style>
+<link rel="stylesheet" type="text/css" th:href="@{/styles/main_styles.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/star.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/responsive.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/mypage/css/demo.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/mypage/css/normalize.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/mypage/css/tabs.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/mypage/css/tabstyles.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/mypage/css/mypage.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/mypage/css/pe-icon-7-stroke.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/mypage/css/flaticon.css}">
+
+</head>
+<body>
+	<div class="newsletter" layout:fragment="content">
+		<div class="container py-5">
+			<section>
+				<div class="py-5">
+					<div class="px-5" style="float:left">
+						 <img class="profile" th:src="'/files/profile-files/'+${member.imgFileName}" />
+							<!-- <img class="profile" id="profileImg" th:src="'/files/profile-files/'+${member.imgFileName}" th:onclick="submitProfileImage();"/> -->
+							<input type="file" name="profileFile" id="profileImgFile" accept="image/*" style="display:none">
+					</div>
+					
+					<div>
+						<div class="row">
+							<h3><span th:text="${member.nickname}"></span>의 상점</h3>
+								<i class="flaticon-chat col" style="bottom:10px"></i>
+						</div>
+						<div id="intro_div" class="row">
+							<div id="intro_view" class="col-8 row" th:text="${member.introduction}"></div>
+							<!-- <textarea class="form-control" id="intro" name="introduction" th:text="${member.introduction}"></textarea> -->
+						</div>
+						<a onclick="report()"><i class="flaticon-siren" onclick="report()"></i>신고하기</a>
+					</div>
+				</div>
+				<div class="tabs tabs-style-topline">
+					<nav>
+						<ul>
+							<li><a href="#section-topline-1" class="icon pe-7s-shopbag"><span>상품</span></a></li>
+							<li><a href="#section-topline-2" class="icon pe-7s-note"><span>후기</span></a></li>
+						</ul>
+					</nav>
+					<div class="content-wrap">
+						<section id="section-topline-1">
+							<div class="container">
+								<div class="row">
+									<div class="col">
+										<div class="product_grid">
+											<div class="product col" th:if="${ #lists.size(products) } > 0" th:each="product : ${products}">
+												<div class="product_image"><img src="/images/product_3.jpg" alt=""></div>
+												<div class="product_content">
+													<a class="product_title" th:text="${product.name}" th:href="'/product/detail/'+${product.productNo}"></a>
+													<div class="product_price" th:text="${ #numbers.formatInteger(product.price,3,'COMMA') }+'원'"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>	
+						</section>
+						<section id="section-topline-2">
+							<div class="container">2</div>
+						</section>
+					</div><!-- /content -->
+				</div><!-- /tabs -->
+			</section>
+		</div>
+		<script type="text/javascript" th:src="@{/js/react/myProducts.bundle.js}"></script>
+		<script type="text/javascript" th:src="@{/js/react/myRequestProducts.bundle.js}"></script>
+		<!-- <script type="text/javascript" th:src="@{/js/react/message.bundle.js}"></script> -->
+	    <script type="text/javascript" th:src="@{/js/socket/sockjs.min.js}"></script>
+	    <script type="text/javascript" th:src="@{/js/socket/stomp.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/react/myEditUserData.bundle.js}"></script>
+	</div>
+</body>
+</html>

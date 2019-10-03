@@ -28,6 +28,7 @@ public interface ProductService {
 	void updateProductCount(int productNo);
 
 	void deleteProduct(int productNo);
+	
 
 	void deleteProductFile(int productFileNo);
 	
@@ -48,11 +49,18 @@ public interface ProductService {
 	/*	Review	*/
 	ArrayList<Review> findReviewsByProductNo(int productNo);
 
-	void insertReview(Review review);
+	Integer insertReview(Review review);
+	
+	void insertReviewFiles(Review review, int dealNo);
+	
+	List<Review> selectReview(String memberId);
+
 
 	void updateProduct(Product product);
 
 	void registerReport(Report report);
-	
+
+
+
 
 }

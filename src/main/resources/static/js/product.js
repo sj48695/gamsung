@@ -315,6 +315,7 @@ function readURL(input,target) {
 	}
 }
 
+
 function report(){
 	 
     //팝업창출력

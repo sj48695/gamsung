@@ -111,25 +111,19 @@
 					<li class="page_menu_item has-children menu_mm">
 						<a href="/home">Home<i class="fa fa-angle-down"></i></a>
 						<ul class="page_menu_selection menu_mm">
-							<li class="page_menu_item menu_mm"><a href="/categories">Categories<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="/product">Product<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="/cart">Cart<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="/checkout">Checkout<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="/contact">Contact<i class="fa fa-angle-down"></i></a></li>
+							<li class="page_menu_item menu_mm"><a href="/product/categories">Categories<i class="fa fa-angle-down"></i></a></li>
 						</ul>
 					</li>
 					<li class="page_menu_item has-children menu_mm">
-						<a href="/categories">Categories<i class="fa fa-angle-down"></i></a>
+						<a href="/product/categories">Categories<i class="fa fa-angle-down"></i></a>
 						<ul class="page_menu_selection menu_mm">
-							<li class="page_menu_item menu_mm"><a href="/categories">Category<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="/categories">Category<i class="fa fa-angle-down"></i></a></li>
 							<li class="page_menu_item menu_mm"><a href="/categories">Category<i class="fa fa-angle-down"></i></a></li>
 							<li class="page_menu_item menu_mm"><a href="/categories">Category<i class="fa fa-angle-down"></i></a></li>
 						</ul>
 					</li>
-					<li class="page_menu_item menu_mm"><a href="/home">Accessories<i class="fa fa-angle-down"></i></a></li>
-					<li class="page_menu_item menu_mm"><a href="#">Offers<i class="fa fa-angle-down"></i></a></li>
-					<li class="page_menu_item menu_mm"><a href="/contact">Contact<i class="fa fa-angle-down"></i></a></li>
+					<li class="page_menu_item menu_mm">
+						<a href="/member/mypage">MyPage</a>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -212,6 +206,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script th:src="@{/styles/mypage/js/cbpFWTabs.js}"></script>
 <script th:src="@{/styles/mypage/js/modernizr.custom.js}"></script>
 <script th:src="@{/styles/mypage/js/tab.js}"></script>
+
+<!-- socket -->
+<script type="text/javascript" th:src="@{/js/socket/sockjs.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/socket/stomp.min.js}"></script>
 <script th:src="@{/js/mypage.js}"></script>
 </body>
 </html>

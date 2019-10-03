@@ -79,30 +79,33 @@
 								<div th:if="${ id } != null and ${ id } != ${ product.seller }">
 									<div th:if="${ heart } != null">
 										<a th:if="${#authentication.principal.member.id} == ${ heart.id }" th:onclick="'javascript:heart('+${product.productNo}+')'">
-											<font size="6"><i class="fa fa-heart" id="heart" style="color:#CD3B3B;"></i></font>
+											<font size="6"><i class="fa fa-heart" th:id="'heart'+${product.productNo}" style="color:#CD3B3B;"></i></font>
 										</a>
 										<a th:unless="${#authentication.principal.member.id} == ${ heart.id }" th:onclick="'javascript:heart('+${product.productNo}+')'">
-											<font size="6"><i class="fa fa-heart-o" id="heart" style="color:#CD3B3B;" aria-hidden="true"></i></font>
+											<font size="6"><i class="fa fa-heart-o" th:id="'heart'+${product.productNo}" style="color:#CD3B3B;" aria-hidden="true"></i></font>
 										</a>
 									</div>
 									<div th:if="${ heart } == null">
 										<a th:onclick="'javascript:heart('+${product.productNo}+')'">
-											<font size="6"><i class="fa fa-heart-o" id="heart" style="color:#CD3B3B;" aria-hidden="true"></i></font>
+											<font size="6"><i class="fa fa-heart-o" th:id="'heart'+${product.productNo}" style="color:#CD3B3B;" aria-hidden="true"></i></font>
 										</a>
 									</div>
 								</div>
 								<div th:if="${ id } == null">
 									<a th:onclick="'javascript:heart('+${product.productNo}+')'">
-										<font size="6"><i class="fa fa-heart-o" id="heart" style="color:#CD3B3B;" aria-hidden="true"></i></font>
+										<font size="6"><i class="fa fa-heart-o" th:id="'heart'+${product.productNo}" style="color:#CD3B3B;" aria-hidden="true"></i></font>
 									</a>
 								</div>
 							</div>
 							<!-- In Stock -->
 							<div class="in_stock_container">
 								<div class="availability">작성자 : </div>
-								<span th:text="${ product.seller }"></span>
-								<a onclick='report()' >신고하기
-								</a>
+									<a th:href="'/member/store/'+${ product.seller }" th:text="${ product.seller }"></a>
+								<span>
+									<input type="hidden" id="seller" th:value="${ product.seller }">
+									<i class="fa fa-envelope-open" onclick="chatpop()" title="쪽지보내기"></i>&nbsp;
+									<i class="fa fa-bullhorn" onclick="report()" title="신고하기"></i>
+								</span>
 							</div>
 							<div class="in_stock_container">
 								<div class="availability">판매지역 : </div>
@@ -147,6 +150,7 @@
 											th:data-productNo="${ product.productNo }"><a>삭제</a></div>
 									</div>
 								</div>
+
 								<div class="product_quantity_container" th:if="${ id }== null">
 									<div th:if="${product.type} == '흥정'">
 										<div class="availability">흥정가격 :</div>
@@ -208,7 +212,20 @@
 								<div class="col">날짜</div>
 							</div><hr>
 							<div class="row py-3" th:if="${#lists.size(reviewlist)} > 0" th:each="review : ${reviewlist}">
-								<div class="col" th:text="${review.buyer}"></div>
+								<div class="col">
+									<div class="starRev">
+									  <span class="starR1 on">별1_왼쪽</span>
+									  <span class="starR2">별1_오른쪽</span>
+									  <span class="starR1">별2_왼쪽</span>
+									  <span class="starR2">별2_오른쪽</span>
+									  <span class="starR1">별3_왼쪽</span>
+									  <span class="starR2">별3_오른쪽</span>
+									  <span class="starR1">별4_왼쪽</span>
+									  <span class="starR2">별4_오른쪽</span>
+									  <span class="starR1">별5_왼쪽</span>
+									  <span class="starR2">별5_오른쪽</span>
+									</div>
+								</div>
 								<div class="col" th:text="${review.buyer}"></div>
 								<div class="col" th:text="${review.contents}"></div>
 								<div class="col" th:text="${#dates.format(review.regDate, 'yyyy-MM-dd')}"></div>

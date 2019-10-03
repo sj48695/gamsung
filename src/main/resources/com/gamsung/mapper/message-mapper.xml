@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gamsung.mapper.MessageMapper">
+
+	<sql id="messageColumns">
+		receiver, sender, contents
+	</sql>
+	
+	<select id="selectMessageList" parameterType="hashmap" resultType="com.gamsung.vo.InChatMessageVO">
+		select message_no, <include refid="messageColumns"/>, send_date
+		from message
+		where sender in(#{sender}, #{receiver}) and receiver in(#{sender}, #{receiver}) 
+	</select>
+	
+	<insert id="insertMessage" parameterType="com.gamsung.vo.InChatMessageVO">
+		insert into message(
+			<include refid="messageColumns"/>
+		)
+		values(
+			#{receiver},
+			#{sender},
+			#{contents}
+		)
+	</insert>
+</mapper>

@@ -1,14 +1,12 @@
 package com.gamsung.vo;
 
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
 import java.io.Serializable;
 
-@Getter
-@Setter
+import lombok.Data;
+import lombok.ToString;
+
+@Data
 @ToString
 public class ChattingMessage implements Serializable {
     private String message;
