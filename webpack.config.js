@@ -10,6 +10,7 @@ module.exports = {
         myEditUserData:'./editUserIndex.jsx',
         // message:'./containers/mypage/message.jsx'
 
+
     },
     devtool: 'sourcemaps',
     cache: true,

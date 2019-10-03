@@ -1,6 +1,7 @@
 package com.gamsung.vo;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import lombok.Data;
 
@@ -21,4 +22,9 @@ public class Member {
 	private boolean blackList;
 	private String imgFileName;
 	private String introduction;
+	
+
+	private String domain;
+	private int timeout;
+	private TimeUnit timeUnit;
 }

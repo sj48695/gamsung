@@ -75,6 +75,19 @@ public class MemberService {
 
 	public void UpdateUser(Member member) {
 		memberMapper.Update(member);
+	}
+	public void updateProfileImg(Member member) {
+		memberMapper.updateProfileImg(member);
+		
+	}
+
+	public Member findProfileImgById(String memberId) {
+		Member member = memberMapper.selectProfileImgById(memberId);
+		return member;
+	}
+
+	public void updateIntroduction(Member member) {
+		memberMapper.updateIntroduction(member);
 
 	}
 
