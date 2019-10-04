@@ -3,9 +3,10 @@ package com.gamsung.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gamsung.vo.Deal;
 import com.gamsung.vo.Heart;
 import com.gamsung.vo.Product;
+import com.gamsung.vo.ProductFile;
+import com.gamsung.vo.Report;
 import com.gamsung.vo.Review;
 
 public interface ProductService {
@@ -25,6 +26,13 @@ public interface ProductService {
 	List<Product> findMyRequestProductList(String memberId);
 	
 	void updateProductCount(int productNo);
+
+	void deleteProduct(int productNo);
+	
+
+	void deleteProductFile(int productFileNo);
+	
+	void updateProductFile(ProductFile productFile);
 	
 	/*	Heart	*/
 
@@ -47,7 +55,11 @@ public interface ProductService {
 	
 	List<Review> selectReview(String memberId);
 
-	void deleteProduct(int productNo);
+
+	void updateProduct(Product product);
+
+	void registerReport(Report report);
+
 
 
 
