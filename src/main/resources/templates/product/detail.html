@@ -103,7 +103,7 @@
 								<div class="availability">작성자 : </div>
 									<a th:href="'/member/store/'+${ product.seller }" th:text="${ product.seller }"></a>
 								<span>
-									<input type="hidden" id="seller" th:value="${ product.seller }">
+									<input type="hidden" class="seller" id="seller" th:value="${ product.seller }">
 									<i class="fa fa-envelope-open" onclick="chatpop()" title="쪽지보내기"></i>&nbsp;
 									<i class="fa fa-bullhorn" onclick="report()" title="신고하기"></i>
 								</span>

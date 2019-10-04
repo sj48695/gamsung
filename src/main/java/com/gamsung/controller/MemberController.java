@@ -75,7 +75,7 @@ public class MemberController {
 		Authentication auth = (Authentication)req.getUserPrincipal();
 		String memberId = auth.getName();
 		
-		Member profile = memberService.findProfileImgById(memberId);
+		String profile = memberService.findProfileImgById(memberId);
 		
 		Member member = memberService.findMemberById(memberId);
 		
