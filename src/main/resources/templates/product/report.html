@@ -13,6 +13,7 @@
 <link rel="stylesheet" type="text/css"
 	th:href="@{/styles/product_responsive.css}">
 	
+	<meta http-equiv="X-Frame-Options" content="deny" />
 
 </head>
 <body>
@@ -33,10 +34,10 @@
 								class="form-control" /><br> 
 				
 			Content : <textarea name="contents" id="editor" style="width: 550px" rows="10"  
-								class="form-control"></textarea>
+								class="form-control" placeholder="사유를 입력해주세요"></textarea>
 		
 		
-			<button class="newsletter_button trans_200" style="margin-left:14%">
+			<button class="newsletter_button trans_200" style="margin-left:14%" id="insertBoard">
 				<span>보내기</span>
 			</button>
 			<button type="button" class="newsletter_button trans_200"
@@ -47,11 +48,21 @@
 		</div>
 		
 
-	<!-- editor -->
-	<!-- <script src="https://code.jquery.com/jquery-latest.js"></script>
+
+	<script src="https://code.jquery.com/jquery-latest.js"></script>
+	<script>
+		// Add the following code if you want the name of the file appear on select
+		$(".custom-file-input").on(
+				"change",
+				function() {
+					var fileName = $(this).val().split("\\").pop();
+					$(this).siblings(".custom-file-label").addClass("selected")
+							.html(fileName);
+				});
+	</script>
 	<script type="text/javascript"
-		src="/shop/resources/navereditor/js/HuskyEZCreator.js" charset="utf-8"></script>
-		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		src="/navereditor/js/HuskyEZCreator.js" charset="utf-8"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript">
 
 	
@@ -71,7 +82,7 @@
 			nhn.husky.EZCreator.createInIFrame({
 				oAppRef : obj,
 				elPlaceHolder : "editor",
-				sSkinURI : "/shop/resources/navereditor/SmartEditor2Skin.html",
+				sSkinURI : "/navereditor/SmartEditor2Skin.html",
 				htParams : {
 					// 툴바 사용 여부
 					bUseToolbar : true,
@@ -87,9 +98,11 @@
 				obj.getById["editor"].exec("UPDATE_CONTENTS_FIELD", []);
 				//폼 submit
 				$("#insertBoardFrm").submit();
+				alert("접수가 완료되었습니다.");
+				
 			});
 		});
-	</script> -->
+	</script>
 	</form>
 	</div>
 	

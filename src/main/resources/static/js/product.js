@@ -328,6 +328,7 @@ function report(){
                 'width=700,height=900,top=100,left=100,toolbar=no,menubar=no,scrollbars=no,resizable=no,status=no');
 }
 
+
 /* ----------- product (write, update) ---------- */
 $(function () {
 

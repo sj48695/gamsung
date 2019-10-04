@@ -38,6 +38,8 @@ public class SecurityConfig
 	protected void configure(HttpSecurity http) throws Exception{
 		http.httpBasic()
 			.and()
+			.headers().frameOptions().disable()
+			.and()
 			
 			.authorizeRequests()
 			.antMatchers("/member/admin").access("hasRole('ROLE_ADMIN')")
