@@ -19,7 +19,22 @@
 		  	 <h1>관리자 페이지</h1>
 			 <div id="react"></div>
 	  	 </div> 
-	  	 <script src="/js/react/admin.bundle.js"></script> 	 	  	 
+	  	 <script src="/js/react/admin.bundle.js"></script>
+	  	 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+	  	 <script type="text/javascript">
+		  	$(function(){
+		  	    var reportNo = -1;
+		  	    $('#result'+reportNo).hide();
+		  	    jQuery('#report'+reportNo).click(fuction() {
+		  	        if($('#result'+reportNo).css("display") == "none"){
+		  	            jQuery('#result'+reportNo).show();
+		  	        }else{
+		  	            JQuery('#result'+reportNo).hide();
+		  	        }
+		  	    })
+		  	})
+		  	 
+	  	 </script> 	 	  	 
 	</div>
 </body>
 </html>

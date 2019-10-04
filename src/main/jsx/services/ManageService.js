@@ -19,17 +19,17 @@ export const getUserList = () => {
     })
 }
 
-// export const ActiveManage = (member, id) =>{
-//     return new Promise( (resolve, reject) => {
-//         axios.put("delete", { member,"id": id })
-//              .then((result) =>{
-//                  const data = result.data;
-//                  resolve(data);
-//                  return;
-//              })
-//              .catch((err)=>{
-//                  reject(err.message);
-//                  return;
-//              })
-//     })
-// }
+export const getReportList = () =>{
+   return new Promise((resolve, reject)=>{
+        axios.get("Reportlist")
+        .then( (result) => {
+            const data = result.data;
+            resolve(data);
+        })
+        .catch((err)=>{
+            console.log(err);
+            reject(err.message);
+        })
+    })
+   
+}
