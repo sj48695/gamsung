@@ -53,12 +53,21 @@
 		where d.buyer = #{id}
 	</select>
 	
-	<!-- <select id="selectreviewFileByProductNo" parameterType="int" resultType="com.gamsung.vo.reviewFile">
-		select review_file_no, <include refid="reviewFileBasicColumns"/> 
-		from reviewfile 
-		where product_no = #{ productNo }
-	</select> -->
-
+	<select id="selectStoreReview" resultType="com.gamsung.vo.Review" parameterType="string">
+		select r.deal_no, r.contents, r.reg_date, d.buyer, d.product_no, p.name
+		from review r, deal d, product p
+		where r.deal_no = d.deal_no
+		and d.product_no = p.product_no
+		and p.seller = #{id}
+	</select>
+	
+	<select id="selectReviewBuyerImg" resultType="com.gamsung.vo.Review" parameterType="string">
+		select r.deal_no, r.contents, r.reg_date, d.buyer, d.product_no, m.img_file_name
+		from review r, deal d, member m
+		where r.deal_no = d.deal_no
+		and d.buyer = m.id
+		and d.buyer = #{id}
+	</select>
 	
 
 

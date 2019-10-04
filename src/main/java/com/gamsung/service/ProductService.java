@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.gamsung.vo.Deal;
 import com.gamsung.vo.Heart;
+import com.gamsung.vo.Member;
 import com.gamsung.vo.Product;
 import com.gamsung.vo.Review;
 
@@ -49,6 +50,9 @@ public interface ProductService {
 
 	void deleteProduct(int productNo);
 
+	List<Review> findStoreReview(String id);
+
+	Review findReviewBuyerImg(String id);
 
 
 }

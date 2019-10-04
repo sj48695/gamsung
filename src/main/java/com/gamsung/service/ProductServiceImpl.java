@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gamsung.mapper.DealMapper;
+import com.gamsung.mapper.MemberMapper;
 import com.gamsung.mapper.ProductMapper;
 import com.gamsung.mapper.ReviewMapper;
 import com.gamsung.vo.Deal;
 import com.gamsung.vo.Heart;
+import com.gamsung.vo.Member;
 import com.gamsung.vo.Product;
 import com.gamsung.vo.ProductFile;
 import com.gamsung.vo.Review;
@@ -28,6 +30,9 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	DealMapper dealMapper;
+	
+	@Autowired
+	MemberMapper memberMapper;
 
 	/*	Product	*/
 	
@@ -216,5 +221,21 @@ public class ProductServiceImpl implements ProductService {
 		productMapper.deleteProduct(productNo);
 		
 	}
+	
+	@Override
+	public List<Review> findStoreReview(String id) {
+		List<Review> reviews = reviewMapper.selectStoreReview(id);
+//		for(Review review : reviews) {
+//			String profile = memberMapper.selectProfileImgById(review.getBuyer());
+//			review.setBuyer(profile);
+//		}
+		return reviews;
+	}
 
+	@Override
+	public Review findReviewBuyerImg(String id) {
+		Review review = reviewMapper.selectReviewBuyerImg(id);
+		
+		return review;
+	}
 }

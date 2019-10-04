@@ -23,6 +23,9 @@ public interface ReviewMapper {
 	ReviewFile selectReviewFileByProductNo(int productNo);
 
 	void insertReviewFile(ReviewFile file);
-	
 
+	List<Review> selectStoreReview(String id);
+
+	Review selectReviewBuyerImg(String id);
+	
 }

@@ -15,6 +15,16 @@
     position:relative; 
     bottom: 10px;
 }
+.buyer_profile {
+    width: 120px; 
+    height: 120px;
+    margin-bottom: 20px;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 50%;
+    position:relative; 
+    bottom: 10px;
+}
 </style>
 <link rel="stylesheet" type="text/css" th:href="@{/styles/main_styles.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/styles/star.css}">
@@ -35,8 +45,6 @@
 				<div class="py-5">
 					<div class="px-5" style="float:left">
 						 <img class="profile" th:src="'/files/profile-files/'+${member.imgFileName}" />
-							<!-- <img class="profile" id="profileImg" th:src="'/files/profile-files/'+${member.imgFileName}" th:onclick="submitProfileImage();"/> -->
-							<input type="file" name="profileFile" id="profileImgFile" accept="image/*" style="display:none">
 					</div>
 					
 					<div>
@@ -67,8 +75,15 @@
 											<div class="product col" th:if="${ #lists.size(products) } > 0" th:each="product : ${products}">
 												<div class="product_image"><img src="/images/product_3.jpg" alt=""></div>
 												<div class="product_content">
-													<a class="product_title" th:text="${product.name}" th:href="'/product/detail/'+${product.productNo}"></a>
+													<div class="product_title">
+														<a th:text="${product.name}" th:href="'/product/detail/'+${product.productNo}"></a>
+													</div>
 													<div class="product_price" th:text="${ #numbers.formatInteger(product.price,3,'COMMA') }+'원'"></div>
+												</div>
+											</div>
+											<div class="product col" th:unless="${ #lists.size(products) } > 0" th:each="product : ${products}">
+												<div class="product_content">
+													등록된 상품이 없습니다.
 												</div>
 											</div>
 										</div>
@@ -77,7 +92,28 @@
 							</div>	
 						</section>
 						<section id="section-topline-2">
-							<div class="container">2</div>
+							<div class="container">
+								<div class="row">
+									<div class="col">
+										<div th:if="${ #lists.size(reviews) } > 0" th:each="review : ${reviews}">
+											<div class="px-5" style="float: left">
+												<img class="buyer_profile " th:src="'/files/profile-files/'+${member.imgFileName}" />
+												<!-- <img class="buyer_profile " th:src="'/files/profile-files/'+${profile.img_file_name}" /> -->
+											</div>
+											<div>
+												<h4>
+													<span th:text="${review.buyer}"></span>
+												</h4>
+												<div class="product_title">
+													<a th:text="${review.name}"
+														th:href="'/product/detail/'+${review.productNo}"></a>
+												</div>
+												<div class="product_price" th:text="${review.contents}"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 						</section>
 					</div><!-- /content -->
 				</div><!-- /tabs -->
