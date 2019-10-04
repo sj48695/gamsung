@@ -28,11 +28,12 @@ class UserDetail extends Component{
         this.getUserDetail();
     }
 
+
     render(){
         const {member} = this.state;
         return(
             <div>
-                <UserDetailData member={member}/>
+                <UserDetailData member={member} />
             </div>
         )
     }
