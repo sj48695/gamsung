@@ -459,18 +459,33 @@ public class ProductController {
 						ReviewFile reviewFile = new ReviewFile();
 						reviewFile.setSaveFileName(uniqueFileName);
 						reviewFile.setRawFileName(userFileName);
+						reviewFile.setDealNo(review.getDealNo());
 						files.add(reviewFile);
+						
 						review.setFiles(files);
+						
+						reviewService.insertReviewFiles(review, review.getDealNo());
 						
 					}
 				}
 			}
 			reviewService.updateReview(review);
+			model.addAttribute("review", review);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "redirect:/member/mypage";
 	}
+	
+	@GetMapping(path = "/delete-reviewfile")
+	@ResponseBody //return값을 스트링 형태로 받아옴
+	public String reviewdeletefile(int reviewFileNo) {
+		
+		reviewService.deleteReviewFile(reviewFileNo);
+
+		return "success" ; 
+	}
+	
 	
 	//window창
 	@GetMapping(path = "/black")

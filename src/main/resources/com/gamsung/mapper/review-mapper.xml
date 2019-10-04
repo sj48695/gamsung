@@ -69,7 +69,6 @@
 		UPDATE review
 		SET contents = #{ contents } , rating = #{ rating }   
 		WHERE deal_no = #{ dealNo } 
-	
 	</update>
 	
 	<select id="selectReviewByDealNo" parameterType="int" resultType="com.gamsung.vo.Review">
@@ -82,6 +81,11 @@
 		delete
 		from reviewfile
 		where deal_no = #{ dealNo }
+	</delete>
+	
+	<delete id="deleteReviewFile" parameterType="int">
+		delete from reviewfile
+		where review_file_no = #{ reviewFileNo }
 	</delete>
 
 

@@ -33,6 +33,8 @@ public interface ReviewMapper {
 
 	Review selectReviewByDealNo(int dealNo);
 
+	void deleteReviewFile(int reviewFileNo);
+
 	
 
 }

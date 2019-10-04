@@ -20,6 +20,8 @@ public interface ReviewService {
 
 	Review findReviewByDealNo(int dealNo);
 
-	void updateReview(Review review);	
+	void updateReview(Review review);
+
+	void deleteReviewFile(int reviewFileNo);	
 
 }

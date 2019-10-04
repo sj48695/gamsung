@@ -79,4 +79,10 @@ public class ReviewServiceImpl implements ReviewService {
 		insertReviewFiles(review, review.getDealNo());
 	}
 
+	@Override
+	public void deleteReviewFile(int reviewFileNo) {
+		reviewMapper.deleteReviewFile(reviewFileNo);
+		
+	}
+
 }
