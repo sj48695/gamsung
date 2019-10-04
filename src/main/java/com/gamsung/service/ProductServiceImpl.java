@@ -119,6 +119,11 @@ public class ProductServiceImpl implements ProductService {
 		productMapper.updateProductCount(productNo);
 	}
 	
+	@Override
+	public void deleteProduct(int productNo) {
+		productMapper.deleteProduct(productNo);
+		
+	}
 	/*	Heart	*/
 
 	@Override
@@ -172,49 +177,4 @@ public class ProductServiceImpl implements ProductService {
 		
 		return heartlist;
 	}
-	
-	/* Review	*/
-	
-	@Override
-	public ArrayList<Review> findReviewsByProductNo(int productNo) {
-		ArrayList<Review> reviewlist = reviewMapper.selectReviewsByProductNo(productNo);
-		return reviewlist;
-	}
-
-	@Override
-	public Integer insertReview(Review review) {
-		reviewMapper.insertReview(review);
-		int newDealNo = review.getDealNo();
-		
-		insertReviewFiles(review, newDealNo);
-		
-		return newDealNo;
-	}
-	
-	@Override
-	public void insertReviewFiles(Review review, int dealNo) {
-		// 이미지
-		for (ReviewFile file : review.getFiles()) {
-			file.setDealNo(dealNo);
-			reviewMapper.insertReviewFile(file);
-		}
-		
-	}
-
-	@Override
-	public List<Review> selectReview(String memberId) {
-		List<Review> reviewlist = reviewMapper.selectReview(memberId);
-		for(Review review : reviewlist) {
-			Deal deal = dealMapper.selectDealByDealNo(review.getDealNo());
-			review.setProductNo(deal.getProductNo());
-		}
-		return reviewlist;
-	}
-
-	@Override
-	public void deleteProduct(int productNo) {
-		productMapper.deleteProduct(productNo);
-		
-	}
-
 }

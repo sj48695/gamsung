@@ -17,5 +17,5 @@ public class Review {
 	private String buyer;
 	private int productNo;
 	
-	private ArrayList<ReviewFile> files;
+	private List<ReviewFile> files;
 }

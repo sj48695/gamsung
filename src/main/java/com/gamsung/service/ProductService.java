@@ -26,6 +26,8 @@ public interface ProductService {
 	
 	void updateProductCount(int productNo);
 	
+	void deleteProduct(int productNo);
+	
 	/*	Heart	*/
 
 	void insertHeart(Heart heart);
@@ -37,18 +39,5 @@ public interface ProductService {
 	boolean findHeartCount(String id, int productNo);
 
 	List<Product> findMyHeartList(String memberId);
-
-	/*	Review	*/
-	ArrayList<Review> findReviewsByProductNo(int productNo);
-
-	Integer insertReview(Review review);
-	
-	void insertReviewFiles(Review review, int dealNo);
-	
-	List<Review> selectReview(String memberId);
-
-	void deleteProduct(int productNo);
-
-
 
 }

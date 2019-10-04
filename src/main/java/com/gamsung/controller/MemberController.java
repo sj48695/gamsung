@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.gamsung.common.Util;
 import com.gamsung.service.MemberService;
 import com.gamsung.service.ProductService;
+import com.gamsung.service.ReviewService;
 import com.gamsung.vo.Member;
 import com.gamsung.vo.Product;
 import com.gamsung.vo.Review;
@@ -34,11 +35,15 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
+	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private ReviewService reviewService;
 	
 	@GetMapping("/login")
 	public ModelAndView loginpage() {
@@ -81,7 +86,7 @@ public class MemberController {
 		List<Product> products = productService.findMyProductList(memberId);
 		List<Product> requestProducts = productService.findMyRequestProductList(memberId);
 		
-		List<Review> reviews = productService.selectReview(memberId);
+		List<Review> reviews = reviewService.selectReview(memberId);
 		
 		//내가 찜한 목록
 		List<Product> hearts = productService.findMyHeartList(memberId);
