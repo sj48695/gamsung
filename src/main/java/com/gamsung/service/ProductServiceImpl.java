@@ -31,6 +31,9 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	DealMapper dealMapper;
 
+	@Autowired
+	DealMapper reportMapper;
+
 	/*	Product	*/
 	
 	@Override
@@ -77,11 +80,6 @@ public class ProductServiceImpl implements ProductService {
 		
 	}
 
-	@Override
-	public void registerReport(Report report) {
-		productMapper.insertReport(report);
-	}
-
 	
 	@Override
 	public void insertProductFiles(Product product, int productNo) {
@@ -125,6 +123,31 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void updateProductCount(int productNo) {
 		productMapper.updateProductCount(productNo);
+	}
+	
+
+	@Override
+	public void deleteProduct(int productNo) {
+		productMapper.deleteProduct(productNo);
+		
+	}
+
+	@Override
+	public void deleteProductFile(int productFileNo) {
+		productMapper.deleteProductFile(productFileNo);
+		
+	}
+
+	@Override
+	public void updateProductFile(ProductFile productFile) {
+		productMapper.updateProductFile(productFile);
+		
+	}
+
+	@Override
+	public void updateProduct(Product product) {
+		productMapper.updateProduct(product);
+		
 	}
 	
 	/*	Heart	*/
@@ -181,67 +204,4 @@ public class ProductServiceImpl implements ProductService {
 		return heartlist;
 	}
 	
-	/* Review	*/
-	
-	@Override
-	public ArrayList<Review> findReviewsByProductNo(int productNo) {
-		ArrayList<Review> reviewlist = reviewMapper.selectReviewsByProductNo(productNo);
-		return reviewlist;
-	}
-
-	@Override
-	public Integer insertReview(Review review) {
-		reviewMapper.insertReview(review);
-		int newDealNo = review.getDealNo();
-		
-		insertReviewFiles(review, newDealNo);
-		
-		return newDealNo;
-	}
-	
-	@Override
-	public void insertReviewFiles(Review review, int dealNo) {
-		// 이미지
-		for (ReviewFile file : review.getFiles()) {
-			file.setDealNo(dealNo);
-			reviewMapper.insertReviewFile(file);
-		}
-		
-	}
-
-	@Override
-	public List<Review> selectReview(String memberId) {
-		List<Review> reviewlist = reviewMapper.selectReview(memberId);
-		for(Review review : reviewlist) {
-			Deal deal = dealMapper.selectDealByDealNo(review.getDealNo());
-			review.setProductNo(deal.getProductNo());
-		}
-		return reviewlist;
-	}
-
-	@Override
-	public void deleteProduct(int productNo) {
-		productMapper.deleteProduct(productNo);
-		
-	}
-
-	@Override
-	public void deleteProductFile(int productFileNo) {
-		productMapper.deleteProductFile(productFileNo);
-		
-	}
-
-	@Override
-	public void updateProductFile(ProductFile productFile) {
-		productMapper.updateProductFile(productFile);
-		
-	}
-
-	@Override
-	public void updateProduct(Product product) {
-		productMapper.updateProduct(product);
-		
-	}
-
-
 }

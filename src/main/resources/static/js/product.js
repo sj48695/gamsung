@@ -340,6 +340,11 @@ $(function () {
 		$('.product_images').empty();
 		readURL(this, $(".product_images"));
 	});
+
+	$("#review_writeForm").on("change", "#imgFile", function (event) {
+		$('.product_images').empty();
+		readURL(this, $(".product_images"));
+	});
 	
 	$("#updateForm").on("change", "#titleImgFile", function (event) {
 		$(".product_image").empty();
@@ -348,7 +353,6 @@ $(function () {
 	$("#updateForm").on("change", "#imgFile", function (event) {
 	    readURL(this, $(".product_images")); //empty= 하위파일을 일시적으로 안보이게 설정(데이터는 남아있음)
 	});
-	
 	
 	$("#dealForm").on("click","#back_button", function(event){
 		var productNo = $(this).attr("data-productNo");

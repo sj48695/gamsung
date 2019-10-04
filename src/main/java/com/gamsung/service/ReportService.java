@@ -17,5 +17,9 @@ public class ReportService {
 		List<Report> reports = reportMapper.findList();
 		return reports;
 	}
+	
+	public void registerReport(Report report) {
+		reportMapper.insertReport(report);
+	}
 
 }

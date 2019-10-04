@@ -6,8 +6,6 @@ import java.util.List;
 import com.gamsung.vo.Heart;
 import com.gamsung.vo.Product;
 import com.gamsung.vo.ProductFile;
-import com.gamsung.vo.Report;
-import com.gamsung.vo.Review;
 
 public interface ProductService {
 
@@ -27,12 +25,13 @@ public interface ProductService {
 	
 	void updateProductCount(int productNo);
 
-	void deleteProduct(int productNo);
-	
-
 	void deleteProductFile(int productFileNo);
 	
 	void updateProductFile(ProductFile productFile);
+	
+	void deleteProduct(int productNo);
+	
+	void updateProduct(Product product);
 	
 	/*	Heart	*/
 
@@ -43,24 +42,7 @@ public interface ProductService {
 	Heart findHeart(String id, int productNo);
 	
 	boolean findHeartCount(String id, int productNo);
-
+	
 	List<Product> findMyHeartList(String memberId);
-
-	/*	Review	*/
-	ArrayList<Review> findReviewsByProductNo(int productNo);
-
-	Integer insertReview(Review review);
-	
-	void insertReviewFiles(Review review, int dealNo);
-	
-	List<Review> selectReview(String memberId);
-
-
-	void updateProduct(Product product);
-
-	void registerReport(Report report);
-
-
-
 
 }

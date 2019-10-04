@@ -11,4 +11,6 @@ public interface ReportMapper {
 
 	List<Report> findList();
 
+	void insertReport(Report report);
+
 }
