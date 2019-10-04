@@ -14,8 +14,10 @@ import com.gamsung.vo.Deal;
 import com.gamsung.vo.Heart;
 import com.gamsung.vo.Product;
 import com.gamsung.vo.ProductFile;
+import com.gamsung.vo.Report;
 import com.gamsung.vo.Review;
 import com.gamsung.vo.ReviewFile;
+
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -28,6 +30,9 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	DealMapper dealMapper;
+
+	@Autowired
+	DealMapper reportMapper;
 
 	/*	Product	*/
 	
@@ -74,6 +79,7 @@ public class ProductServiceImpl implements ProductService {
 		return newProductNo;
 		
 	}
+
 	
 	@Override
 	public void insertProductFiles(Product product, int productNo) {
@@ -119,11 +125,31 @@ public class ProductServiceImpl implements ProductService {
 		productMapper.updateProductCount(productNo);
 	}
 	
+
 	@Override
 	public void deleteProduct(int productNo) {
 		productMapper.deleteProduct(productNo);
 		
 	}
+
+	@Override
+	public void deleteProductFile(int productFileNo) {
+		productMapper.deleteProductFile(productFileNo);
+		
+	}
+
+	@Override
+	public void updateProductFile(ProductFile productFile) {
+		productMapper.updateProductFile(productFile);
+		
+	}
+
+	@Override
+	public void updateProduct(Product product) {
+		productMapper.updateProduct(product);
+		
+	}
+	
 	/*	Heart	*/
 
 	@Override
@@ -177,4 +203,5 @@ public class ProductServiceImpl implements ProductService {
 		
 		return heartlist;
 	}
+	
 }

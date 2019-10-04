@@ -1,10 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, {Component} from 'react';
+import {BrowserRouter, Link} from 'react-router-dom';
 
-import EditUserData from '../../components/mypage/editUserData.jsx';
+import EditUserApp from '../../components/EditUserApp.jsx';
 
+class EditUserRoute extends Component{
+    render(){
+        return(
+            <div>
+                <div>test</div>
+                <div>
+                    <BrowserRouter>
+                        <EditUserApp />
+                    </BrowserRouter>
+                </div>
+            </div>
 
-ReactDOM.render(
-    <EditUserData />,
-    document.getElementById("editUserData") 
-)
+        )
+    }
+    
+}
+export default EditUserRoute;

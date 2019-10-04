@@ -25,10 +25,15 @@ public interface MemberMapper {
 
 	void deactivateBlackList(String id);
 
+	void Update(Member member);
+
 	void updateProfileImg(Member member);
 
 	Member selectProfileImgById(String memberId);
 
 	void updateIntroduction(Member member);
+
+
+	Member selectStoreById(String id);
 
 }

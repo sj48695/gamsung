@@ -22,11 +22,13 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.gamsung.common.Util;
 import com.gamsung.service.MemberService;
 import com.gamsung.service.ProductService;
+import com.gamsung.service.ReportService;
 import com.gamsung.service.ReviewService;
 import com.gamsung.vo.Heart;
 import com.gamsung.vo.Member;
 import com.gamsung.vo.Product;
 import com.gamsung.vo.ProductFile;
+import com.gamsung.vo.Report;
 import com.gamsung.vo.Review;
 import com.gamsung.vo.ReviewFile;
 
@@ -46,6 +48,9 @@ public class ProductController {
 
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private ReportService reportService;
 
 	@GetMapping(path = "detail/{productNo}")
 	public String productDetail(@PathVariable int productNo, Model model, HttpServletRequest req) {
@@ -160,6 +165,7 @@ public class ProductController {
 
 						ProductFile productFile = new ProductFile();
 						productFile.setSaveFileName(uniqueFileName);
+						productFile.setRawFileName(userFileName);
 						productFile.setFlag(false);
 						files.add(productFile);
 						product.setFiles(files);
@@ -180,6 +186,28 @@ public class ProductController {
 		return "redirect:/product/categories";
 	}
 	
+	//window창
+	@GetMapping(path = "/report")
+	public String reportForm(Model model, HttpServletRequest req ) {
+		Authentication auth = (Authentication)req.getUserPrincipal();
+		auth.getPrincipal();
+		
+		
+		return "/product/report"; 
+	}
+	
+	@PostMapping(path="/report")
+	public String report(Model model,HttpServletRequest req, Report report) {
+		Authentication auth = (Authentication)req.getUserPrincipal();
+		auth.getPrincipal();
+		
+		reportService.registerReport(report);
+		model.addAttribute("report", report);
+			
+		//return "/coding.do";
+		return "/product/report";
+	}
+	
 	
 	@GetMapping(path = "/delete/{productNo}")
 	public String delete(@PathVariable int productNo) {
@@ -188,6 +216,16 @@ public class ProductController {
 	          
 	      return "redirect:/product/categories"; 
 	    
+	}
+	
+	
+	@GetMapping(path = "/delete-file")
+	@ResponseBody //return값을 스트링 형태로 받아옴
+	public String deletefile(int productFileNo) {
+		
+		productService.deleteProductFile(productFileNo);
+
+		return "success" ; 
 	}
 	
 	@GetMapping(path = "/update/{productNo}")
@@ -231,10 +269,11 @@ public class ProductController {
 
 					ProductFile productFile = new ProductFile();
 					productFile.setSaveFileName(uniqueFileName);
+					productFile.setRawFileName(userFileName);
 					productFile.setFlag(true);
 					productFile.setProductNo(product.getProductNo());
 					
-					//productService.updateProductFile(productFile);
+					productService.updateProductFile(productFile);
 					
 					product.setFile(productFile);
 					
@@ -263,6 +302,7 @@ public class ProductController {
 
 						ProductFile productFile = new ProductFile();
 						productFile.setSaveFileName(uniqueFileName);
+						productFile.setRawFileName(userFileName);
 						productFile.setFlag(false);
 						productFile.setProductNo(product.getProductNo());
 						files.add(productFile);
@@ -274,7 +314,7 @@ public class ProductController {
 				}
 			}
 			// 데이터 저장
-			//productService.updateProduct(product);
+			productService.updateProduct(product);
 			model.addAttribute("product", product);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -444,4 +484,59 @@ public class ProductController {
 		return "/product/black"; 
 	}
 
+
+	
+//
+//	@RequestMapping(value = "/coding.do")
+//    public String coding() {
+//        return "redirect:/product/black";
+//    }
+//	  
+//	
+//	@PostMapping(path="/insertBoard.do")
+//    public String insertBoard(String editor) {
+//        System.err.println("저장할 내용 : " + editor);
+//        return "redirect:/coding.do";
+//    }
+	
+//	@PostMapping(path="/product/editor-image-upload", produces = "text/plain;charset=utf-8")
+//		@ResponseBody
+//		public String editorImageUpload(HttpServletRequest req) {
+//			
+//			try {
+//				String sFileInfo = "";
+//				//파일명 - 싱글파일업로드와 다르게 멀티파일업로드는 HEADER로 넘어옴 
+//				String name = req.getHeader("file-name");
+//				String ext = name.substring(name.lastIndexOf(".") + 1);
+//				//파일 기본경로
+//				String defaultPath = req.getServletContext().getRealPath("/files/product-files");
+//				//파일 기본경로 _ 상세경로
+//				String path = defaultPath + File.separator;
+//				File file = new File(path);
+//				if(!file.exists()) {
+//				    file.mkdirs();
+//				}
+//				String realname = UUID.randomUUID().toString() + "." + ext;
+//				InputStream is = req.getInputStream();
+//				OutputStream os=new FileOutputStream(path + realname);
+//				int numRead;
+//				// 파일쓰기
+//				byte b[] = new byte[Integer.parseInt(req.getHeader("file-size"))];
+//				while((numRead = is.read(b,0,b.length)) != -1){
+//				    os.write(b,0,numRead);
+//				}
+//				if(is != null) {
+//				    is.close();
+//				}
+//				os.flush();
+//				os.close();
+//				sFileInfo += "&bNewLine=true&sFileName="+ name+"&sFileURL="+"/files/product-files"+realname;
+//				
+//				return sFileInfo;
+//			} catch (Exception ex) {
+//				return "error upload file";
+//			}
+//		} 
+
+	
 }

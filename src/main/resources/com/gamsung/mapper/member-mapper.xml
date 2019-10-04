@@ -108,6 +108,20 @@
 		WHERE id = #{ id }	
 	</update>
 	
+
+	<update id="Update" parameterType="com.gamsung.vo.Member">
+		UPDATE member
+		SET 
+		 nickname = #{ nickname }
+		,	phone = #{ phone }
+		, postcode = #{ postcode }
+		, roadAddr = #{ roadAddr }
+		, jibunAddr = #{ jibunAddr }
+		, detailAddr = #{ detailAddr }
+		, extraAddr = #{ extraAddr }
+		WHERE id = #{ id }			
+	</update>
+	
 	<update id="updateProfileImg" parameterType="com.gamsung.vo.Member">
 		update member 
 		set img_file_name = #{imgFileName}
@@ -125,5 +139,14 @@
 		set introduction = #{introduction}
 		where id = #{id}
 	</update>
+	
+	<select id="selectStoreById" resultType="com.gamsung.vo.Member" parameterType="String">
+		select distinct p.seller, m.img_file_name, m.introduction, m.nickname
+		from product p, member m
+		where p.seller = m.id
+		and p.seller = #{seller}
+	</select>
+	
+	
 
 </mapper>

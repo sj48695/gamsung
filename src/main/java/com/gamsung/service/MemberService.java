@@ -73,6 +73,9 @@ public class MemberService {
 		
 	}
 
+	public void UpdateUser(Member member) {
+		memberMapper.Update(member);
+	}
 	public void updateProfileImg(Member member) {
 		memberMapper.updateProfileImg(member);
 		
@@ -85,10 +88,12 @@ public class MemberService {
 
 	public void updateIntroduction(Member member) {
 		memberMapper.updateIntroduction(member);
-		
+
 	}
 
-
-
+	public Member findStoreById(String id) {
+		Member member = memberMapper.selectStoreById(id);
+		return member;
+	}
 
 }

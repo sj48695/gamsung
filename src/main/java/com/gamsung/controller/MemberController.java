@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -99,6 +100,19 @@ public class MemberController {
 		model.addAttribute("reviews", reviews);
 		
 		return "member/mypage";
+	}
+	
+	//상점
+	@GetMapping(path = "store/{id}")
+	public String store(Model model, @PathVariable String id) {
+		
+		Member member = memberService.findMemberById(id);
+		List<Product> products = productService.findMyProductList(id);
+		
+		model.addAttribute("member", member);
+		model.addAttribute("products", products);
+		
+		return "member/store";
 	}
 	
 	@GetMapping(path = "mypage/fileUpload")
@@ -228,10 +242,27 @@ public class MemberController {
 		boolean confirmpwd = passwordEncoder.matches(pwd.get("pwd"), password);
 			
 		if(confirmpwd != true) {
-			return "{ \"result\": \"failure\"}";
+			return "failure";
 			
 		}
-		return "{ \"result\": \"sucess\"}";
+		return "success";
+	}
+	
+	@GetMapping(path= {"/mypage/userData"})
+	@ResponseBody
+	public Member userData(HttpServletRequest req) {
+		Authentication auth = (Authentication)req.getUserPrincipal();
+		String id = auth.getName();
+		Member member = memberService.findMemberById(id);
+		
+		return member; 
+	}
+	
+	@PostMapping(path = { "/mypage/userUpdate" })
+	@ResponseBody
+	public String userUpdate(@RequestBody Member member) {
+		 memberService.UpdateUser(member);
+		return "success";
 	}
 
 }
