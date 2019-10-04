@@ -18,10 +18,8 @@ public class ReportService {
 		return reports;
 	}
 	
-	
 	public void registerReport(Report report) {
 		reportMapper.insertReport(report);
 	}
-
 
 }

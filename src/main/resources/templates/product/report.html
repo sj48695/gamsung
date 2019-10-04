@@ -21,14 +21,14 @@
 
 
 		<div class="newsletter" layout:fragment="content">
-		<form action="/reports/report" id="reportForm" method="post" enctype="multipart/form-data">
+		<form action="/report/" id="reportForm" method="post" enctype="multipart/form-data">
 		<div style="margin-top:25%; margin-left:10%"><h3>신고접수</h3><hr>
 		
 			Reporter : <input type="hidden" name="reporter" th:value="${#authentication.principal.member.nickname}"
-								th:text="${#authentication.principal.member.nickname}"><br><hr>
+								th:text="${#authentication.principal.member.nickname}"><br><hr style="width:50%">
 	
-			User : <input type="text" name="user" style="width: 300px" placeholder="신고대상 닉네임을 입력해주세요"
-								class="form-control" /><br> 
+			User : <input type="hidden" name="user" style="width: 300px"
+								class="form-control" th:text="${seller}" />&nbsp;&nbsp;(신고대상아이디)<br><hr style="width:50%">
 								
 			Title : <input type="text" name="title" style="width: 550px"
 								class="form-control" /><br> 
@@ -49,7 +49,7 @@
 		
 
 
-<!-- 	<script src="https://code.jquery.com/jquery-latest.js"></script>
+	<script src="https://code.jquery.com/jquery-latest.js"></script>
 	<script>
 		// Add the following code if you want the name of the file appear on select
 		$(".custom-file-input").on(
@@ -98,11 +98,11 @@
 				obj.getById["editor"].exec("UPDATE_CONTENTS_FIELD", []);
 				//폼 submit
 				$("#insertBoardFrm").submit();
-				alert("접수가 완료되었습니다.");
+				var ok = alert("접수가 완료되었습니다.");
 				
 			});
 		});
-	</script> -->
+	</script>
 	</form>
 	</div>
 	
