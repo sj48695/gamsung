@@ -10,7 +10,7 @@ class EditUserApp extends Component {
             <div>
                 
                 <Route exact path="/member/mypage" title="confirm" component={Confirmpwd}/>
-                <Route path="/member/mypage/editUser" title="editUser" component={UserDetail}/>
+                <Route path="/member/editUser" title="editUser" component={UserDetail}/>
             </div>
         )
     }

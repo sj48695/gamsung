@@ -14,4 +14,5 @@ public interface MessageMapper {
 
 	void insertMessage(InChatMessageVO message);
 
+	List<InChatMessageVO> selectMyChatList(String sender);
 }

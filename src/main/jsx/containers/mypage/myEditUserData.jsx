@@ -7,7 +7,7 @@ class EditUserRoute extends Component{
     render(){
         return(
             <div>
-                <div>test</div>
+                <div>회원정보수정</div>
                 <div>
                     <BrowserRouter>
                         <EditUserApp />

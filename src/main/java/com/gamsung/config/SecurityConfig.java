@@ -38,6 +38,8 @@ public class SecurityConfig
 	protected void configure(HttpSecurity http) throws Exception{
 		http.httpBasic()
 			.and()
+			.headers().frameOptions().disable()
+			.and()
 			
 			.authorizeRequests()
 			.antMatchers("/member/admin").access("hasRole('ROLE_ADMIN')")
@@ -46,6 +48,7 @@ public class SecurityConfig
 			.antMatchers("/product/update/**").access("hasRole('ROLE_USER')")
 			.antMatchers("/member/chatting/**").access("hasRole('ROLE_USER')")
 			.antMatchers("/deal/requestForm").access("hasRole('ROLE_USER')")
+			.antMatchers("/report/**").access("hasRole('ROLE_USER')")
 			.anyRequest().permitAll()
 			.and()
 			

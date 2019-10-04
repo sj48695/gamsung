@@ -10,4 +10,6 @@ public interface ChatService {
 
 	void sendMessage(InChatMessageVO message);
 
+	List<InChatMessageVO> findMyChatList(String sender);
+
 }

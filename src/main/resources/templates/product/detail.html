@@ -8,6 +8,7 @@
 <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/animate.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/styles/product.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/star.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/styles/product_responsive.css}">
 </head>
 <body>
@@ -101,8 +102,8 @@
 							<div class="in_stock_container">
 								<div class="availability">작성자 : </div>
 									<a th:href="'/member/store/'+${ product.seller }" th:text="${ product.seller }"></a>
-								<span>
-									<input type="hidden" id="seller" th:value="${ product.seller }">
+								<span th:if="${ product.seller } != ${ id }">
+									<input type="hidden" class="seller" id="seller" th:value="${ product.seller }">
 									<i class="fa fa-envelope-open" onclick="chatpop()" title="쪽지보내기"></i>&nbsp;
 									<i class="fa fa-bullhorn" onclick="report()" title="신고하기"></i>
 								</span>

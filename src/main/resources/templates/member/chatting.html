@@ -4,6 +4,17 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="layouts/main">
 <head>
+<style>
+.profile {
+    width: 60px; 
+    height: auto;
+    margin-bottom: 20px;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 50%;
+    position:relative; bottom: 50px;
+}
+</style>
 <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/animate.css}">
@@ -16,6 +27,11 @@
 			<div id="conversation" class="table table-striped">
 				<div id="greetings">
 					<div th:each="msg:${messages}">
+						<img class="profile" 
+							th:src="'/files/profile-files/'+${msg.profile}" 
+							th:if="${msg.sender} != ${#authentication.principal.member.id}">
+						<div th:text="${msg.receiver}"
+							th:if="${msg.sender} != ${#authentication.principal.member.id}"></div>
 						<div th:class="'text-'+${msg.align}" th:text="${msg.contents}"></div>
 					</div>
 				</div>
