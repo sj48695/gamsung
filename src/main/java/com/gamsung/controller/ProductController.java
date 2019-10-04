@@ -297,79 +297,7 @@ public class ProductController {
 		return "redirect:/product/detail/" + product.getProductNo();
 	}
 	
-	//신고
-	@GetMapping(path = "/report")
-	public String reportForm(Model model, HttpServletRequest req ) {
-		Authentication auth = (Authentication)req.getUserPrincipal();
-		auth.getPrincipal();
-		
-		
-		return "/product/report"; 
-	}
 	
-	@PostMapping(path="/report")
-	public String report(Model model,HttpServletRequest req, Report report) {
-		Authentication auth = (Authentication)req.getUserPrincipal();
-		auth.getPrincipal();
-		
-		productService.registerReport(report);
-		model.addAttribute("report", report);
-			
-		return "redirect:/product/coding.do";
-		//return "/product/report";
-	}
-		
-
-	@RequestMapping(value = "/coding.do")
-    public String coding() {
-        return "redirect:/product/report";
-    }
-	  
-	
-	@PostMapping(path="/insertBoard.do")
-    public String insertBoard(String editor) {
-        System.err.println("저장할 내용 : " + editor);
-        return "redirect:/product/coding.do";
-    }
-	
-	@PostMapping(path="/editor-image-upload", produces = "text/plain;charset=utf-8")
-	@ResponseBody
-	public String editorImageUpload(HttpServletRequest req) {
-		
-		try {
-			String sFileInfo = "";
-			//파일명 - 싱글파일업로드와 다르게 멀티파일업로드는 HEADER로 넘어옴 
-			String name = req.getHeader("file-name");
-			String ext = name.substring(name.lastIndexOf(".") + 1);
-			//파일 기본경로
-			String defaultPath = req.getServletContext().getRealPath("/files/product-files");
-			//파일 기본경로 _ 상세경로
-			String path = defaultPath + File.separator;
-			File file = new File(path);
-			if(!file.exists()) {
-			    file.mkdirs();
-			}
-			String realname = UUID.randomUUID().toString() + "." + ext;
-			InputStream is = req.getInputStream();
-			OutputStream os=new FileOutputStream(path + realname);
-			int numRead;
-			// 파일쓰기
-			byte b[] = new byte[Integer.parseInt(req.getHeader("file-size"))];
-			while((numRead = is.read(b,0,b.length)) != -1){
-			    os.write(b,0,numRead);
-			}
-			if(is != null) {
-			    is.close();
-			}
-			os.flush();
-			os.close();
-			sFileInfo += "&bNewLine=true&sFileName="+ name+"&sFileURL="+"/files/product-files"+realname;
-			
-			return sFileInfo;
-		} catch (Exception ex) {
-			return "error upload file";
-		}
-	} 
 	
 	
 	

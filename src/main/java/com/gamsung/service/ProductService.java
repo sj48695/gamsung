@@ -58,7 +58,7 @@ public interface ProductService {
 
 	void updateProduct(Product product);
 
-	void registerReport(Report report);
+	
 
 
 

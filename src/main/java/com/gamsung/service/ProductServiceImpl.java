@@ -77,11 +77,6 @@ public class ProductServiceImpl implements ProductService {
 		
 	}
 
-	@Override
-	public void registerReport(Report report) {
-		productMapper.insertReport(report);
-	}
-
 	
 	@Override
 	public void insertProductFiles(Product product, int productNo) {
