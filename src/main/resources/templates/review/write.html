@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko" 
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="layouts/main">
+<head>
+<link rel="stylesheet" type="text/css" th:href="@{/styles/main_styles.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/responsive.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/mypage/css/demo.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/product.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/star.css}">
+</head>
+<body>
+	<div class="newsletter" layout:fragment="content">
+		<div class="container py-5">
+			<section>
+				<form action="/product/reviewWrite" id="review_writeForm"
+					method="post" enctype="multipart/form-data">
+					<input type="hidden" name="dealNo" th:value="${dealNo}">
+					<input type="hidden" name="rating" id="rating" value="0.0">
+					
+					<!-- ***************************************************************************** -->
+					
+					<div class="row details_row">
+
+				
+						<div class="col-lg-6">
+			            	<div class="col-md-12 form-group"><hr>
+								<span class="tit">이미지<span class="ico_required">
+										*</span></span>
+								<div class="form-group">
+								<p class="option">
+									2048 * 1158 권장, 한 장당 최대 3MB(최대 10장)</p>
+								<div class="files">
+									<div class="product_images" >이미지 파일을 추가해 주세요. (JPG, JPEG, PNG)</div></div><hr>
+									<div class="btn_box">
+										<label class="imgBtn btn" for="imgFile" style="border:1px solid"><div>파일첨부</div> 
+											<input type="file" class="_fileRel"  name="imgFile" id="imgFile" style="display: none;"
+												accept="image/*" placeholder="이미지 파일을 추가해 주세요. (JPG, JPEG, PNG)" multiple>
+										</label>
+									</div>
+								</div>
+		         			</div>
+		         			<div class="col-md-12 starRev">
+							  <span class="starR1" data-star="0.5">별1_왼쪽</span>
+							  <span class="starR2" data-star="1.0">별1_오른쪽</span>
+							  <span class="starR1" data-star="1.5">별2_왼쪽</span>
+							  <span class="starR2" data-star="2.0">별2_오른쪽</span>
+							  <span class="starR1" data-star="2.5">별3_왼쪽</span>
+							  <span class="starR2" data-star="3.0">별3_오른쪽</span>
+							  <span class="starR1" data-star="3.5">별4_왼쪽</span>
+							  <span class="starR2" data-star="4.0">별4_오른쪽</span>
+							  <span class="starR1" data-star="4.5">별5_왼쪽</span>
+							  <span class="starR2" data-star="5.0">별5_오른쪽</span>
+							</div>
+						</div>
+						<!-- Billing Info -->
+						<div class="col-lg-6">
+							<label> Buyer : </label>
+							<input type="hidden" th:text="${#authentication.principal.member.nickname}"><br><hr>
+							<label> Content : </label>
+							<textarea name="contents" id="editor"
+								style="width: 550px" rows="10" class="form-control"></textarea><br>
+						</div>
+					</div>
+				
+				<!-- Newsletter -->
+					<div class="newsletter">
+						<div class="col-lg-8 offset-lg-2">
+							<div class="newsletter_content text-center">
+								<button type="submit" class="newsletter_button trans_200" id="insertBoard" ><span>리뷰등록</span></button>
+								<button type="button" class="newsletter_button trans_200" id="back_button" 
+									onclick="history.back();"><span>취소</span></button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</section>
+		</div>
+	</div>
+	<script th:src="@{/js/custom.js}"></script>
+</body>
+</html>

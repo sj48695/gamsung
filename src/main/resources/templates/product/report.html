@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layouts/main">
+<head>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/plugins/OwlCarousel2-2.2.1/animate.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/product.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/styles/product_responsive.css}">
+	
+	<meta http-equiv="X-Frame-Options" content="deny" />
+
+</head>
+<body>
+
+
+
+		<div class="newsletter" layout:fragment="content">
+		<form action="/report/" id="reportForm" method="post" enctype="multipart/form-data">
+		<div style="margin-top:25%; margin-left:10%"><h3>신고접수</h3><hr>
+		
+			Reporter : <input type="hidden" name="reporter" th:value="${#authentication.principal.member.nickname}"
+								th:text="${#authentication.principal.member.nickname}"><br><hr style="width:50%">
+	
+			User : <input type="hidden" name="user" style="width: 300px"
+								class="form-control" th:text="${seller}" />&nbsp;&nbsp;(신고대상아이디)<br><hr style="width:50%">
+								
+			Title : <input type="text" name="title" style="width: 550px"
+								class="form-control" /><br> 
+				
+			Content : <textarea name="contents" style="width: 550px" rows="10" id="editor" 
+								class="form-control" placeholder="사유를 입력해주세요"></textarea>
+		
+		
+			<button class="newsletter_button trans_200" style="margin-left:14%" id="insertBoard">
+				<span>보내기</span>
+			</button>
+			<button type="button" class="newsletter_button trans_200" 
+				 onclick="history.back();">
+				<span>취소</span>
+			</button>
+			
+		</div>
+		
+
+
+	<script src="https://code.jquery.com/jquery-latest.js"></script>
+	<script>
+		// Add the following code if you want the name of the file appear on select
+		$(".custom-file-input").on(
+				"change",
+				function() {
+					var fileName = $(this).val().split("\\").pop();
+					$(this).siblings(".custom-file-label").addClass("selected")
+							.html(fileName);
+				});
+	</script>
+	<script type="text/javascript"
+		src="/navereditor/js/HuskyEZCreator.js" charset="utf-8"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript">
+
+	
+	
+		$(".custom-file-input").on(
+			"change",
+			function() {
+				var fileName = $(this).val().split("\\").pop();
+				$(this).siblings(".custom-file-label").addClass("selected")
+						.html(fileName);
+		});
+
+		$(function() {
+			//전역변수
+			var obj = [];
+			//스마트에디터 프레임생성
+			nhn.husky.EZCreator.createInIFrame({
+				oAppRef : obj,
+				elPlaceHolder : "editor",
+				sSkinURI : "/navereditor/SmartEditor2Skin.html",
+				htParams : {
+					// 툴바 사용 여부
+					bUseToolbar : true,
+					// 입력창 크기 조절바 사용 여부
+					bUseVerticalResizer : true,
+					// 모드 탭(Editor | HTML | TEXT) 사용 여부
+					bUseModeChanger : true,
+				}
+			});
+			//전송버튼
+			$("#insertBoard").click(function() {
+				//id가 smarteditor인 textarea에 에디터에서 대입
+				obj.getById["editor"].exec("UPDATE_CONTENTS_FIELD", []);
+				//폼 submit
+				$("#insertBoardFrm").submit();
+				var ok = alert("접수가 완료되었습니다.");
+				
+			});
+		});
+	</script>
+	</form>
+	</div>
+	
+</body>
+
+	
+</html>

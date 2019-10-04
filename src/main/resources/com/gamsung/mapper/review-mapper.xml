@@ -5,20 +5,19 @@
 
 <mapper namespace="com.gamsung.mapper.ReviewMapper">
 
-<!-- <sql id="reviewFileBasicColumns">
-		product_no, save_file_name, raw_file_name
+	<sql id="ReviewFileColumns">
+		deal_no, save_file_name, raw_file_name
 	</sql>
- -->
 
 	<!-- Review -->
 
 	<select id="selectReviewByReviewNo" resultType="com.gamsung.vo.Review">
-		select deal_no, contents, reg_date
+		select deal_no, contents, rating, reg_date
 		from review where deal_no = #{ dealNo }
 	</select>
 	
 	<select id="selectReviewsByProductNo" parameterType="int" resultType="com.gamsung.vo.Review">
-		select r.deal_no, contents, r.reg_date, d.buyer
+		select r.deal_no, contents, rating, r.reg_date, d.buyer
 		from review r INNER JOIN deal d
 		on d.deal_no = r.deal_no
 		where d.product_no = ${productNo} 
@@ -47,12 +46,48 @@
 	</insert>
 		
 	<select id="selectReview" resultType="com.gamsung.vo.Review" parameterType="string">
-		select r.deal_no, r.contents, r.reg_date, d.buyer, d.product_no
+		select r.deal_no, r.contents, rating, r.reg_date, d.buyer, d.product_no
 		from review r INNER JOIN deal d
 		on d.deal_no = r.deal_no
 		where d.buyer = #{id}
 	</select>
 	
+	<select id="selectReviewFilesByDealNo" parameterType="int" resultType="com.gamsung.vo.ReviewFile">
+		select review_file_no, <include refid="ReviewFileColumns"/> 
+		from reviewfile 
+		where deal_no = #{ dealNo }
+	</select>
+
+
+	<delete id="deleteReview" parameterType="int">
+		delete
+		from review 
+		where deal_no = #{ dealNo }
+	</delete>
+	
+	<update id="updateReview" parameterType="com.gamsung.vo.Review">
+		UPDATE review
+		SET contents = #{ contents } , rating = #{ rating }   
+		WHERE deal_no = #{ dealNo } 
+	</update>
+	
+	<select id="selectReviewByDealNo" parameterType="int" resultType="com.gamsung.vo.Review">
+		select deal_no, contents, rating, reg_date
+		from review
+		where deal_no = #{ dealNo }
+	</select>
+	
+	<delete id="deleteReviewFileByDealNo" parameterType="int">
+		delete
+		from reviewfile
+		where deal_no = #{ dealNo }
+	</delete>
+	
+	<delete id="deleteReviewFile" parameterType="int">
+		delete from reviewfile
+		where review_file_no = #{ reviewFileNo }
+	</delete>
+
 	<select id="selectStoreReview" resultType="com.gamsung.vo.Review" parameterType="string">
 		select r.deal_no, r.contents, r.reg_date, d.buyer, d.product_no, p.name
 		from review r, deal d, product p
@@ -68,8 +103,5 @@
 		and d.buyer = m.id
 		and d.buyer = #{id}
 	</select>
-	
-
-
 </mapper>
 

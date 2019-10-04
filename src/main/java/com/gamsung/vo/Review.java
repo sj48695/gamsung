@@ -18,7 +18,7 @@ public class Review {
 	private int productNo;
 	private String name;
 	private String seller;
-	private String img_file_name;
+	private String imgFileName;
 	
-	private ArrayList<ReviewFile> files;
+	private List<ReviewFile> files;
 }

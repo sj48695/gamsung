@@ -25,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.gamsung.common.Util;
 import com.gamsung.service.MemberService;
 import com.gamsung.service.ProductService;
+import com.gamsung.service.ReviewService;
 import com.gamsung.vo.Member;
 import com.gamsung.vo.Product;
 import com.gamsung.vo.Review;
@@ -35,11 +36,15 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
+	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private ReviewService reviewService;
 	
 	@GetMapping("/login")
 	public ModelAndView loginpage() {
@@ -75,14 +80,14 @@ public class MemberController {
 		Authentication auth = (Authentication)req.getUserPrincipal();
 		String memberId = auth.getName();
 		
-		Member profile = memberService.findProfileImgById(memberId);
+		String profile = memberService.findProfileImgById(memberId);
 		
 		Member member = memberService.findMemberById(memberId);
 		
 		List<Product> products = productService.findMyProductList(memberId);
 		List<Product> requestProducts = productService.findMyRequestProductList(memberId);
 		
-		List<Review> reviews = productService.selectReview(memberId);
+		List<Review> reviews = reviewService.selectReview(memberId);
 		
 		//내가 찜한 목록
 		List<Product> hearts = productService.findMyHeartList(memberId);
@@ -106,15 +111,11 @@ public class MemberController {
 		List<Product> products = productService.findMyProductList(id);
 		
 		//후기
-		List<Review> reviews = productService.findStoreReview(id);
-		
-		//프로필사진(buyer아이디 가져오기)
-		Review profile = productService.findReviewBuyerImg(id);
+		List<Review> reviews = reviewService.findStoreReview(id);
 		
 		model.addAttribute("member", member);
 		model.addAttribute("products", products);
 		model.addAttribute("reviews", reviews);
-		model.addAttribute("profile", profile);
 		
 		return "member/store";
 	}

@@ -71,7 +71,8 @@ class UserDetailData extends Component{
         const promise = UserDataService.UpdateUser(member);
         promise.then(result =>{
                     if(result === "success"){
-                        mythis.handleOpened();
+                        //mythis.handleOpened();
+                        location.href="/member/mypage"
                         alert("수정되었습니다.")
                     }
                 })
@@ -120,14 +121,14 @@ class UserDetailData extends Component{
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="phone">phone</label>
-                                        <input className="checkout_input" type="text" name="phone" defaultValue={member.phone} value={phone}onChange={this.handleChange2}/>
+                                        <input className="checkout_input" type="text" name="phone" value={phone} onChange={this.handleChange2}/>
                                     </div>
                                 </div>
                                 <div className="col-6">
                                     <label htmlFor="postcode" >Zipcode*</label> 
                                     <div className="row">
                                             <div className="form-group col-6">
-                                                <input type="text" className="checkout_input" defaultValue={member.postcode} value={postcode} onChange={this.handleChange3}
+                                                <input type="text" className="checkout_input" value={postcode} onChange={this.handleChange3}
                                                     id="postcode"  name="postcode" placeholder="우편번호" required="required" />
                                             </div>
                                             <div className="form-group col-6">
@@ -138,23 +139,23 @@ class UserDetailData extends Component{
                                     </div>
                                     <div className="form-group">
                                             <label htmlFor="roadAddress">RoadAddress*</label> 
-                                            <input type="text" className="checkout_input" defaultValue={member.roadAddr} value={roadAddr} onChange={this.handleChange4}
+                                            <input type="text" className="checkout_input" value={roadAddr} onChange={this.handleChange4}
                                                 id="roadAddress" name="roadAddr" placeholder="도로명주소" />
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="jibunAddr">Jibun*</label> 
-                                            <input type="text" className="checkout_input" defaultValue={member.jibunAddr} value={jibunAddr} onChange={this.handleChange5}
+                                            <input type="text" className="checkout_input" value={jibunAddr} onChange={this.handleChange5}
                                                 id="jibunAddress" name="jibunAddr" placeholder="지번주소" />
                                         </div>
                                         <div className="form-group row">
                                             <div className="form-group col-6">
                                                 <label htmlFor="detailAddr">Detail*</label> 
-                                                <input type="text" className="checkout_input" defaultValue={member.detailAddr} value={detailAddr}onChange={this.handleChange6}
+                                                <input type="text" className="checkout_input" value={detailAddr} onChange={this.handleChange6}
                                                     id="detailAddress" name="detailAddr" placeholder="상세주소" />
                                             </div>
                                             <div className="form-group col-6">
                                                 <label htmlFor="address">Extra*</label> 
-                                                <input type="text" className="checkout_input" defaultValue={member.extraAddr} value={extraAddr}onChange={this.handleChange7}
+                                                <input type="text" className="checkout_input" value={extraAddr} onChange={this.handleChange7}
                                                     id="extraAddress" name="extraAddr" placeholder="참고항목" />
                                             </div>
                                     </div>

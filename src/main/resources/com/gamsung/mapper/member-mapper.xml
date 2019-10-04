@@ -128,7 +128,7 @@
 		where id = #{id} 
 	</update>
 	
-	<select id="selectProfileImgById" resultType="com.gamsung.vo.Member" parameterType="String" >
+	<select id="selectProfileImgById" resultType="String" parameterType="String" >
 		select img_file_name
 		from member
 		where id = #{id}

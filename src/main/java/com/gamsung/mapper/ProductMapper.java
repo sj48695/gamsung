@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.gamsung.vo.Heart;
 import com.gamsung.vo.Product;
 import com.gamsung.vo.ProductFile;
+import com.gamsung.vo.Report;
 
 @Mapper
 public interface ProductMapper {
@@ -31,6 +32,17 @@ public interface ProductMapper {
 	
 	void updateProductCount(int productNo);
 
+	void deleteProduct(int productNo);
+
+	void deleteProductFile(int productFileNo);
+	
+	void updateProductFile(ProductFile productFile);
+	
+	void updateProduct(Product product);
+	
+	
+	//찜
+
 	void insertHeart(Heart heart);
 
 	void deleteHeart(HashMap<String, Object> param);
@@ -41,8 +53,10 @@ public interface ProductMapper {
 
 	List<Product> selectMyHeartList(String memberId);
 
-	void deleteProduct(int productNo);
+
 	
+
+
 
 	
 }

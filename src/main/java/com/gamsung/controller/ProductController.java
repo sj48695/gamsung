@@ -1,8 +1,12 @@
 package com.gamsung.controller;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -20,13 +24,15 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.gamsung.common.Util;
-import com.gamsung.service.DealService;
 import com.gamsung.service.MemberService;
 import com.gamsung.service.ProductService;
+import com.gamsung.service.ReportService;
+import com.gamsung.service.ReviewService;
 import com.gamsung.vo.Heart;
 import com.gamsung.vo.Member;
 import com.gamsung.vo.Product;
 import com.gamsung.vo.ProductFile;
+import com.gamsung.vo.Report;
 import com.gamsung.vo.Review;
 import com.gamsung.vo.ReviewFile;
 
@@ -38,11 +44,17 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 	
+//	@Autowired
+//	private DealService dealService;
+
 	@Autowired
-	private DealService dealService;
+	private ReviewService reviewService;
 
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private ReportService reportService;
 
 	@GetMapping(path = "detail/{productNo}")
 	public String productDetail(@PathVariable int productNo, Model model, HttpServletRequest req) {
@@ -62,7 +74,7 @@ public class ProductController {
 		
 		Product product = productService.findProductByProductNo(productNo);
 		
-	    ArrayList<Review> reviewlist = productService.findReviewsByProductNo(productNo);
+	    ArrayList<Review> reviewlist = reviewService.findReviewsByProductNo(productNo);
 	    
 		Member member = memberService.findMemberById(product.getSeller());
 		String addr = "";
@@ -157,6 +169,7 @@ public class ProductController {
 
 						ProductFile productFile = new ProductFile();
 						productFile.setSaveFileName(uniqueFileName);
+						productFile.setRawFileName(userFileName);
 						productFile.setFlag(false);
 						files.add(productFile);
 						product.setFiles(files);
@@ -177,7 +190,7 @@ public class ProductController {
 		return "redirect:/product/categories";
 	}
 	
-	
+
 	@GetMapping(path = "/delete/{productNo}")
 	public String delete(@PathVariable int productNo) {
 	      
@@ -185,6 +198,16 @@ public class ProductController {
 	          
 	      return "redirect:/product/categories"; 
 	    
+	}
+	
+	
+	@GetMapping(path = "/delete-file")
+	@ResponseBody //return값을 스트링 형태로 받아옴
+	public String deletefile(int productFileNo) {
+		
+		productService.deleteProductFile(productFileNo);
+
+		return "success" ; 
 	}
 	
 	@GetMapping(path = "/update/{productNo}")
@@ -228,10 +251,11 @@ public class ProductController {
 
 					ProductFile productFile = new ProductFile();
 					productFile.setSaveFileName(uniqueFileName);
+					productFile.setRawFileName(userFileName);
 					productFile.setFlag(true);
 					productFile.setProductNo(product.getProductNo());
 					
-					//productService.updateProductFile(productFile);
+					productService.updateProductFile(productFile);
 					
 					product.setFile(productFile);
 					
@@ -260,6 +284,7 @@ public class ProductController {
 
 						ProductFile productFile = new ProductFile();
 						productFile.setSaveFileName(uniqueFileName);
+						productFile.setRawFileName(userFileName);
 						productFile.setFlag(false);
 						productFile.setProductNo(product.getProductNo());
 						files.add(productFile);
@@ -271,7 +296,7 @@ public class ProductController {
 				}
 			}
 			// 데이터 저장
-			//productService.updateProduct(product);
+			productService.updateProduct(product);
 			model.addAttribute("product", product);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -279,6 +304,10 @@ public class ProductController {
 		
 		return "redirect:/product/detail/" + product.getProductNo();
 	}
+	
+	
+	
+	
 	
 
 	// 찜하기
@@ -312,7 +341,7 @@ public class ProductController {
 	@GetMapping(path = "reviewWrite/{dealNo}")
 	public String reviewWriteForm(@PathVariable int dealNo, Model model) {
 		model.addAttribute("dealNo", dealNo);
-		return "product/reviewwrite";
+		return "review/write";
 	}
 	
 	@PostMapping(path = "reviewWrite")
@@ -353,13 +382,10 @@ public class ProductController {
 						reviewFile.setRawFileName(userFileName);
 						files.add(reviewFile);
 						review.setFiles(files);
-
-						System.out.println(files);
 					}
 				}
 			}
-			System.out.println(review);
-			productService.insertReview(review);
+			reviewService.insertReview(review);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -370,16 +396,80 @@ public class ProductController {
 		return "redirect:/product/categories";
 	}
 	
-	//window창
-	@GetMapping(path = "/black")
-	public String blackForm(Model model, HttpServletRequest req ) {
-		Authentication auth = (Authentication)req.getUserPrincipal();
-		auth.getPrincipal();
+	@GetMapping(path = "/deleteReview/{dealNo}")
+	public String deleteReview(@PathVariable int dealNo) {
 		
-		List<Product> products = productService.findProducts();
-		model.addAttribute("products", products);
-		
-		return "/product/black"; 
+	      reviewService.deleteReview(dealNo);
+	          
+	      return "redirect:/member/mypage"; 
+	    
 	}
+	
+	@GetMapping(path = "/updateReview/{dealNo}")
+	public String reviewUpdateForm(@PathVariable int dealNo, Model model) {
+		
+		Review review = reviewService.findReviewByDealNo(dealNo);
+		
+		model.addAttribute("review", review);
+		return "review/update";
+	}
+	
+	@PostMapping(path = "/updateReview")
+	public String updateReview(MultipartHttpServletRequest req, Review review, Model model) {
 
+		ServletContext application = req.getServletContext();
+		String path = application.getRealPath("/files/review-files");// 최종 파일 저장 경로
+		String userFileName = "";
+		try {
+
+			List<MultipartFile> img = req.getFiles("imgFile");
+
+			if (img != null) {
+				File file = new File(path);
+				ArrayList<ReviewFile> files = new ArrayList<ReviewFile>();
+
+				for (int i = 0; i < img.size(); i++) {
+					userFileName = img.get(i).getOriginalFilename();
+					if (userFileName.contains("\\")) { // iexplore 경우
+						// C:\AAA\BBB\CCC.png -> CCC.png
+						userFileName = userFileName.substring(userFileName.lastIndexOf("\\") + 1);
+					}
+					if (userFileName != null && userFileName.length() > 0) { // 내용이 있는 경우
+
+						System.out.println(userFileName + " 업로드");
+						// 파일 업로드 소스 여기에 삽입
+						String uniqueFileName = Util.makeUniqueFileName(path, userFileName);// 파일이름_1.jpg
+						file = new File(path, uniqueFileName);
+						img.get(i).transferTo(file);
+						
+						ReviewFile reviewFile = new ReviewFile();
+						reviewFile.setSaveFileName(uniqueFileName);
+						reviewFile.setRawFileName(userFileName);
+						reviewFile.setDealNo(review.getDealNo());
+						files.add(reviewFile);
+						
+						review.setFiles(files);
+						
+						reviewService.insertReviewFiles(review, review.getDealNo());
+						
+					}
+				}
+			}
+			reviewService.updateReview(review);
+			model.addAttribute("review", review);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/member/mypage";
+	}
+	
+	@GetMapping(path = "/delete-reviewfile")
+	@ResponseBody //return값을 스트링 형태로 받아옴
+	public String reviewdeletefile(int reviewFileNo) {
+		
+		reviewService.deleteReviewFile(reviewFileNo);
+
+		return "success" ; 
+	}
+	
 }

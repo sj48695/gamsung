@@ -19,7 +19,6 @@
 		<include refid="productColumns" />
 		from product where product_no = #{ productNo }
 	</select>
-	
 	<select id="selectProducts" resultType="com.gamsung.vo.Product">
 		select product_no, reg_date,
 		<include refid="productColumns" />
@@ -51,6 +50,17 @@
 		 
 	</insert>
 	
+	<update id="updateProduct" parameterType="com.gamsung.vo.Product">
+		UPDATE product
+		SET type = #{ type }
+			,category = #{ category }
+			, name = #{ name }
+			, price = #{ price }
+			, contents = #{ contents }
+			, count = #{ count }
+		WHERE product_no = #{ productNo }
+	</update>
+	
 
 	<insert id="insertProductFile" parameterType="com.gamsung.vo.ProductFile">
 		INSERT INTO productfile (
@@ -62,7 +72,19 @@
 	        , #{ rawFileName }
 	        , #{ flag }
 		)
-	</insert>	
+	</insert>
+	
+	<delete id="deleteProductFile" parameterType="int">
+		delete from productfile
+		where product_file_no = #{ productFileNo }
+	</delete>
+	
+	
+	<update id="updateProductFile" parameterType="com.gamsung.vo.ProductFile">
+		update productfile
+		set save_file_name = #{ saveFileName }
+		where product_no = #{ productNo } and flag = 1
+	</update>	
 	
 	<select id="selectProductFileByProductNo" parameterType="int" resultType="com.gamsung.vo.ProductFile">
 		select product_file_no, <include refid="productFileBasicColumns"/> 
