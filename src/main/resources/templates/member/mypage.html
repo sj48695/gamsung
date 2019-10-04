@@ -14,6 +14,17 @@
     border-radius: 50%;
     position:relative; bottom: 50px;
 }
+
+.review_button {
+	position: relative;
+    width: 178px;
+    border: solid 2px #1b1b1b;
+    background: #FFFFFF;
+    cursor: pointer;
+    margin-top: 55px;
+    overflow: hidden;
+    margin: 0px;
+}
 </style>
 <link rel="stylesheet" type="text/css" th:href="@{/styles/main_styles.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/styles/star.css}">
@@ -131,9 +142,30 @@
 								</div>
 		                  		<div class="col">
 		                  			<a th:href="'/product/detail/'+${review.productNo}" th:text="${review.contents}"></a>
+		                  			
 		                  		</div>
 		                  		<div class="col" th:text="${#dates.format(review.regDate, 'yyyy-MM-dd')}"></div>
-		                  	</div>
+		                  			<div class="review_button">
+		                  				<a th:href="'/product/updateReview/'+${review.dealNo}">수정</a>
+		                  			</div>
+									<div class="review_button">
+										<a th:href="'/product/deleteReview/'+${review.dealNo}">삭제</a></div>
+		                  			</div>
+							
+						<!-- <button class="newsletter_button" onclick="location.href='/product/reviewWrite'"><span>리뷰 작성</span></button> -->
+							
+							<div class="starRev">
+							  <span class="starR1 on">별1_왼쪽</span>
+							  <span class="starR2">별1_오른쪽</span>
+							  <span class="starR1">별2_왼쪽</span>
+							  <span class="starR2">별2_오른쪽</span>
+							  <span class="starR1">별3_왼쪽</span>
+							  <span class="starR2">별3_오른쪽</span>
+							  <span class="starR1">별4_왼쪽</span>
+							  <span class="starR2">별4_오른쪽</span>
+							  <span class="starR1">별5_왼쪽</span>
+							  <span class="starR2">별5_오른쪽</span>
+							</div>
 						</section>
 						<section id="section-topline-5">
 							<div class="container" id="message">

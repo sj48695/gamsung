@@ -16,4 +16,5 @@ public class Reply {
 	private int depth;
 	private Date regDate;
 	
+	
 }

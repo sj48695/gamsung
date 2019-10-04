@@ -50,19 +50,6 @@
 		 
 	</insert>
 	
-	<insert id="insertReport"  parameterType="com.gamsung.vo.Report">
-		insert into report(
-			user, reporter, title, contents
-		)
-		values(
-			#{user},
-			#{reporter},
-			#{title},
-			#{contents}
-		)
-	</insert>
-	
-	
 	<update id="updateProduct" parameterType="com.gamsung.vo.Product">
 		UPDATE product
 		SET type = #{ type }

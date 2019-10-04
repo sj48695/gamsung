@@ -318,15 +318,18 @@ function readURL(input,target) {
 
 function report(){
 	 
+	
+	var seller = $('#seller').attr('value');
     //팝업창출력
     //width : 300px크기
     //height : 300px크기
     //top : 100px 위의 화면과 100px 차이해서 위치
     //left : 100px 왼쪽화면과 100px 차이해서 위치
     //툴바 X, 메뉴바 X, 스크롤바 X , 크기조절 X
-    window.open('/product/report','popName',
+    window.open('/report/'+ seller,'popName',
                 'width=700,height=900,top=100,left=100,toolbar=no,menubar=no,scrollbars=no,resizable=no,status=no');
 }
+
 
 /* ----------- product (write, update) ---------- */
 $(function () {
@@ -340,6 +343,11 @@ $(function () {
 		$('.product_images').empty();
 		readURL(this, $(".product_images"));
 	});
+
+	$("#review_writeForm").on("change", "#imgFile", function (event) {
+		$('.product_images').empty();
+		readURL(this, $(".product_images"));
+	});
 	
 	$("#updateForm").on("change", "#titleImgFile", function (event) {
 		$(".product_image").empty();
@@ -348,7 +356,6 @@ $(function () {
 	$("#updateForm").on("change", "#imgFile", function (event) {
 	    readURL(this, $(".product_images")); //empty= 하위파일을 일시적으로 안보이게 설정(데이터는 남아있음)
 	});
-	
 	
 	$("#dealForm").on("click","#back_button", function(event){
 		var productNo = $(this).attr("data-productNo");

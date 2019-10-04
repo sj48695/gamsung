@@ -53,8 +53,6 @@ public interface ProductMapper {
 
 	List<Product> selectMyHeartList(String memberId);
 
-	void insertReport(Report report);
-
 
 	
 
