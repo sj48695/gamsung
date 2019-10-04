@@ -29,7 +29,6 @@ $(function() {
 		return false;
 	});
 
-	
 	/*chat*/
 //	document.addEventListener("DOMContentLoaded", function(){
 //		WebSocket.init();
@@ -118,7 +117,7 @@ function introduction(){
 /*chat*/
 function chatpop(){
 
-	var seller = $('#seller').attr('value');	
+	var seller = $('.seller').attr('value');	
     //팝업창출력
     //width : 300px크기
     //height : 300px크기

@@ -336,8 +336,8 @@
     	
     	//sUploadURL= 'file_uploader_html5.php'; 	//upload URL
     	//sUploadURL= '/WebEditorDemo2/galleryimageupload2.action'; 	//upload URL
-    	//sUploadURL= '/product/editor-image-upload'; 	//upload URL
-    	sUploadURL= '../../../../file_uploader_html5.php';
+    	sUploadURL= '/product/editor-image-upload'; 	//upload URL
+    	//sUploadURL= '../../../../file_uploader_html5.php';
     	
     	//파일을 하나씩 보내고, 결과를 받음.
     	for(var j=0, k=0; j < nImageInfoCnt; j++) {

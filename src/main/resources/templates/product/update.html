@@ -37,7 +37,7 @@
 		</div>
 		
 		<form action="/product/update" id="updateForm" method="post" enctype="multipart/form-data">
-			<input name="productNo" th:value="${ product.productNo }">
+			<input type="hidden" name="productNo" th:value="${ product.productNo }">
 			<!-- Product Details -->
 			<div class="product_details">
 				<div class="container">

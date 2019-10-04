@@ -318,15 +318,18 @@ function readURL(input,target) {
 
 function report(){
 	 
+	
+	var seller = $('#seller').attr('value');
     //팝업창출력
     //width : 300px크기
     //height : 300px크기
     //top : 100px 위의 화면과 100px 차이해서 위치
     //left : 100px 왼쪽화면과 100px 차이해서 위치
     //툴바 X, 메뉴바 X, 스크롤바 X , 크기조절 X
-    window.open('/product/report','popName',
+    window.open('/report/'+ seller,'popName',
                 'width=700,height=900,top=100,left=100,toolbar=no,menubar=no,scrollbars=no,resizable=no,status=no');
 }
+
 
 /* ----------- product (write, update) ---------- */
 $(function () {

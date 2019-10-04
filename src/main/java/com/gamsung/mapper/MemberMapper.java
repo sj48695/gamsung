@@ -29,7 +29,7 @@ public interface MemberMapper {
 
 	void updateProfileImg(Member member);
 
-	Member selectProfileImgById(String memberId);
+	String selectProfileImgById(String memberId);
 
 	void updateIntroduction(Member member);
 

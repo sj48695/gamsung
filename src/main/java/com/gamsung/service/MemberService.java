@@ -81,9 +81,9 @@ public class MemberService {
 		
 	}
 
-	public Member findProfileImgById(String memberId) {
-		Member member = memberMapper.selectProfileImgById(memberId);
-		return member;
+	public String findProfileImgById(String memberId) {
+		String profile = memberMapper.selectProfileImgById(memberId);
+		return profile;
 	}
 
 	public void updateIntroduction(Member member) {

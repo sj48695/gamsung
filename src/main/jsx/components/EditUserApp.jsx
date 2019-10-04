@@ -21,7 +21,6 @@ class EditUserApp extends Component {
             <div>
                 <Route path="/member/mypage" title="editUser" component={UserDetail}/>
                 <Route exact path="/member/mypage/trash" title="confirm" component={Confirmpwd}/>
-
             </div>
         )
     }

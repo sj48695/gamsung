@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gamsung.service.ChatService;
 import com.gamsung.service.MemberService;
@@ -43,6 +44,9 @@ public class ChatController {
 
 			else if (msg.getSender().equals(sender))
 				msg.setAlign("right");
+			String profile = memberService.findProfileImgById(msg.getSender());
+			msg.setProfile(profile);
+			
 		}
 		model.addAttribute("receiver", receiver);
 		model.addAttribute("messages", messages);
@@ -57,4 +61,13 @@ public class ChatController {
 		return message;
 	}
 
+	
+	@GetMapping(path = "/member/chattingList")
+	@ResponseBody
+	public List<InChatMessageVO> getMemberList(HttpServletRequest req) {
+		Authentication auth = (Authentication) req.getUserPrincipal();
+		String sender = auth.getName();
+		List<InChatMessageVO> messages = chatService.findMyChatList(sender);
+		return messages;
+	}
 }
