@@ -21,7 +21,7 @@ export const getUserList = () => {
 
 export const getReportList = () =>{
    return new Promise((resolve, reject)=>{
-        axios.get("Reportlist")
+        axios.get("/report/list")
         .then( (result) => {
             const data = result.data;
             resolve(data);

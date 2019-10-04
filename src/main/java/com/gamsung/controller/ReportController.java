@@ -16,7 +16,7 @@ import com.gamsung.vo.Report;
 public class ReportController {
 	@Autowired ReportService reportService;
 	
-	@GetMapping(path="{/list}")
+	@GetMapping(path= {"/list"})
 	@ResponseBody
 	public List<Report> reportList(){
 		List<Report> reports = reportService.findList();

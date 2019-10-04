@@ -26,7 +26,7 @@ class ReportManage extends Component {
                     <tr id="report?{reoprt.reportNo}">
                         <td>{report.reportNo}</td>
                         <td>{report.reporter}</td>
-                        <td>{report.contends}</td>
+                        <td>{report.contents}</td>
                         <td>{report.regDate}</td>
                         <td>{report.confirm}</td>
                     </tr>
