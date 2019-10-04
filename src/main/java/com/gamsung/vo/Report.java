@@ -13,5 +13,7 @@ public class Report {
 	private String title; 
 	private String contents; 
 	private Date regDate;
+	private String confirm;
+	private String answer;
 
 }
