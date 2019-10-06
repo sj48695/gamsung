@@ -20,6 +20,13 @@ public interface ReviewService {
 
 	Review findReviewByDealNo(int dealNo);
 
-	void updateReview(Review review);	
+	void updateReview(Review review);
+
+	void deleteReviewFile(int reviewFileNo);
+	
+	/* 상점 */
+	List<Review> findStoreReview(String id);
+
+	Review findReviewBuyerImg(String id);
 
 }

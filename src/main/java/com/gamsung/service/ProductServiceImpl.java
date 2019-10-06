@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gamsung.mapper.DealMapper;
+import com.gamsung.mapper.MemberMapper;
 import com.gamsung.mapper.ProductMapper;
 import com.gamsung.mapper.ReviewMapper;
 import com.gamsung.vo.Deal;
 import com.gamsung.vo.Heart;
+import com.gamsung.vo.Member;
 import com.gamsung.vo.Product;
 import com.gamsung.vo.ProductFile;
 import com.gamsung.vo.Report;
@@ -30,6 +32,9 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	DealMapper dealMapper;
+	
+	@Autowired
+	MemberMapper memberMapper;
 
 	@Autowired
 	DealMapper reportMapper;
@@ -47,6 +52,8 @@ public class ProductServiceImpl implements ProductService {
 		List<ProductFile> files = productMapper.selectProductFilesByProductNo(product.getProductNo());
 		product.setFiles(files);
 		
+		product.setSellerNick(memberMapper.findMemberById(product.getSeller()).getNickname());
+		
 		return product;
 
 	}
@@ -59,6 +66,7 @@ public class ProductServiceImpl implements ProductService {
 		for(Product product : products) {
 			ProductFile file = productMapper.selectProductFileByProductNo(product.getProductNo());
 			product.setFile(file);
+			product.setSellerNick(memberMapper.findMemberById(product.getSeller()).getNickname());
 		}
 		
 		return products;
@@ -150,6 +158,19 @@ public class ProductServiceImpl implements ProductService {
 		
 	}
 	
+	//메인
+	@Override
+	public List<Product> findMain() {
+		List<Product> main = productMapper.selectMain();
+		
+		//제품 이미지
+		for(Product product : main) {
+			product.setFile(productMapper.selectProductFileByProductNo(product.getProductNo()));
+		}
+		
+		return main;
+	}
+	
 	/*	Heart	*/
 
 	@Override
@@ -203,5 +224,12 @@ public class ProductServiceImpl implements ProductService {
 		
 		return heartlist;
 	}
-	
+
+	@Override
+	public Integer findHeartCountByProductNo(int productNo) {
+		Integer heartcount = productMapper.selectHeartCountByProductNo(productNo);
+		
+		return heartcount;
+	}
+
 }

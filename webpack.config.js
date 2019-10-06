@@ -10,6 +10,8 @@ module.exports = {
         myEditUserData:'./editUserIndex.jsx',
         message:'./containers/mypage/message.jsx',
         report:'./reportIndex.jsx'
+        comment:'./containers/product/commentIndex.jsx'
+
 
 
     },

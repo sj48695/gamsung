@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.gamsung.mapper.MemberMapper;
 import com.gamsung.mapper.MessageMapper;
 import com.gamsung.vo.InChatMessageVO;
+import com.gamsung.vo.Member;
 
 @Service
 public class ChatServiceImpl implements ChatService {
@@ -25,7 +26,10 @@ public class ChatServiceImpl implements ChatService {
 		params.put("receiver", receiver);
 		params.put("sender", sender);
 		List<InChatMessageVO> messages = messageMapper.selectMessageList(params);
-
+		for (InChatMessageVO message : messages) {
+			Member senderMember = memberMapper.findMemberById(message.getSender());
+			message.setSenderNickName(senderMember.getNickname());
+		}
 		return messages;
 	}
 
@@ -38,11 +42,16 @@ public class ChatServiceImpl implements ChatService {
 	public List<InChatMessageVO> findMyChatList(String me) {
 		List<InChatMessageVO> messages = messageMapper.selectMyChatList(me);
 		for (InChatMessageVO message : messages) {
+			Member receiver = memberMapper.findMemberById(message.getReceiver());
+			Member sender = memberMapper.findMemberById(message.getSender());
+			message.setReceiverNickName(receiver.getNickname());
+			message.setSenderNickName(sender.getNickname());
 			message.setRelativeId(message,me);
 			message.setRelativeNick(message,me);
 			String profile = memberMapper.selectProfileImgById(message.getRelativeId());
 			message.setProfile(profile);
 		}
+		System.out.println(messages);
 
 		return messages;
 	}

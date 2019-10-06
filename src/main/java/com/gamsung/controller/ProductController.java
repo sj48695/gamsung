@@ -1,12 +1,9 @@
 package com.gamsung.controller;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -19,22 +16,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.gamsung.common.Util;
+import com.gamsung.service.CommentService;
 import com.gamsung.service.MemberService;
 import com.gamsung.service.ProductService;
-import com.gamsung.service.ReportService;
 import com.gamsung.service.ReviewService;
+import com.gamsung.vo.Comment;
 import com.gamsung.vo.Heart;
 import com.gamsung.vo.Member;
 import com.gamsung.vo.Product;
 import com.gamsung.vo.ProductFile;
-import com.gamsung.vo.Report;
 import com.gamsung.vo.Review;
 import com.gamsung.vo.ReviewFile;
+import com.google.gson.JsonObject;
 
 
 @Controller
@@ -43,18 +42,16 @@ public class ProductController {
 
 	@Autowired
 	private ProductService productService;
-	
-//	@Autowired
-//	private DealService dealService;
 
 	@Autowired
 	private ReviewService reviewService;
+	
+	@Autowired
+	private CommentService commentService;
 
 	@Autowired
 	private MemberService memberService;
 	
-	@Autowired
-	private ReportService reportService;
 
 	@GetMapping(path = "detail/{productNo}")
 	public String productDetail(@PathVariable int productNo, Model model, HttpServletRequest req) {
@@ -71,6 +68,9 @@ public class ProductController {
 				model.addAttribute("id", id);
 			}
 		}
+		
+		//찜 갯수
+		Integer heartcount = productService.findHeartCountByProductNo(productNo);
 		
 		Product product = productService.findProductByProductNo(productNo);
 		
@@ -89,6 +89,7 @@ public class ProductController {
 		model.addAttribute("addr", addr);
 		model.addAttribute("product", product);
 		model.addAttribute("reviewlist", reviewlist);
+		model.addAttribute("heartcount", heartcount);
 		 
 		return "product/detail";
 	}
@@ -307,10 +308,11 @@ public class ProductController {
 	
 	
 	
+	/*===============================================
+	 *  					Heart 
+	 *  =========================================== */
 	
 	
-
-	// 찜하기
 	@GetMapping(path = "/heart")
 	// @RequestMapping(path = "/addheart?productNo={productNo}", method = {RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
@@ -337,6 +339,10 @@ public class ProductController {
 		}
 
 	}
+
+	/*===============================================
+	 *  					Review
+	 *  =========================================== */
 	
 	@GetMapping(path = "reviewWrite/{dealNo}")
 	public String reviewWriteForm(@PathVariable int dealNo, Model model) {
@@ -445,18 +451,102 @@ public class ProductController {
 						ReviewFile reviewFile = new ReviewFile();
 						reviewFile.setSaveFileName(uniqueFileName);
 						reviewFile.setRawFileName(userFileName);
+						reviewFile.setDealNo(review.getDealNo());
 						files.add(reviewFile);
-						review.setFiles(files);
 						
+						review.setFiles(files);
 					}
 				}
 			}
 			reviewService.updateReview(review);
+			model.addAttribute("review", review);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "redirect:/member/mypage";
 	}
 	
+	@GetMapping(path = "/delete-reviewfile")
+	@ResponseBody //return값을 스트링 형태로 받아옴
+	public String reviewdeletefile(int reviewFileNo) {
+		
+		reviewService.deleteReviewFile(reviewFileNo);
+
+		return "success" ; 
+	}
+
+	/*===============================================
+	 *  					Comment
+	 *  =========================================== */
+	
+	
+	
+	@RequestMapping(path = "/write-comment", 
+					method = RequestMethod.POST, 
+					produces = "text/plain;charset=utf-8") 
+	@ResponseBody 
+	public String writeComment(Comment comment) {
+		
+		commentService.writeComment(comment);
+		
+		
+		return "success"; 
+	}
+	
+	@RequestMapping(path = "/write-recomment", 
+			method = RequestMethod.POST, 
+			produces = "text/plain;charset=utf-8") 
+	@ResponseBody 
+	public String writeRecomment(Comment comment) {
+	
+		commentService.writeRecomment(comment);
+		
+		return "success"; 
+	}
+	
+	@GetMapping(value = "/comment-list/{productNo}")
+	@ResponseBody
+	public List<Comment> commentList(@PathVariable int productNo) {
+		
+//		if(pageNo == 0) {
+//			pageNo=1;
+//		}
+//		
+//		int pageSize = 3;
+//		int currentPage = pageNo;
+//
+//		int from = (currentPage - 1) * pageSize + 1;
+//		int to = from + pageSize;
+//
+//		HashMap<String, Object> params = new HashMap<String, Object>();
+//		params.put("productNo", productNo);
+//		params.put("from", from-1);
+//		params.put("to", to);
+
+		List<Comment> comments = 
+				commentService.findCommentListByProductNo(productNo);
+//				commentService.findCommentListByProductNoWithPaging(params);
+//		model.addAttribute("comments", comments);
+
+		return comments;
+	}
+	
+	@RequestMapping(value = "/delete-comment", method = RequestMethod.GET)
+	@ResponseBody
+	public String deleteComment(int commentNo) {
+		
+		commentService.deleteComment(commentNo);
+		
+		return "success";
+	}
+	
+	@RequestMapping(value = "/update-comment", method = RequestMethod.POST)
+	@ResponseBody
+	public String updateComment(Comment comment) {
+		
+		commentService.updateComment(comment);
+		
+		return "success";
+	}
 	
 }
