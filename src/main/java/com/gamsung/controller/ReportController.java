@@ -67,7 +67,7 @@ public class ReportController {
 	//에디터
 	@RequestMapping(value = "/coding.do")
     public String coding() {
-        return "redirect:/reports/report";
+        return "redirect:/report/report";
     }
 	  
 	

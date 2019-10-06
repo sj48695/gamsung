@@ -51,7 +51,7 @@ div .title {
 					<!-- Product Image -->
 					<div class="col-lg-6">
 						<div class="details_image">
-							<div class="details_image_large">
+							<div class="details_image_large" style="width:100%">
 								<img src="/files/product-files/"
 									th:attrappend="src=${ product.file.saveFileName }">
 								<div class="product_extra product_sale" th:if="${ product.type } == '흥정'">
@@ -66,7 +66,7 @@ div .title {
 									data-image="/files/product-files/" th:attrappend="data-image=${ product.file.saveFileName }">
 									<img src="/files/product-files/" th:attrappend="src=${ product.file.saveFileName }">
 								</div>
-								<div class="details_image_thumbnail" th:each="file : ${ product.files }"
+								<div class="details_image_thumbnail"  th:each="file : ${ product.files }"
 									data-image="/files/product-files/" th:attrappend="data-image=${ file.saveFileName }">
 									<img src="/files/product-files/" th:attrappend="src=${ file.saveFileName }">
 								</div>

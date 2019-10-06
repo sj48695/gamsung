@@ -26,7 +26,7 @@
 			Reporter : <input type="hidden" name="reporter" th:value="${#authentication.principal.member.nickname}"
 								th:text="${#authentication.principal.member.nickname}"><br><hr style="width:50%">
 	
-			User : <input type="hidden" name="user" style="width: 300px"
+			User : <input type="hidden" name="user" style="width: 300px" th:value="${seller}"
 								class="form-control" th:text="${seller}" />&nbsp;&nbsp;(신고대상아이디)<br><hr style="width:50%">
 								
 			Title : <input type="text" name="title" style="width: 550px"

@@ -235,7 +235,6 @@ public class ProductController {
 		if(product == null) {
 			return "redirect:/product/categories";
 		}
-		System.out.println(product);
 		model.addAttribute("product", product);
 		
 		return "/product/update";
@@ -312,6 +311,7 @@ public class ProductController {
 			}
 			// 데이터 저장
 			productService.updateProduct(product);
+			System.out.println(product);
 			model.addAttribute("product", product);
 		} catch (Exception e) {
 			e.printStackTrace();
