@@ -996,6 +996,7 @@ section
 .product_image
 {
 	width: 100%;
+	height: 250px;
 }
 .product_image img
 {

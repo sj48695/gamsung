@@ -49,13 +49,15 @@
 					
 					<div>
 						<div class="row">
-							<h3><span th:text="${member.nickname}"></span>의 상점</h3>
-								<i class="flaticon-chat col" style="bottom:10px"></i>
+							<h3><span th:text="${member.nickname}"></span>의 상점
+								<input type="hidden" class="seller" id="seller" th:value="${ member.id }">
+								<i class="fa fa-paper-plane" onclick="chatpop()" title="쪽지보내기"></i>
+							</h3>
 						</div>
 						<div id="intro_div" class="row">
 							<div id="intro_view" class="col-8 row" th:text="${member.introduction}"></div>
 						</div>
-						<a onclick="report()"><i class="flaticon-siren" onclick="report()"></i>신고하기</a>
+						<a onclick="report()"><i class="flaticon-siren" onclick="report()" title="신고하기"></i>신고하기</a>
 					</div>
 				</div>
 				<div class="tabs tabs-style-topline">

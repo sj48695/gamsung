@@ -51,7 +51,7 @@
 					<form method="post" action="/member/mypage/introduction" id="introduction" enctype="multipart/form-data">
 						<div class="px-5" style="float:left">
 							<div style="position:relative; left:90px; top:70px;z-index:10;">
-									<i class="fa fa-camera" id="profileImgIcon"></i>
+								<i class="fa fa-camera" id="profileImgIcon"></i>
 							</div>
 						 	<img class="profile" th:src="'/files/profile-files/'+${member.imgFileName}" />
 							<!-- <img class="profile" id="profileImg" th:src="'/files/profile-files/'+${member.imgFileName}" th:onclick="submitProfileImage();"/> -->
@@ -61,8 +61,8 @@
 					<div>
 						<h3><span th:text="${member.nickname}"></span>의 상점</h3>
 						<div id="intro_div" class="row">
-							<i id="update" class="fa fa-edit col-2" th:data-introduction="${member.introduction}"></i>
-							<div id="intro_view" class="col-8 row" th:text="${member.introduction}"></div>
+							<i id="update" class="fa fa-edit col-1" th:data-introduction="${member.introduction}"></i>
+							<div id="intro_view" class="col-8 row" th:utext="${#strings.replace(member.introduction, T(org.apache.commons.lang3.StringUtils).LF, '&lt;br /&gt;')}"></div>
 							<!-- <textarea class="form-control" id="intro" name="introduction" th:text="${member.introduction}"></textarea> -->
 						</div>
 					</div>
@@ -130,30 +130,28 @@
 							</div>
 						</section>
 						<section id="section-topline-4">
-							<div class="row py-3" th:if="${#lists.size(reviews)} > 0" th:each="review : ${reviews}">
+							<div class="row py-3 align-items-center" th:if="${#lists.size(reviews)} > 0" th:each="review : ${reviews}">
 								<div class="col">
-									<div class="starRev">
-									  <span class="starR1 on">별1_왼쪽</span>
-									  <span class="starR2">별1_오른쪽</span>
-									  <span class="starR1">별2_왼쪽</span>
-									  <span class="starR2">별2_오른쪽</span>
-									  <span class="starR1">별3_왼쪽</span>
-									  <span class="starR2">별3_오른쪽</span>
-									  <span class="starR1">별4_왼쪽</span>
-									  <span class="starR2">별4_오른쪽</span>
-									  <span class="starR1">별5_왼쪽</span>
-									  <span class="starR2">별5_오른쪽</span>
-									</div>
+								  <span class="starR1" th:attrappend="class=${review.rating}*2 >= 1 ? ' on' : ''">별1_왼쪽</span>
+								  <span class="starR2" th:attrappend="class=${review.rating}*2 >= 2 ? ' on' : ''">별1_오른쪽</span>
+								  <span class="starR1" th:attrappend="class=${review.rating}*2 >= 3 ? ' on' : ''">별2_왼쪽</span>
+								  <span class="starR2" th:attrappend="class=${review.rating}*2 >= 4 ? ' on' : ''">별2_오른쪽</span>
+								  <span class="starR1" th:attrappend="class=${review.rating}*2 >= 5 ? ' on' : ''">별3_왼쪽</span>
+								  <span class="starR2" th:attrappend="class=${review.rating}*2 >= 6 ? ' on' : ''">별3_오른쪽</span>
+								  <span class="starR1" th:attrappend="class=${review.rating}*2 >= 7 ? ' on' : ''">별4_왼쪽</span>
+								  <span class="starR2" th:attrappend="class=${review.rating}*2 >= 8 ? ' on' : ''">별4_오른쪽</span>
+								  <span class="starR1" th:attrappend="class=${review.rating}*2 >= 9 ? ' on' : ''">별5_왼쪽</span>
+								  <span class="starR2" th:attrappend="class=${review.rating}*2 >= 10 ? ' on' : ''">별5_오른쪽</span>
 								</div>
 		                  		<div class="col">
 		                  			<a th:href="'/product/detail/'+${review.productNo}" th:text="${review.contents}"></a>
 		                  			
 		                  		</div>
 		                  		<div class="col" th:text="${#dates.format(review.regDate, 'yyyy-MM-dd')}"></div>
-	                  			<div class="review_button">
+	                  			<div class="review_button my-3">
 	                  				<a th:href="'/product/updateReview/'+${review.dealNo}">수정</a>
 	                  			</div>
-								<div class="review_button">
+								<div class="review_button my-3">
 									<a th:href="'/product/deleteReview/'+${review.dealNo}">삭제</a>
 								</div>
                   			</div>

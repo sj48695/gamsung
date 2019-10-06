@@ -52,6 +52,8 @@ public class ProductServiceImpl implements ProductService {
 		List<ProductFile> files = productMapper.selectProductFilesByProductNo(product.getProductNo());
 		product.setFiles(files);
 		
+		product.setSellerNick(memberMapper.findMemberById(product.getSeller()).getNickname());
+		
 		return product;
 
 	}
@@ -64,6 +66,7 @@ public class ProductServiceImpl implements ProductService {
 		for(Product product : products) {
 			ProductFile file = productMapper.selectProductFileByProductNo(product.getProductNo());
 			product.setFile(file);
+			product.setSellerNick(memberMapper.findMemberById(product.getSeller()).getNickname());
 		}
 		
 		return products;

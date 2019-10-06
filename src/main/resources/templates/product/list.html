@@ -90,7 +90,7 @@
 								<div class="product_price col" th:text="${ #numbers.formatInteger(product.price,3,'COMMA') }+'원'"></div>
 							</div>
 							<div class="row justify-content-between">
-								<div class="col" th:text="${ product.seller }"></div>
+								<div class="col" th:text="${ product.sellerNick }"></div>
 								<div class="text-right col" th:text="${#dates.format(product.regDate, 'yyyy-MM-dd')}"></div>
 							</div>
 						</div>

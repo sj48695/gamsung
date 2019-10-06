@@ -9,7 +9,6 @@ import org.apache.ibatis.type.Alias;
 import lombok.Data;
 
 @Data
-@Alias("Product")
 public class Product {
 
 	private int productNo; 
@@ -26,7 +25,7 @@ public class Product {
 	private ProductFile file;
 	private List<ProductFile> files;
 	
-	private Member member;
+	private String sellerNick;
 	private Heart heart; 
 	private List<Deal> deals;
 	

@@ -40,10 +40,10 @@ public class ChatController {
 		List<InChatMessageVO> messages = chatService.findMessageList(receiverId, sender);
 		for (InChatMessageVO msg : messages) {
 			if (msg.getReceiver().equals(sender))
-				msg.setAlign("left");
+				msg.setAlign("start");
 
 			else if (msg.getSender().equals(sender))
-				msg.setAlign("right");
+				msg.setAlign("end");
 			String profile = memberService.findProfileImgById(msg.getSender());
 			msg.setProfile(profile);
 			

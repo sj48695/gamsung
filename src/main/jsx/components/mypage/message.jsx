@@ -49,9 +49,9 @@ class Message extends Component {
                 return (
                     <Fragment>
                         <div className="row align-items-center" key={message.messageNo}>
-                            <i className="fa fa-envelope-open col-1" title={message.relativeId} onClick={this.chatpop}></i>
+                            <i className="icon pe-7s-paper-plane col-1" title={message.relativeId} onClick={this.chatpop}></i>
                             <div className="col-2">
-                                <img className="profile" style={{position:"initial"}} src={`/files/profile-files/${message.profile}`} />
+                                <img className="profile m-0" style={{position:"initial"}} src={`/files/profile-files/${message.profile}`} />
                                 <div>{message.relativeNick}</div>
                             </div>
                             <div className="col-5">
@@ -73,9 +73,9 @@ class Message extends Component {
 
             <div>
                 {/* <!-- Column Titles --> */}
-                <div className="mypage_info_columns row">
-                    <div className="mypage_info_col col-4"><b>쪽지상대</b></div>
-                    <div className="mypage_info_col col-4"><b>내용</b></div>
+                <div className="mypage_info_columns clearfix mb-3">
+                    <div className="mypage_info_col col-3"><b>쪽지상대</b></div>
+                    <div className="mypage_info_col col-5"><b>내용</b></div>
                     <div className="mypage_info_col col-4"><b>날짜</b></div>
                 </div>
                 {chatList}
