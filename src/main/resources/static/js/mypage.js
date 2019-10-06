@@ -48,19 +48,23 @@ $(function() {
 
 /*찜하기*/
 function heart(productno){
+	//var heart_cnt = Number($("#heart_count").text());
 	$.ajax({
 		url:"/product/heart",
 		methods:"get",
 		data:{productNo : productno},
 		success:function(data, status, xhr){
-				 if(data == "success") {
-	                 $('#heart'+productno).attr("class","fa fa-heart");
-	             }else if(data == "removeheart"){
-	                 $('#heart'+productno).attr("class","fa fa-heart-o");
-	             }else if(data == "error"){
-	            	 alert("로그인 후 이용가능합니다.");
-	             }
-
+			 if(data == "success") {
+				 //heart_cnt =heart_cnt+1;
+	             $('#heart'+productno).attr("class","fa fa-heart");    
+	             $("#heart_count").text(Number($("#heart_count").text())+1);
+	         }else if(data == "removeheart"){
+				 //heart_cnt =heart_cnt-1;
+	             $('#heart'+productno).attr("class","fa fa-heart-o");
+	             $("#heart_count").text(Number($("#heart_count").text())-1 );
+	         }else if(data == "error"){
+	        	 alert("로그인 후 이용가능합니다.");
+	         }
 		},
 		error:function(status, xhr, err){
 			alert("찜 할 수 없습니다.\n" + err);
@@ -101,11 +105,11 @@ function introduction(){
 		methods:"post",
 		data:formData,
 		success:function(data, status, xhr){
-				$("#intro_div").empty();
-				$("#intro_div").html('<i id="update" class="fa fa-edit col-2" data-introduction="'+data+'"></i>\
-						<div id="intro_view" class="col-8 row">'+intro+'</div>');
-			
-        	 alert("수정성공!");
+			$("#intro_div").empty();
+			$("#intro_div").html('<i id="update" class="fa fa-edit col-2" data-introduction="'+data+'"></i>\
+					<div id="intro_view" class="col-8 row">'+intro+'</div>');
+				
+			alert("수정성공!");
 		},
 		error:function(status, xhr, err){
 			alert("수정할 수 없습니다.\n" + err);

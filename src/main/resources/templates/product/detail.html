@@ -91,6 +91,7 @@
 											<font size="6"><i class="fa fa-heart-o" th:id="'heart'+${product.productNo}" style="color:#CD3B3B;" aria-hidden="true"></i></font>
 										</a>
 									</div>
+									<div id="heart_count" th:text="${heartcount}"></div>
 								</div>
 								<div th:if="${ id } == null">
 									<a th:onclick="'javascript:heart('+${product.productNo}+')'">
@@ -171,6 +172,7 @@
 										</div>
 									</div>
 								</div>
+								<!-- <div id="heart_count" th:text="${heartcount.cnt}"></div> -->
 							</form>
 
 							<!-- Share -->

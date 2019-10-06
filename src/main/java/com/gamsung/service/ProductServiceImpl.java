@@ -155,6 +155,19 @@ public class ProductServiceImpl implements ProductService {
 		
 	}
 	
+	//메인
+	@Override
+	public List<Product> findMain() {
+		List<Product> main = productMapper.selectMain();
+		
+		//제품 이미지
+		for(Product product : main) {
+			product.setFile(productMapper.selectProductFileByProductNo(product.getProductNo()));
+		}
+		
+		return main;
+	}
+	
 	/*	Heart	*/
 
 	@Override
@@ -207,6 +220,13 @@ public class ProductServiceImpl implements ProductService {
 		}
 		
 		return heartlist;
+	}
+
+	@Override
+	public Integer findHeartCountByProductNo(int productNo) {
+		Integer heartcount = productMapper.selectHeartCountByProductNo(productNo);
+		
+		return heartcount;
 	}
 
 }

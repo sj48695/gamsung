@@ -35,6 +35,7 @@ import com.gamsung.vo.ProductFile;
 import com.gamsung.vo.Report;
 import com.gamsung.vo.Review;
 import com.gamsung.vo.ReviewFile;
+import com.google.gson.JsonObject;
 
 
 @Controller
@@ -72,6 +73,12 @@ public class ProductController {
 			}
 		}
 		
+		//찜 갯수
+		Integer heartcount = productService.findHeartCountByProductNo(productNo);
+//		if (heartcount == null) {
+//			heartcount = 0;
+//		}
+		
 		Product product = productService.findProductByProductNo(productNo);
 		
 	    ArrayList<Review> reviewlist = reviewService.findReviewsByProductNo(productNo);
@@ -89,6 +96,7 @@ public class ProductController {
 		model.addAttribute("addr", addr);
 		model.addAttribute("product", product);
 		model.addAttribute("reviewlist", reviewlist);
+		model.addAttribute("heartcount", heartcount);
 		 
 		return "product/detail";
 	}

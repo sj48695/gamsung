@@ -120,6 +120,11 @@
 												<div class="product_price" th:text="${heart.price}+'원'"></div>
 											</div>
 										</div>
+										<div class="py-3" th:unless="${ #lists.size(hearts) } > 0">
+											<div>
+												찜한 상품이없습니다.
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -152,6 +157,11 @@
 									<a th:href="'/product/deleteReview/'+${review.dealNo}">삭제</a>
 								</div>
                   			</div>
+                  			<div class="py-3" th:unless="${#lists.size(reviews)} > 0">
+								<div>
+									등록한 후기가없습니다.
+								</div>
+							</div>
 						</section>
 						<section id="section-topline-5">
 							<div class="container" id="message">
