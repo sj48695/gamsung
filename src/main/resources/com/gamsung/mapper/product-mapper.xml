@@ -19,11 +19,21 @@
 		<include refid="productColumns" />
 		from product where product_no = #{ productNo }
 	</select>
-	<select id="selectProducts" resultType="com.gamsung.vo.Product">
+	
+	<select id="selectProducts" parameterType="hashmap" resultType="com.gamsung.vo.Product">
 		select product_no, reg_date,
 		<include refid="productColumns" />
 		from product
 		WHERE deleted = false 
+		<if test='type != "all"'>
+			and type = #{ type }
+		</if>
+		<if test='category != "every"'>
+			and category = #{ category }
+		</if>
+		<if test="keyword != ''">
+			and name like concat('%', #{ keyword }, '%')
+		</if>
 		order by product_no desc
 	</select>
 	

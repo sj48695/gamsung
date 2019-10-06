@@ -94,12 +94,26 @@ public class ProductController {
 	}
 
 	@GetMapping(path = "/categories")
-	public String productList(Model model) {
+	public String productList(Model model, String type ,String category, String keyword) {
 
-		ArrayList<Product> products = productService.findProducts();
-
+		if (type == null) {
+			type = "all";
+		}
+		
+		if (category == null) {
+			category = "every";
+		}
+		
+		if (keyword == null) {
+			keyword = "";
+		}
+		
+		ArrayList<Product> products = productService.findProducts(type,category,keyword);
 		model.addAttribute("products", products);
-		System.out.println(products);
+		model.addAttribute("type", type);
+		model.addAttribute("category", category);
+		
+		
 
 		return "product/list";
 	}
@@ -220,7 +234,7 @@ public class ProductController {
 		if(product == null) {
 			return "redirect:/product/categories";
 		}
-		
+		System.out.println(product);
 		model.addAttribute("product", product);
 		
 		return "/product/update";

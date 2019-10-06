@@ -19,7 +19,6 @@
 <body>
 
 
-
 		<div class="newsletter" layout:fragment="content">
 		<form action="/report/" id="reportForm" method="post" enctype="multipart/form-data">
 		<div style="margin-top:25%; margin-left:10%"><h3>신고접수</h3><hr>
@@ -50,16 +49,6 @@
 
 
 	<script src="https://code.jquery.com/jquery-latest.js"></script>
-	<script>
-		// Add the following code if you want the name of the file appear on select
-		$(".custom-file-input").on(
-				"change",
-				function() {
-					var fileName = $(this).val().split("\\").pop();
-					$(this).siblings(".custom-file-label").addClass("selected")
-							.html(fileName);
-				});
-	</script>
 	<script type="text/javascript"
 		src="/navereditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>

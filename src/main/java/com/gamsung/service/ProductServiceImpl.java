@@ -52,9 +52,14 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ArrayList<Product> findProducts() {
+	public ArrayList<Product> findProducts(String type, String category, String keyword) {
 		
-		ArrayList<Product> products = productMapper.selectProducts();
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("type", type);
+		params.put("category", category);
+		params.put("keyword", keyword);
+		
+		ArrayList<Product> products = productMapper.selectProducts(params);
 		
 		for(Product product : products) {
 			ProductFile file = productMapper.selectProductFileByProductNo(product.getProductNo());

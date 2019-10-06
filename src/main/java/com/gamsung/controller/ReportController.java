@@ -85,7 +85,7 @@ public class ReportController {
 			String name = req.getHeader("file-name");
 			String ext = name.substring(name.lastIndexOf(".") + 1);
 			//파일 기본경로
-			String defaultPath = req.getServletContext().getRealPath("/files/product-files");
+			String defaultPath = req.getServletContext().getRealPath("/files/product-files/");
 			//파일 기본경로 _ 상세경로
 			String path = defaultPath + File.separator;
 			File file = new File(path);
@@ -106,7 +106,7 @@ public class ReportController {
 			}
 			os.flush();
 			os.close();
-			sFileInfo += "&bNewLine=true&sFileName="+ name+"&sFileURL="+"/files/product-files"+realname;
+			sFileInfo += "&bNewLine=true&sFileName="+ name+"&sFileURL="+"/files/product-files/"+realname;
 			
 			return sFileInfo;
 		} catch (Exception ex) {
