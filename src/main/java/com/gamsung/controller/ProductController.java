@@ -450,9 +450,6 @@ public class ProductController {
 						files.add(reviewFile);
 						
 						review.setFiles(files);
-						
-						reviewService.insertReviewFiles(review, review.getDealNo());
-						
 					}
 				}
 			}

@@ -34,6 +34,10 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public ArrayList<Review> findReviewsByProductNo(int productNo) {
 		ArrayList<Review> reviewlist = reviewMapper.selectReviewsByProductNo(productNo);
+		for(Review review : reviewlist) {
+			List<ReviewFile> files = reviewMapper.selectReviewFilesByDealNo(review.getDealNo());
+			review.setFiles(files);
+		}
 		return reviewlist;
 	}
 
