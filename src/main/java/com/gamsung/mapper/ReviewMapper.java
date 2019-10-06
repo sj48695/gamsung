@@ -35,6 +35,9 @@ public interface ReviewMapper {
 
 	void deleteReviewFile(int reviewFileNo);
 
-	
+	/* 상점 */
+	List<Review> selectStoreReview(String id);
 
+	Review selectReviewBuyerImg(String id);
+	
 }

@@ -15,8 +15,8 @@ $(function() {
 		
 		var introduction = $(this).attr('data-introduction');
 		$('#intro_view').empty();
-		$('#intro_view').html('<textarea class="form-control col-8" id="intro" name="introduction">'+introduction+'</textarea>\
-				<a class="btn bnt-primary col-2" onclick="javascript:introduction();">수정</a>');
+		$('#intro_view').html('<textarea class="checkout_input col-8 h-100" id="intro" name="introduction">'+introduction+'</textarea>\
+				<div class="button col-2" onclick="javascript:introduction();"><a href="#">수정</a></div>');
 		$(this).remove();
 	});
 	
@@ -36,14 +36,18 @@ $(function() {
 	//소켓서버 접속, 정보셋팅, 응답 fn 정의
 	connect(function(obj){
 		var message = obj.contents;
-		$('#greetings').append('<div class="text-right">'+message+'</div>');
+		$('#greetings').append('<div class="row py-3 justify-content-end">\
+				<div class="contents">'+message+'</div></div>');
 		$('#contents').val('');
+
 	});
 	
 	//메세지 전송
 	$('#send').click(function(){
 		sendContent($('#contents').val());
 	})
+	
+//	$("#chatting_div").scrollTop(800);
 });
 
 /*찜하기*/
@@ -102,7 +106,7 @@ function introduction(){
 		data:formData,
 		success:function(data, status, xhr){
 				$("#intro_div").empty();
-				$("#intro_div").html('<i id="update" class="fa fa-edit col-2" data-introduction="'+data+'"></i>\
+				$("#intro_div").html('<i id="update" class="fa fa-edit col-1" data-introduction="'+data+'"></i>\
 						<div id="intro_view" class="col-8 row">'+intro+'</div>');
 			
         	 alert("수정성공!");
@@ -125,7 +129,9 @@ function chatpop(){
     //left : 100px 왼쪽화면과 100px 차이해서 위치
     //툴바 X, 메뉴바 X, 스크롤바 X , 크기조절 X
     window.open('/member/chatting/'+seller,'popName',
-                'width=700,height=900,top=100,left=100,toolbar=no,menubar=no,scrollbars=no,resizable=no,status=no');
+                'width=550,height=700,top=100,left=100,toolbar=no,menubar=no,scrollbars=no,resizable=no,status=no');
+//window.open('http://www.naver.com','popName',
+//                'width=550,height=700,top=100,left=100,toolbar=no,menubar=no,scrollbars=no,resizable=no,status=no');    
 }
 var senderNickName = $("#senderNickName").val();
 var senderId = $("#senderId").val();

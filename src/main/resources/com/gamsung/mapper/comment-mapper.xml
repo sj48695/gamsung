@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gamsung.mapper.CommentMapper">
+
+	<sql id="commentColumns">
+		
+	</sql>
+	
+	<!-- comment -->
+	
+	<insert id="insertComment" parameterType="com.gamsung.vo.Comment">
+		INSERT INTO comment
+		(
+			
+			product_no, 
+			WRITER, 
+			contents,  
+			STEP, 
+			DEPTH
+		)
+		VALUES
+		(
+			
+			#{ productNo }, 
+			#{ writer }, 
+			#{ contents },
+			1,
+			0
+		)	
+	</insert>
+	
+	<update id="updateComment" parameterType="com.gamsung.vo.Comment">
+		UPDATE comment
+		SET contents = #{ contents }
+		WHERE COMMENT_no = #{ commentNo }
+	</update>
+	
+	<delete id="deleteComment" parameterType="int">
+		DELETE FROM comment			
+		WHERE COMMENT_no = #{ commentNo }
+	</delete>
+	
+	<select id="selectCommentsByProductNo" parameterType="int" resultType="com.gamsung.vo.Comment">
+		SELECT COMMENT_no, product_no, WRITER, REG_DATE, contents, GROUP_no, STEP, DEPTH 
+		FROM comment 
+		WHERE product_no = #{ productNo } ORDER BY GROUP_no DESC, STEP ASC 
+	</select>
+	
+	<select id="selectCommentByCommentNo" parameterType="int" resultType="com.gamsung.vo.Comment">
+		SELECT COMMENT_no, product_no, WRITER, contents, REG_DATE, GROUP_no, STEP, DEPTH 
+		FROM comment
+		WHERE comment_no = #{ commentNo }
+	</select>
+	
+	<update id="updateCommentStep" parameterType="com.gamsung.vo.Comment">
+		UPDATE comment
+		SET STEP = STEP + 1
+		WHERE GROUP_no = #{ groupNo } AND STEP <![CDATA[>]]> #{ step }
+	</update>
+	
+	<insert id="insertRecomment" parameterType="com.gamsung.vo.Comment">
+		INSERT INTO comment
+		(
+			product_no, 
+			WRITER, 
+			contents, 
+			GROUP_no, 
+			STEP, 
+			DEPTH
+		)
+		VALUES
+		(
+			#{ productNo },
+			#{ writer },
+			#{ contents },
+			#{ groupNo },
+			#{ step },
+			#{ depth }
+		)	
+	</insert>
+</mapper>

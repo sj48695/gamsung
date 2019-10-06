@@ -7,6 +7,7 @@
 <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/animate.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/mypage/css/flaticon.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/styles/product.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/styles/star.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/styles/product_responsive.css}">
@@ -101,11 +102,11 @@
 							<!-- In Stock -->
 							<div class="in_stock_container">
 								<div class="availability">작성자 : </div>
-									<a th:href="'/member/store/'+${ product.seller }" th:text="${ product.seller }"></a>
+								<a style="color:#004000;font-weight: 800" th:href="'/member/store/'+${ product.seller }" th:text="${ product.sellerNick }"></a>
 								<span th:if="${ product.seller } != ${ id }">
 									<input type="hidden" class="seller" id="seller" th:value="${ product.seller }">
-									<i class="fa fa-envelope-open" onclick="chatpop()" title="쪽지보내기"></i>&nbsp;
-									<i class="fa fa-bullhorn" onclick="report()" title="신고하기"></i>
+									<i class="fa fa-paper-plane" onclick="chatpop()" title="쪽지보내기"></i>&nbsp;
+									<i class="flaticon-siren" onclick="report()" title="신고하기"></i>
 								</span>
 							</div>
 							<div class="in_stock_container">
@@ -188,23 +189,29 @@
 				</div>
 				<ul class="nav nav-tabs description_row" role="tablist">
 					<li class="nav-item description_title">
-						<a class="nav-link active" id="home-tab" data-toggle="tab"
-							href="#home" role="tab" aria-controls="home" aria-selected="true">
+						<a class="nav-link active" id="description-tab" data-toggle="tab"
+							href="#description" role="tab" aria-controls="description" aria-selected="true">
 							Description </a>
 					</li>
 					<li class="nav-item reviews_title">
-						<a class="nav-link" id="profile-tab" data-toggle="tab" 
-							href="#profile" role="tab" aria-controls="profile" aria-selected="false">
+						<a class="nav-link" id="review-tab" data-toggle="tab" 
+							href="#review" role="tab" aria-controls="review" aria-selected="false">
 							Reviews <span th:text="'('+${#lists.size(reviewlist)}+')'"></span>
+						</a>
+					</li>
+					<li class="nav-item comments_title">
+						<a class="nav-link" id="comment-tab" data-toggle="tab" 
+							href="#comment" role="tab" aria-controls="comment" aria-selected="false">
+							Comments <span th:text="'('+${#lists.size(reviewlist)}+')'"></span>
 						</a>
 					</li>
 				</ul>
 				<div class="tab-content">
-					<div class="tab-pane fade show active py-5" id="home" role="tabpanel" aria-labelledby="home-tab">
-						<div class="container py-5" th:text="${product.contents}"></div>
+					<div class="tab-pane fade show active py-5" id="description" role="tabpanel" aria-labelledby="description-tab">
+						<div class="container py-5"  th:utext="${#strings.replace(product.contents, T(org.apache.commons.lang3.StringUtils).LF, '&lt;br /&gt;')}"></div>
 					</div>
-					<div class="tab-pane fade py-5" id="profile" role="tabpanel"
-						aria-labelledby="profile-tab">
+					<div class="tab-pane fade py-5" id="review" role="tabpanel"
+						aria-labelledby="review-tab">
 						<div class="container text-center">
 							<div class="row" style="font-size: 14pt; font-weight: 900;">
 								<div class="col">별점</div>
@@ -214,18 +221,16 @@
 							</div><hr>
 							<div class="row py-3" th:if="${#lists.size(reviewlist)} > 0" th:each="review : ${reviewlist}">
 								<div class="col">
-									<div class="starRev">
-									  <span class="starR1 on">별1_왼쪽</span>
-									  <span class="starR2">별1_오른쪽</span>
-									  <span class="starR1">별2_왼쪽</span>
-									  <span class="starR2">별2_오른쪽</span>
-									  <span class="starR1">별3_왼쪽</span>
-									  <span class="starR2">별3_오른쪽</span>
-									  <span class="starR1">별4_왼쪽</span>
-									  <span class="starR2">별4_오른쪽</span>
-									  <span class="starR1">별5_왼쪽</span>
-									  <span class="starR2">별5_오른쪽</span>
-									</div>
+								  <span class="starR1" th:attrappend="class=${review.rating}*2 >= 1 ? ' on' : ''">별1_왼쪽</span>
+								  <span class="starR2" th:attrappend="class=${review.rating}*2 >= 2 ? ' on' : ''">별1_오른쪽</span>
+								  <span class="starR1" th:attrappend="class=${review.rating}*2 >= 3 ? ' on' : ''">별2_왼쪽</span>
+								  <span class="starR2" th:attrappend="class=${review.rating}*2 >= 4 ? ' on' : ''">별2_오른쪽</span>
+								  <span class="starR1" th:attrappend="class=${review.rating}*2 >= 5 ? ' on' : ''">별3_왼쪽</span>
+								  <span class="starR2" th:attrappend="class=${review.rating}*2 >= 6 ? ' on' : ''">별3_오른쪽</span>
+								  <span class="starR1" th:attrappend="class=${review.rating}*2 >= 7 ? ' on' : ''">별4_왼쪽</span>
+								  <span class="starR2" th:attrappend="class=${review.rating}*2 >= 8 ? ' on' : ''">별4_오른쪽</span>
+								  <span class="starR1" th:attrappend="class=${review.rating}*2 >= 9 ? ' on' : ''">별5_왼쪽</span>
+								  <span class="starR2" th:attrappend="class=${review.rating}*2 >= 10 ? ' on' : ''">별5_오른쪽</span>
 								</div>
 								<div class="col" th:text="${review.buyer}"></div>
 								<div class="col" th:text="${review.contents}"></div>
@@ -233,6 +238,9 @@
 							</div>
 							<div class="row py-5" th:if="${#lists.size(reviewlist)} <= 0">등록된 리뷰가 없습니다.</div><br>
 						</div>
+					</div>
+					<div class="tab-pane fade py-5" id="comment" role="tabpanel" aria-labelledby="comment-tab">
+						
 					</div>
 				</div>
 			</div>
@@ -291,6 +299,7 @@
 				</div>
 			</div>
 		</div>
+					<script type="text/javascript" th:src="@{/js/react/comment.bundle.js}"></script>
 	</div>
 </body>
 </html>
