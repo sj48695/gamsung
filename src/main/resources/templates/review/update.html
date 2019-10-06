@@ -34,6 +34,7 @@
 								<div class="files">
 									<div class="product_images" >
 										<div th:each=" file : ${ review.files }">
+											<span class="del_review_file" th:data-fileNo="${ file.reviewFileNo }">&times;</span>
 											<img class='fileImg col-4' th:src="'/files/review-files/' + ${ file.saveFileName }">
 										</div>
 									</div></div><hr>

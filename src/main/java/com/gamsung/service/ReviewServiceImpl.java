@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gamsung.mapper.DealMapper;
+import com.gamsung.mapper.MemberMapper;
 import com.gamsung.mapper.ProductMapper;
 import com.gamsung.mapper.ReviewMapper;
 import com.gamsung.vo.Deal;
@@ -24,6 +25,9 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Autowired
 	DealMapper dealMapper;
+	
+	@Autowired
+	MemberMapper memberMapper;
 
 	/* Review	*/
 	
@@ -77,6 +81,30 @@ public class ReviewServiceImpl implements ReviewService {
 	public void updateReview(Review review) {
 		reviewMapper.updateReview(review);
 		insertReviewFiles(review, review.getDealNo());
+	}
+
+	@Override
+	public void deleteReviewFile(int reviewFileNo) {
+		reviewMapper.deleteReviewFile(reviewFileNo);
+		
+	}
+	
+	/* 상점 */
+	@Override
+	public List<Review> findStoreReview(String id) {
+		List<Review> reviews = reviewMapper.selectStoreReview(id);
+		for(Review review : reviews) {
+			String profile = memberMapper.selectProfileImgById(review.getBuyer());
+			review.setImgFileName(profile);
+		}
+		return reviews;
+	}
+
+	@Override
+	public Review findReviewBuyerImg(String id) {
+		Review review = reviewMapper.selectReviewBuyerImg(id);
+		
+		return review;
 	}
 
 }

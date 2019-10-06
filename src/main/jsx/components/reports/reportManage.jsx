@@ -1,4 +1,5 @@
 import React,{Component} from'react';
+import dateFormat from 'dateformat';
 
 class ReportManage extends Component {
     constructor(props){
@@ -22,21 +23,13 @@ class ReportManage extends Component {
         const {reports} = this.props;
         const report = reports.map((report) =>{
             return(
-                <div>
-                    <tr id="report?{reoprt.reportNo}">
+                    <tr key={report.reportNo} id="report?{reoprt.reportNo}">
                         <td>{report.reportNo}</td>
                         <td>{report.reporter}</td>
-                        <td>{report.contents}</td>
-                        <td>{report.regDate}</td>
+                        <td>{dateFormat(report.regDate, "yyyy-mm-dd")}</td>
                         <td>{report.confirm}</td>
                     </tr>
-                    <div id="results?{report.reportNo}">
-                        <form onSubmit={this.handleSubmit}>
-                            <input type="text" value={value} onChange={this.handleInsert}/>
-                            <button type="submit">전송</button>
-                        </form>
-                    </div>
-                </div>
+
                 )
         })
 
@@ -47,7 +40,6 @@ class ReportManage extends Component {
                         <tr>
                             <td>신고번호</td>
                             <td>신고자</td>
-                            <td>신고내용</td>
                             <td>신고날짜</td>
                             <td>처리유무</td>
                         </tr>

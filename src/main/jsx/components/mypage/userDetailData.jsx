@@ -71,7 +71,8 @@ class UserDetailData extends Component{
         const promise = UserDataService.UpdateUser(member);
         promise.then(result =>{
                     if(result === "success"){
-                        mythis.handleOpened();
+                        //mythis.handleOpened();
+                        location.href="/member/mypage"
                         alert("수정되었습니다.")
                     }
                 })

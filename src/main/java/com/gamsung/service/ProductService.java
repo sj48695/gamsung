@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.gamsung.vo.Heart;
+import com.gamsung.vo.Member;
 import com.gamsung.vo.Product;
 import com.gamsung.vo.ProductFile;
 
@@ -42,7 +43,7 @@ public interface ProductService {
 	Heart findHeart(String id, int productNo);
 	
 	boolean findHeartCount(String id, int productNo);
-	
+
 	List<Product> findMyHeartList(String memberId);
 
 }

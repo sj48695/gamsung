@@ -69,7 +69,6 @@
 		UPDATE review
 		SET contents = #{ contents } , rating = #{ rating }   
 		WHERE deal_no = #{ dealNo } 
-	
 	</update>
 	
 	<select id="selectReviewByDealNo" parameterType="int" resultType="com.gamsung.vo.Review">
@@ -83,7 +82,26 @@
 		from reviewfile
 		where deal_no = #{ dealNo }
 	</delete>
+	
+	<delete id="deleteReviewFile" parameterType="int">
+		delete from reviewfile
+		where review_file_no = #{ reviewFileNo }
+	</delete>
 
-
+	<select id="selectStoreReview" resultType="com.gamsung.vo.Review" parameterType="string">
+		select r.deal_no, r.contents, r.reg_date, d.buyer, d.product_no, p.name
+		from review r, deal d, product p
+		where r.deal_no = d.deal_no
+		and d.product_no = p.product_no
+		and p.seller = #{id}
+	</select>
+	
+	<select id="selectReviewBuyerImg" resultType="com.gamsung.vo.Review" parameterType="string">
+		select r.deal_no, r.contents, r.reg_date, d.buyer, d.product_no, m.img_file_name
+		from review r, deal d, member m
+		where r.deal_no = d.deal_no
+		and d.buyer = m.id
+		and d.buyer = #{id}
+	</select>
 </mapper>
 

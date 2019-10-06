@@ -107,10 +107,15 @@ public class MemberController {
 	public String store(Model model, @PathVariable String id) {
 		
 		Member member = memberService.findMemberById(id);
+		//판매하는 상품
 		List<Product> products = productService.findMyProductList(id);
+		
+		//후기
+		List<Review> reviews = reviewService.findStoreReview(id);
 		
 		model.addAttribute("member", member);
 		model.addAttribute("products", products);
+		model.addAttribute("reviews", reviews);
 		
 		return "member/store";
 	}
