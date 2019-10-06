@@ -29,7 +29,7 @@ public interface ReviewMapper {
 
 	void deleteReview(int dealNo);
 
-	Product updateReview(Review review);
+	void updateReview(Review review);
 
 	Review selectReviewByDealNo(int dealNo);
 
