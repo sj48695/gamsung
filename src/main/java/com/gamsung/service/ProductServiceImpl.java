@@ -51,7 +51,6 @@ public class ProductServiceImpl implements ProductService {
 		product.setFile(titleFile);
 		List<ProductFile> files = productMapper.selectProductFilesByProductNo(product.getProductNo());
 		product.setFiles(files);
-		
 		product.setSellerNick(memberMapper.findMemberById(product.getSeller()).getNickname());
 		
 		return product;

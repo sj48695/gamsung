@@ -1,37 +1,66 @@
-﻿
-	<tr id="tr${ comment.commentNo }"  th:each="comment : ${ comments }">
-		<td style="text-align: left; margin: 5px; border-bottom: solid 1px;padding-left:${comment.depth * 20}px">
-			<div id='commentview${ comment.commentNo }'>
-				${ comment.writer } &nbsp;&nbsp; [${ comment.regDate }] <br />
-				<br /> <span> ${ comment.content } </span> <br />
-				<br />
-				<div
-					style='display:${ loginuser.memberId eq comment.writer ? "block" : "none" }'>
-					<a class="editcomment" data-commentno='${ comment.commentNo }'
-						href="javascript:">편집</a> &nbsp; <a class="deletecomment"
-						href="javascript:" data-commentno="${ comment.commentNo }">삭제</a>
+﻿<!DOCTYPE html>
+<html lang="ko" 
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/animate.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/mypage/css/flaticon.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/product.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/star.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/product_responsive.css}">
+</head>
+<body>
+	<!-- comment list -->
+	<div id="comment-list" class="container">
+		<div th:id="'tr'+${ comment.commentNo }" th:each="comment :${ comments }" th:if="${ #lists.size(comments) } > 0">
+			<div class="m-2" style="text-align:left;"
+				th:attrappend="style='padding-left:'+${comment.depth * 20}+'px'">
+				<div th:id="'commentview'+${ comment.commentNo }">
+					<div class="row justify-content-between">
+						<div class="col">
+							<div th:text="${ comment.writer }"></div> 
+							<div th:text="'['+${ #dates.format(comment.regDate,'yyyy-MM-dd') }+']'"></div>
+						</div>
+						<div class="col" th:style="${ id } == ${ comment.writer } ? 'display:block' : 'display:none' ">
+							<a class="editcomment" th:data-commentno='${ comment.commentNo }' href="javascript:">edit</a> 
+							<a class="deletecomment" th:data-commentno="${ comment.commentNo }" href="javascript:">delete</a>
+						</div>
+					</div>
+					<div th:text="${ comment.contents }"></div>   
+					 <div class="button cart_button" th:if="${id} != null">
+					 	<a class="recomment-link btn-xs" th:data-commentno="${ comment.commentNo }"
+					 		data-toggle="collapse" th:href="'#collapse'+${ comment.commentNo }" role="button" 
+					 		aria-expanded="false" th:aria-controls="'collapse'+${ comment.commentNo }">대댓글 작성</a>
+					 </div>
+					 
+				 	<div class="collapse" th:id="'collapse'+${ comment.commentNo }">
+						<form id="recomment-form">
+							<input type="hidden" name="commentNo" th:value="${comment.commentNo}"> 
+							<input type="hidden" name="writer" th:value="${ id }"> 
+							<input type="hidden" name="productNo" th:value="${ product.productNo }">
+							<textarea name="contents" rows="5" style="width: 465px" class="form-control"></textarea>
+						</form>
+						<div class="button cart_button">
+							<a id="write-recomment" class="btn-xs">작성</a>
+						</div>
+					</div>
+					 
+				</div> <!-- 수정 -->
+				<div th:id="'commentedit'+${ comment.commentNo }" style="display: none">
+					<div th:text="${ comment.writer }"></div> 
+					<div th:text="'['+${ #dates.format(comment.regDate,'yyyy-MM-dd') }+']'"></div>
+					<form th:id="'updateform'+${ comment.commentNo }">
+						<input type="hidden" name="commentNo" th:value="${ comment.commentNo }" />
+						<textarea name="contents" rows="3" maxlength="200" th:text="${ comment.contents }"></textarea>
+					</form>
+					<div>
+						<a class="updatecomment" href="javascript:" th:data-commentno="${ comment.commentNo }">edit</a>
+						<a class="cancel" data-commentno="${ comment.commentNo }" href="javascript:">back</a>
+					</div>
 				</div>
-				<a class="recomment-link button button-subscribe btn-xs"
-					data-commentno="${ comment.commentNo }">댓글 쓰기</a>
 			</div>
-
-			<div id='commentedit${ comment.commentNo }' style="display: none">
-				${ comment.writer } &nbsp;&nbsp; [${ comment.regDate }] <br />
-				<br />
-				<form id="updateform${ comment.commentNo }">
-					<input type="hidden" name="commentno"
-						value="${ comment.commentNo }" />
-					<textarea name="content" style="width: 550px" rows="3"
-						maxlength="200">${ comment.content }</textarea>
-				</form>
-				<br />
-				<div>
-					<a class="updatecomment" href="javascript:"
-						data-commentno="${ comment.commentNo }">수정</a> &nbsp; <a
-						class="cancel" data-commentno="${ comment.commentNo }"
-						href="javascript:">취소</a>
-				</div>
-			</div>
-
-		</td>
-	</tr>
+		</div>
+	</div>
+</body>
+</html>

@@ -147,7 +147,7 @@
 								<div class="product_quantity_container"
 									th:if="${product.seller} == ${id} and ${id} != null">
 									<div class="row justify-content-center">
-										<div class="button trans_200" id="insertBoard" ><a th:href="'/product/update/' + ${ product.productNo }">수정</a></div>
+										<div class="button cart_button trans_200" id="insertBoard" ><a th:href="'/product/update/' + ${ product.productNo }">수정</a></div>
 										<div class="button cart_button trans_200" id="back_button"
 											th:data-productNo="${ product.productNo }"><a>삭제</a></div>
 									</div>
@@ -202,7 +202,7 @@
 					<li class="nav-item comments_title">
 						<a class="nav-link" id="comment-tab" data-toggle="tab" 
 							href="#comment" role="tab" aria-controls="comment" aria-selected="false">
-							Comments <span th:text="'('+${#lists.size(reviewlist)}+')'"></span>
+							Comments <span th:text="'('+${#lists.size(comments)}+')'"></span>
 						</a>
 					</li>
 				</ul>
@@ -240,7 +240,68 @@
 						</div>
 					</div>
 					<div class="tab-pane fade py-5" id="comment" role="tabpanel" aria-labelledby="comment-tab">
+					
+						<!-- write comment area -->
+						<form id="commentform" th:if="${ id } != null" class="container">
+							<input type="hidden" name="productNo" th:value="${ product.productNo }" /> 
+							<input type="hidden" name="writer" th:value="${ id }" />
+							<div class="row">
+								<textarea id="comment_content" class="form-control col-8" name="contents" rows="3"></textarea>
+								<div class="button cart_button p-3 h-100 col-2"><a id="writecomment" href="javascript:">댓글작성</a></div>
+							</div>
+						</form>
 						
+						<!-- comment list -->
+						<div id="comment-list" class="container">
+							<div th:id="'tr'+${ comment.commentNo }" th:each="comment :${ comments }" th:if="${ #lists.size(comments) } > 0">
+								<div class="m-2" style="text-align:left;"
+									th:attrappend="style='padding-left:'+${comment.depth * 20}+'px'">
+									<div th:id="'commentview'+${ comment.commentNo }">
+										<div class="row justify-content-between">
+											<div class="col-3 row">
+												<div class="col-6" th:text="${ comment.writer }"></div> 
+												<div class="col-6" th:text="'['+${ #dates.format(comment.regDate,'yyyy-MM-dd') }+']'"></div>
+											</div>
+											<div class="col-2" th:style="${ id } == ${ comment.writer } ? 'display:block' : 'display:none' ">
+												<a class="editcomment" th:data-commentno='${ comment.commentNo }' href="javascript:">edit</a> 
+												<a class="deletecomment" th:data-commentno="${ comment.commentNo }" href="javascript:">delete</a>
+											</div>
+										</div>
+										<div th:text="${ comment.contents }"></div>   
+										 <div class="button cart_button" th:if="${id} != null">
+										 	<a class="recomment-link btn-xs" th:data-commentno="${ comment.commentNo }"
+										 		data-toggle="collapse" th:href="'#collapse'+${ comment.commentNo }" role="button" 
+										 		aria-expanded="false" th:aria-controls="'collapse'+${ comment.commentNo }">대댓글 작성</a>
+										 </div>
+										 
+									 	<div class="collapse" th:id="'collapse'+${ comment.commentNo }">
+											<form id="recomment-form">
+												<input type="hidden" name="commentNo" th:value="${comment.commentNo}"> 
+												<input type="hidden" name="writer" th:value="${ id }"> 
+												<input type="hidden" name="productNo" th:value="${ product.productNo }">
+												<textarea name="contents" rows="5" style="width: 465px" class="form-control"></textarea>
+											</form>
+											<div class="button cart_button">
+												<a id="write-recomment" class="btn-xs">작성</a>
+											</div>
+										</div>
+										 
+									</div> <!-- 수정 -->
+									<div th:id="'commentedit'+${ comment.commentNo }" style="display: none">
+										<div th:text="${ comment.writer }"></div> 
+										<div th:text="'['+${ #dates.format(comment.regDate,'yyyy-MM-dd') }+']'"></div>
+										<form th:id="'updateform'+${ comment.commentNo }">
+											<input type="hidden" name="commentNo" th:value="${ comment.commentNo }" />
+											<textarea name="contents" rows="3" maxlength="200" th:text="${ comment.contents }"></textarea>
+										</form>
+										<div>
+											<a class="updatecomment" href="javascript:" th:data-commentno="${ comment.commentNo }">edit</a>
+											<a class="cancel" data-commentno="${ comment.commentNo }" href="javascript:">back</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -299,7 +360,6 @@
 				</div>
 			</div>
 		</div>
-					<script type="text/javascript" th:src="@{/js/react/comment.bundle.js}"></script>
 	</div>
 </body>
 </html>
