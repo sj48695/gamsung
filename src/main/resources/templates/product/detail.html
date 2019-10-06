@@ -255,7 +255,9 @@ div .title {
 							      <div th:text="${review.contents}"></div>
 							      <div class="product_images" >
 										<div class="row">
-											<img class='fileImg col-4' th:src="'/files/review-files/' + ${ file.saveFileName }" th:each=" file : ${ review.files }">
+											<img class='fileImg col-2'
+												th:src="'/files/review-files/' + ${ file.saveFileName }"
+												th:each=" file : ${ review.files }">
 										</div>
 									</div>
 							    </div>
