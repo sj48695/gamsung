@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -62,10 +64,10 @@ public class ReportController {
 		//return "/reports/report";
 	}
 		
-
+	//에디터
 	@RequestMapping(value = "/coding.do")
     public String coding() {
-        return "redirect:/reports/report";
+        return "redirect:/report/report";
     }
 	  
 	
@@ -85,7 +87,7 @@ public class ReportController {
 			String name = req.getHeader("file-name");
 			String ext = name.substring(name.lastIndexOf(".") + 1);
 			//파일 기본경로
-			String defaultPath = req.getServletContext().getRealPath("/files/product-files");
+			String defaultPath = req.getServletContext().getRealPath("/files/product-files/");
 			//파일 기본경로 _ 상세경로
 			String path = defaultPath + File.separator;
 			File file = new File(path);
@@ -106,11 +108,20 @@ public class ReportController {
 			}
 			os.flush();
 			os.close();
-			sFileInfo += "&bNewLine=true&sFileName="+ name+"&sFileURL="+"/files/product-files"+realname;
+			sFileInfo += "&bNewLine=true&sFileName="+ name+"&sFileURL="+"/files/product-files/"+realname;
 			
 			return sFileInfo;
 		} catch (Exception ex) {
 			return "error upload file";
 		}
 	} 
+	
+	@PostMapping(path="answer")
+	@ResponseBody
+	public String reportAnswer(@RequestBody Report report) {
+		
+		reportService.reportAnswer(report);
+		
+		return "success";
+	}
 }

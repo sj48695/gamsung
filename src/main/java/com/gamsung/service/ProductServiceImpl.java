@@ -58,9 +58,14 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ArrayList<Product> findProducts() {
+	public ArrayList<Product> findProducts(String type, String category, String keyword) {
 		
-		ArrayList<Product> products = productMapper.selectProducts();
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("type", type);
+		params.put("category", category);
+		params.put("keyword", keyword);
+		
+		ArrayList<Product> products = productMapper.selectProducts(params);
 		
 		for(Product product : products) {
 			ProductFile file = productMapper.selectProductFileByProductNo(product.getProductNo());
@@ -157,6 +162,19 @@ public class ProductServiceImpl implements ProductService {
 		
 	}
 	
+	//메인
+	@Override
+	public List<Product> findMain() {
+		List<Product> main = productMapper.selectMain();
+		
+		//제품 이미지
+		for(Product product : main) {
+			product.setFile(productMapper.selectProductFileByProductNo(product.getProductNo()));
+		}
+		
+		return main;
+	}
+	
 	/*	Heart	*/
 
 	@Override
@@ -209,6 +227,13 @@ public class ProductServiceImpl implements ProductService {
 		}
 		
 		return heartlist;
+	}
+
+	@Override
+	public Integer findHeartCountByProductNo(int productNo) {
+		Integer heartcount = productMapper.selectHeartCountByProductNo(productNo);
+		
+		return heartcount;
 	}
 
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 
-import EditUserRoute from './containers/mypage/myEditUserData.jsx';
+import ReportApp from './components/reportApp.jsx';
 
 ReactDom.render(
     <EditUserRoute />,

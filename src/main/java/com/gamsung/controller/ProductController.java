@@ -68,6 +68,9 @@ public class ProductController {
 			}
 		}
 		
+		//찜 갯수
+		Integer heartcount = productService.findHeartCountByProductNo(productNo);
+		
 		Product product = productService.findProductByProductNo(productNo);
 		
 	    ArrayList<Review> reviewlist = reviewService.findReviewsByProductNo(productNo);
@@ -88,17 +91,32 @@ public class ProductController {
 		model.addAttribute("product", product);
 		model.addAttribute("reviewlist", reviewlist);
 		model.addAttribute("comments", comments);
+		model.addAttribute("heartcount", heartcount);
 		 
 		return "product/detail";
 	}
 
 	@GetMapping(path = "/categories")
-	public String productList(Model model) {
+	public String productList(Model model, String type ,String category, String keyword) {
 
-		ArrayList<Product> products = productService.findProducts();
-
+		if (type == null) {
+			type = "all";
+		}
+		
+		if (category == null) {
+			category = "every";
+		}
+		
+		if (keyword == null) {
+			keyword = "";
+		}
+		
+		ArrayList<Product> products = productService.findProducts(type,category,keyword);
 		model.addAttribute("products", products);
-		System.out.println(products);
+		model.addAttribute("type", type);
+		model.addAttribute("category", category);
+		
+		
 
 		return "product/list";
 	}
@@ -219,7 +237,6 @@ public class ProductController {
 		if(product == null) {
 			return "redirect:/product/categories";
 		}
-		
 		model.addAttribute("product", product);
 		
 		return "/product/update";
@@ -296,6 +313,7 @@ public class ProductController {
 			}
 			// 데이터 저장
 			productService.updateProduct(product);
+			System.out.println(product);
 			model.addAttribute("product", product);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -453,9 +471,6 @@ public class ProductController {
 						files.add(reviewFile);
 						
 						review.setFiles(files);
-						
-						reviewService.insertReviewFiles(review, review.getDealNo());
-						
 					}
 				}
 			}

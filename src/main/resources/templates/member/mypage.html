@@ -120,12 +120,17 @@
 												<div class="product_price" th:text="${heart.price}+'원'"></div>
 											</div>
 										</div>
+										<div class="py-3" th:unless="${ #lists.size(hearts) } > 0">
+											<div>
+												찜한 상품이없습니다.
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
 						</section>
 						<section id="section-topline-4">
-							<div class="row py-3" th:if="${#lists.size(reviews)} > 0" th:each="review : ${reviews}">
+							<div class="row py-3 align-items-center" th:if="${#lists.size(reviews)} > 0" th:each="review : ${reviews}">
 								<div class="col">
 								  <span class="starR1" th:attrappend="class=${review.rating}*2 >= 1 ? ' on' : ''">별1_왼쪽</span>
 								  <span class="starR2" th:attrappend="class=${review.rating}*2 >= 2 ? ' on' : ''">별1_오른쪽</span>
@@ -143,13 +148,18 @@
 		                  			
 		                  		</div>
 		                  		<div class="col" th:text="${#dates.format(review.regDate, 'yyyy-MM-dd')}"></div>
-	                  			<div class="review_button">
+	                  			<div class="review_button my-3">
 	                  				<a th:href="'/product/updateReview/'+${review.dealNo}">수정</a>
 	                  			</div>
-								<div class="review_button">
+								<div class="review_button my-3">
 									<a th:href="'/product/deleteReview/'+${review.dealNo}">삭제</a>
 								</div>
                   			</div>
+                  			<div class="py-3" th:unless="${#lists.size(reviews)} > 0">
+								<div>
+									등록한 후기가없습니다.
+								</div>
+							</div>
 						</section>
 						<section id="section-topline-5">
 							<div class="container" id="message">

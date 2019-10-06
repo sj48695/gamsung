@@ -14,7 +14,7 @@ public interface ProductService {
 	
 	Product findProductByProductNo(int productNo);
 
-	ArrayList<Product> findProducts();
+	ArrayList<Product> findProducts(String type, String category, String keyword);
 	
 	Integer registerProductTx(Product product);
 
@@ -34,6 +34,8 @@ public interface ProductService {
 	
 	void updateProduct(Product product);
 	
+	List<Product> findMain();
+	
 	/*	Heart	*/
 
 	void insertHeart(Heart heart);
@@ -45,5 +47,8 @@ public interface ProductService {
 	boolean findHeartCount(String id, int productNo);
 
 	List<Product> findMyHeartList(String memberId);
+
+	Integer findHeartCountByProductNo(int productNo);
+
 
 }

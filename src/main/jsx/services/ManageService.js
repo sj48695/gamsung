@@ -2,7 +2,7 @@ import * as axios from 'axios';
 
 export const getUserList = () => {
     return new Promise( (resolve, reject) => {
-        axios.get("list")
+        axios.get("/member/list")
              .then( (result) =>{
                  console.log(result.data);
 
