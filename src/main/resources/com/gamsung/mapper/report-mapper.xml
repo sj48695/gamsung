@@ -7,9 +7,12 @@
 	<select id="findList" resultType="com.gamsung.vo.Report">
 		select report_no
 		,reporter
+		,user
+		,title
 		,contents
 		,reg_date
 		,confirm
+		,answer
 		from report
 	</select>
 
@@ -25,5 +28,12 @@
 			#{contents}
 		)
 	</insert>
+	
+	<update id="reportAnswer" parameterType="com.gamsung.vo.Report">
+		update report
+		set answer = #{ answer }
+		,confirm = '답변완료'
+		where report_no = #{ reportNo }
+	</update>
 
 </mapper>

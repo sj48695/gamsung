@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -113,4 +115,13 @@ public class ReportController {
 			return "error upload file";
 		}
 	} 
+	
+	@PostMapping(path="answer")
+	@ResponseBody
+	public String reportAnswer(@RequestBody Report report) {
+		
+		reportService.reportAnswer(report);
+		
+		return "success";
+	}
 }

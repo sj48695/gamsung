@@ -13,7 +13,7 @@
 .gide {
     top: 0;
     width: 100%;
-    background-color: gray;
+    background-color: white;
 }
 
 
@@ -140,4 +140,20 @@
 
 .contents {
   width: 200px;
+}
+
+.ReactModal__Overlay {
+  z-index: 9000;
+  width: 350pt;
+  height: 450pt;
+  margin-left: 50%;
+}
+
+.report-tx {
+  font-size: 14pt;
+}
+
+.btn-sz{
+  width: 70pt;
+  height: 20pt;
 }
