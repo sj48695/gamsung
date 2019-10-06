@@ -1,5 +1,6 @@
 package com.gamsung.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,5 +22,12 @@ public class ReportService {
 	public void registerReport(Report report) {
 		reportMapper.insertReport(report);
 	}
+
+	public void reportAnswer(Report report) {
+		reportMapper.reportAnswer(report);
+		
+	}
+
+
 
 }

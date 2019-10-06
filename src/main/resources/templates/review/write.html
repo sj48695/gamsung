@@ -17,7 +17,7 @@
 				<form action="/product/reviewWrite" id="review_writeForm"
 					method="post" enctype="multipart/form-data">
 					<input type="hidden" name="dealNo" th:value="${dealNo}">
-					<input type="hidden" name="rating" id="rating" value="">
+					<input type="hidden" name="rating" id="rating" value="0.0">
 					
 					<!-- ***************************************************************************** -->
 					
@@ -42,7 +42,7 @@
 								</div>
 		         			</div>
 		         			<div class="col-md-12 starRev">
-							  <span class="starR1 on" data-star="0.5">별1_왼쪽</span>
+							  <span class="starR1" data-star="0.5">별1_왼쪽</span>
 							  <span class="starR2" data-star="1.0">별1_오른쪽</span>
 							  <span class="starR1" data-star="1.5">별2_왼쪽</span>
 							  <span class="starR2" data-star="2.0">별2_오른쪽</span>

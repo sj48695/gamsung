@@ -343,11 +343,6 @@ $(function () {
 		$('.product_images').empty();
 		readURL(this, $(".product_images"));
 	});
-
-	$("#review_writeForm").on("change", "#imgFile", function (event) {
-		$('.product_images').empty();
-		readURL(this, $(".product_images"));
-	});
 	
 	$("#updateForm").on("change", "#titleImgFile", function (event) {
 		$(".product_image").empty();
@@ -356,6 +351,17 @@ $(function () {
 	$("#updateForm").on("change", "#imgFile", function (event) {
 	    readURL(this, $(".product_images")); //empty= 하위파일을 일시적으로 안보이게 설정(데이터는 남아있음)
 	});
+	
+	//리뷰 파일
+	$("#review_writeForm").on("change", "#imgFile", function (event) {
+		$('.product_images').empty();
+		readURL(this, $(".product_images"));
+	});
+	
+	$("#review_updateForm").on("change", "#imgFile", function (event) {
+	    readURL(this, $(".product_images")); //empty= 하위파일을 일시적으로 안보이게 설정(데이터는 남아있음)
+	});
+	
 	
 	$("#dealForm").on("click","#back_button", function(event){
 		var productNo = $(this).attr("data-productNo");
@@ -382,6 +388,25 @@ $(function () {
 		});
 	   
 	});
+	
+	//리뷰 이미지 삭제
+	$('.del_review_file').on('click', function() {
+		var reviewFileNo = $(this).attr('data-fileNo');
+		var deleteBtn = $(this).parent();
+		$.ajax({
+			url: "/product/delete-reviewfile",
+			method: "GET",
+			data: {"reviewFileNo" : reviewFileNo },
+			success: function(data, status, xhr){
+				deleteBtn.remove();
+			},
+			error: function(xhr, status, err){
+				alert('삭제 실패');
+			}
+		});
+	   
+	});
+
 
 
 

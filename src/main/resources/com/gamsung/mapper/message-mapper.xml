@@ -25,4 +25,21 @@
 			#{contents}
 		)
 	</insert>
+	
+	<select id="selectMyChatList" parameterType="String" resultType="com.gamsung.vo.InChatMessageVO">
+		
+		SELECT 
+   			message_no, <include refid="messageColumns"/>, send_date
+		FROM
+		    message m1,
+		    (SELECT 
+		        MAX(send_date) d
+		    FROM
+		        message
+		    WHERE sender in(#{sender}) or receiver in(#{sender})
+		    GROUP BY REPLACE(CONCAT(sender, '', receiver), #{sender}, '')) m2
+		WHERE
+		    1 = 1 AND m1.send_date = m2.d
+		ORDER BY send_date desc;
+	</select>
 </mapper>

@@ -8,7 +8,10 @@ module.exports = {
         myProducts:'./containers/mypage/myProducts.jsx',
         myRequestProducts:'./containers/mypage/myRequestProducts.jsx',
         myEditUserData:'./editUserIndex.jsx',
-        // message:'./containers/mypage/message.jsx'
+        message:'./containers/mypage/message.jsx',
+        report:'./reportIndex.jsx'
+        comment:'./containers/product/commentIndex.jsx'
+
 
 
     },

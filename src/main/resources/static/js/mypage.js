@@ -15,8 +15,8 @@ $(function() {
 		
 		var introduction = $(this).attr('data-introduction');
 		$('#intro_view').empty();
-		$('#intro_view').html('<textarea class="form-control col-8" id="intro" name="introduction">'+introduction+'</textarea>\
-				<a class="btn bnt-primary col-2" onclick="javascript:introduction();">수정</a>');
+		$('#intro_view').html('<textarea class="checkout_input col-8 h-100" id="intro" name="introduction">'+introduction+'</textarea>\
+				<div class="button col-2" onclick="javascript:introduction();"><a href="#">수정</a></div>');
 		$(this).remove();
 	});
 	
@@ -29,7 +29,6 @@ $(function() {
 		return false;
 	});
 
-	
 	/*chat*/
 //	document.addEventListener("DOMContentLoaded", function(){
 //		WebSocket.init();
@@ -37,31 +36,39 @@ $(function() {
 	//소켓서버 접속, 정보셋팅, 응답 fn 정의
 	connect(function(obj){
 		var message = obj.contents;
-		$('#greetings').append('<div class="text-right">'+message+'</div>');
+		$('#greetings').append('<div class="row py-3 justify-content-end">\
+				<div class="contents">'+message+'</div></div>');
 		$('#contents').val('');
+
 	});
 	
 	//메세지 전송
 	$('#send').click(function(){
 		sendContent($('#contents').val());
 	})
+	
+//	$("#chatting_div").scrollTop(800);
 });
 
 /*찜하기*/
 function heart(productno){
+	//var heart_cnt = Number($("#heart_count").text());
 	$.ajax({
 		url:"/product/heart",
 		methods:"get",
 		data:{productNo : productno},
 		success:function(data, status, xhr){
-				 if(data == "success") {
-	                 $('#heart'+productno).attr("class","fa fa-heart");
-	             }else if(data == "removeheart"){
-	                 $('#heart'+productno).attr("class","fa fa-heart-o");
-	             }else if(data == "error"){
-	            	 alert("로그인 후 이용가능합니다.");
-	             }
-
+			 if(data == "success") {
+				 //heart_cnt =heart_cnt+1;
+	             $('#heart'+productno).attr("class","fa fa-heart");    
+	             $("#heart_count").text(Number($("#heart_count").text())+1);
+	         }else if(data == "removeheart"){
+				 //heart_cnt =heart_cnt-1;
+	             $('#heart'+productno).attr("class","fa fa-heart-o");
+	             $("#heart_count").text(Number($("#heart_count").text())-1 );
+	         }else if(data == "error"){
+	        	 alert("로그인 후 이용가능합니다.");
+	         }
 		},
 		error:function(status, xhr, err){
 			alert("찜 할 수 없습니다.\n" + err);
@@ -102,11 +109,11 @@ function introduction(){
 		methods:"post",
 		data:formData,
 		success:function(data, status, xhr){
-				$("#intro_div").empty();
-				$("#intro_div").html('<i id="update" class="fa fa-edit col-2" data-introduction="'+data+'"></i>\
-						<div id="intro_view" class="col-8 row">'+intro+'</div>');
-			
-        	 alert("수정성공!");
+			$("#intro_div").empty();
+			$("#intro_div").html('<i id="update" class="fa fa-edit col-2" data-introduction="'+data+'"></i>\
+					<div id="intro_view" class="col-8 row">'+intro+'</div>');
+				
+			alert("수정성공!");
 		},
 		error:function(status, xhr, err){
 			alert("수정할 수 없습니다.\n" + err);
@@ -118,7 +125,7 @@ function introduction(){
 /*chat*/
 function chatpop(){
 
-	var seller = $('#seller').attr('value');	
+	var seller = $('.seller').attr('value');	
     //팝업창출력
     //width : 300px크기
     //height : 300px크기
@@ -126,7 +133,9 @@ function chatpop(){
     //left : 100px 왼쪽화면과 100px 차이해서 위치
     //툴바 X, 메뉴바 X, 스크롤바 X , 크기조절 X
     window.open('/member/chatting/'+seller,'popName',
-                'width=700,height=900,top=100,left=100,toolbar=no,menubar=no,scrollbars=no,resizable=no,status=no');
+                'width=550,height=700,top=100,left=100,toolbar=no,menubar=no,scrollbars=no,resizable=no,status=no');
+//window.open('http://www.naver.com','popName',
+//                'width=550,height=700,top=100,left=100,toolbar=no,menubar=no,scrollbars=no,resizable=no,status=no');    
 }
 var senderNickName = $("#senderNickName").val();
 var senderId = $("#senderId").val();
