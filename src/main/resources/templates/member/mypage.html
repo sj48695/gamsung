@@ -94,44 +94,34 @@ div .title {
 							<div class="container" id="myRequestProducts"></div>
 						</section>
 						<section id="section-topline-3">
-							<div class="row">
-								<div class="col">
-									<div class="product_grid">
-										<!-- Product -->
-										<div class="product" th:if="${ #lists.size(hearts) } > 0" th:each="heart : ${hearts}">
-											<div class="product_image">
-												<!-- <div style="position: absolute">
-													<div style="position: relative;top: 10px;left: 200px ">
-														<font size="6"><i class="fa fa-heart" id="heart" style="color:#CD3B3B;"></i></font>
-													</div>
-												</div>  -->
-												
-												<div style="position: absolute">
-													<div style="position: relative;top: 10px;left: 200px ">
-														<div>
-															<a th:onclick="'javascript:heart('+${heart.productNo}+')'">
-																<font size="6"><i class="fa fa-heart" th:id="'heart'+${heart.productNo}"
-																	style="color: #CD3B3B;"></i></font>
-															</a>
-														</div>
-													</div>
+							<div class="product_grid">
+								<!-- Product -->
+								<div class="product" th:if="${ #lists.size(hearts) } > 0" th:each="heart : ${hearts}">
+									<div class="product_image">
+										<div style="position: absolute">
+											<div style="position: relative;top: 10px;left: 200px ">
+												<div>
+													<a th:onclick="'javascript:heart('+${heart.productNo}+')'">
+														<font size="6"><i class="fa fa-heart" th:id="'heart'+${heart.productNo}"
+															style="color: #CD3B3B;"></i></font>
+													</a>
 												</div>
-								
-												<!-- <img src="/images/product_1.jpg" alt=""> -->
-												<img th:src="'/files/product-files/'+${heart.file.saveFileName}" alt="">
-											</div>
-											<div class="product_content">
-												<div class="product_title">
-													<a th:href="'/product/detail/'+${heart.productNo}" th:text="${heart.name}"></a>
-												</div>
-												<div class="product_price" th:text="${heart.price}+'원'"></div>
 											</div>
 										</div>
-										<div class="py-3" th:unless="${ #lists.size(hearts) } > 0">
-											<div>
-												찜한 상품이없습니다.
-											</div>
+						
+										<!-- <img src="/images/product_1.jpg" alt=""> -->
+										<img th:src="'/files/product-files/'+${heart.file.saveFileName}" alt="">
+									</div>
+									<div class="product_content">
+										<div class="product_title">
+											<a th:href="'/product/detail/'+${heart.productNo}" th:text="${heart.name}"></a>
 										</div>
+										<div class="product_price" th:text="${heart.price}+'원'"></div>
+									</div>
+								</div>
+								<div class="py-3" th:unless="${ #lists.size(hearts) } > 0">
+									<div>
+										찜한 상품이없습니다.
 									</div>
 								</div>
 							</div>
