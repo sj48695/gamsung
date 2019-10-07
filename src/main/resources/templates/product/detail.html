@@ -17,6 +17,7 @@ div .title {
 <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/animate.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/styles/mypage/css/flaticon.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/styles/mypage/css/mypage.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/styles/product.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/styles/star.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/styles/product_responsive.css}">
@@ -78,34 +79,35 @@ div .title {
 					<div class="col-lg-6 py-5">
 						<div class="details_content py-5">
 							<div class="row justify-content-between">
-								<div class="row col">
+								<div class="row col-10">
 									<div class="col-12">
-										<div class="details_name" th:text="${ product.name }"></div> | 
-										<span th:text="${ product.category }"></span>
+										<div class="details_name" th:text="${ product.name }"></div>
+										<font color="#CD3B3B" th:if="${product.count} <= 0">품절</font>
+										 | <span th:text="${ product.category }"></span>
 									</div>
 									<div class="details_price col-12" th:text="${ #numbers.formatInteger(product.price,3,'COMMA') }+'원'"></div>
 								</div>
 								
 								<!-- 찜 -->
-								<div th:if="${ id } != null and ${ id } != ${ product.seller }">
+								<div class="text-center col-2" th:if="${ id } != null and ${ id } != ${ product.seller }">
 									<div th:if="${ heart } != null">
 										<a th:if="${#authentication.principal.member.id} == ${ heart.id }" th:onclick="'javascript:heart('+${product.productNo}+')'">
-											<font size="6"><i class="fa fa-heart" th:id="'heart'+${product.productNo}" style="color:#CD3B3B;"></i></font>
+											<font size="6" color="#CD3B3B"><i class="fa fa-heart" th:id="'heart'+${product.productNo}"></i></font>
 										</a>
 										<a th:unless="${#authentication.principal.member.id} == ${ heart.id }" th:onclick="'javascript:heart('+${product.productNo}+')'">
-											<font size="6"><i class="fa fa-heart-o" th:id="'heart'+${product.productNo}" style="color:#CD3B3B;" aria-hidden="true"></i></font>
+											<font size="6" color="#CD3B3B"><i class="fa fa-heart-o" th:id="'heart'+${product.productNo}" aria-hidden="true"></i></font>
 										</a>
 									</div>
 									<div th:if="${ heart } == null">
 										<a th:onclick="'javascript:heart('+${product.productNo}+')'">
-											<font size="6"><i class="fa fa-heart-o" th:id="'heart'+${product.productNo}" style="color:#CD3B3B;" aria-hidden="true"></i></font>
+											<font size="6" color="#CD3B3B"><i class="fa fa-heart-o" th:id="'heart'+${product.productNo}" aria-hidden="true"></i></font>
 										</a>
 									</div>
-									<div id="heart_count" th:text="${heartcount}"></div>
+									<font color="#CD3B3B" id="heart_count" th:text="${heartcount}"></font>
 								</div>
 								<div th:if="${ id } == null">
 									<a th:onclick="'javascript:heart('+${product.productNo}+')'">
-										<font size="6"><i class="fa fa-heart-o" th:id="'heart'+${product.productNo}" style="color:#CD3B3B;" aria-hidden="true"></i></font>
+										<font size="6" color="#CD3B3B"><i class="fa fa-heart-o" th:id="'heart'+${product.productNo}" aria-hidden="true"></i></font>
 									</a>
 								</div>
 							</div>
@@ -135,8 +137,8 @@ div .title {
 								
 								<!-- Product Quantity -->
 								<div class="product_quantity_container" 
-									th:if="${product.seller} != ${id} and ${id} != null">
-									<div th:if="${product.type} == '흥정'">
+									th:if="${product.seller} != ${id} or ${id} == null">
+									<div th:if="${product.type} == '흥정' and ${product.count} > 0">
 										<div class="availability">흥정가격 : </div>
 										<div class="product_quantity clearfix px-3">
 											<input class="w-75" type="text" name="price" 
@@ -144,45 +146,35 @@ div .title {
 												th:value="${product.price}">
 											<span style="left:auto;">원</span>
 										</div>
-										<div class="button cart_button">
+										<div class="button cart_button" th:if="${id}==null">
+											<a href="#" onclick="alert('로그인한 회원만 이용 가능합니다.');$('#dealForm').submit();">거래 신청</a>
+										</div>
+										<div class="button cart_button" th:unless="${id}==null">
 											<a href="#" onclick="$('#dealForm').submit();">거래 신청</a>
 										</div>
 									</div>
-									<div th:unless="${product.type} == '흥정'">
-										<div class="button cart_button">
+									<div th:if="${product.type} != '흥정' and ${product.count} > 0">
+										<div class="button cart_button" th:if="${id}==null">
+											<a href="#" onclick="alert('로그인한 회원만 이용 가능합니다.');$('#dealForm').submit();">거래 신청</a>
+										</div>
+										<div class="button cart_button" th:unless="${id}==null">
 											<a href="#" onclick="$('#dealForm').submit();">거래 신청</a>
 										</div>
+									</div>
+									<div style="font-weight: 800;border:solid 2px #CD3B3B;text-align: center" th:unless="${product.count} > 0">
+										<font size="5" color="#CD3B3B">판매완료</font>
 									</div>
 								</div>
 								<div class="product_quantity_container"
 									th:if="${product.seller} == ${id} and ${id} != null">
 									<div class="row justify-content-center">
-										<div class="button trans_200" id="insertBoard" ><a th:href="'/product/update/' + ${ product.productNo }">수정</a></div>
+										<div class="button cart_button trans_200" id="insertBoard" >
+											<a th:href="'/product/update/' + ${ product.productNo }">수정</a>
+										</div>
 										<div class="button cart_button trans_200" id="back_button"
 											th:data-productNo="${ product.productNo }"><a>삭제</a></div>
 									</div>
 								</div>
-
-								<div class="product_quantity_container" th:if="${ id }== null">
-									<div th:if="${product.type} == '흥정'">
-										<div class="availability">흥정가격 :</div>
-										<div class="product_quantity clearfix px-3">
-											<input class="w-75" type="text" name="price"
-												th:placeholder="${ #numbers.formatInteger(product.price,3,'COMMA') }"
-												th:value="${product.price}"> 
-											<span style="left: auto;">원</span>
-										</div>
-										<div class="button cart_button">
-											<a onclick="alert('로그인한 회원만 이용 가능합니다.');$('#dealForm').submit();">거래 신청</a>
-										</div>
-									</div>
-									<div th:unless="${product.type} == '흥정'">
-										<div class="button cart_button">
-											<a onclick="alert('로그인한 회원만 이용 가능합니다.');$('#dealForm').submit();">거래 신청</a>
-										</div>
-									</div>
-								</div>
-								<!-- <div id="heart_count" th:text="${heartcount.cnt}"></div> -->
 							</form>
 
 							<!-- Share -->
@@ -213,7 +205,7 @@ div .title {
 					<li class="nav-item comments_title">
 						<a class="nav-link" id="comment-tab" data-toggle="tab" 
 							href="#comment" role="tab" aria-controls="comment" aria-selected="false">
-							Comments <span th:text="'('+${#lists.size(reviewlist)}+')'"></span>
+							Comments <span th:text="'('+${#lists.size(comments)}+')'"></span>
 						</a>
 					</li>
 				</ul>
@@ -262,11 +254,83 @@ div .title {
 									</div>
 							    </div>
 							</div>
-							<div class="row py-5" th:if="${#lists.size(reviewlist)} <= 0">등록된 리뷰가 없습니다.</div><br>
+							<div class="py-5 text-center" th:if="${#lists.size(reviewlist)} <= 0">등록된 리뷰가 없습니다.</div><br>
 						</div>
 					</div>
 					<div class="tab-pane fade py-5" id="comment" role="tabpanel" aria-labelledby="comment-tab">
-						
+					
+						<!-- write comment area -->
+						<form id="commentform" th:if="${ id } != null" class="container">
+							<input type="hidden" name="productNo" id="productNo" th:value="${ product.productNo }" /> 
+							<input type="hidden" name="writer" th:value="${ id }" />
+							<div class="row justify-content-center">
+								<textarea id="comment_content" class="form-control col-8"
+									style="background: #f2f4f8;border: none;" name="contents" rows="3"></textarea>
+								<div class="button cart_button p-3 h-100 col-2"><a id="writecomment" href="javascript:">댓글작성</a></div>
+							</div>
+						</form>
+						<hr>
+						<!-- comment list -->
+						<div id="comment-list" class="container">
+							<div th:id="'tr'+${ comment.commentNo }" th:each="comment :${ comments }" th:if="${ #lists.size(comments) } > 0">
+								<div class="m-2 row justify-content-center" style="text-align:left;"
+									th:attrappend="style='padding-left:'+${comment.depth * 30}+'px'">
+									<div class="col-10" th:id="'commentview'+${ comment.commentNo }">
+										<div class="row justify-content-between py-2">
+											<div class="col-4 row">
+												<a class="col-4" th:href="'/member/store/'+${ comment.writer }" th:text="${ comment.writer }"></a> 
+												<div class="col-8" th:text="'['+${ #dates.format(comment.regDate,'yyyy-MM-dd') }+']'"></div>
+											</div>
+											<div class="col-3 row" th:style="${ id } == ${ comment.writer } ? '' : 'display:none' ">
+											<div class="review_button col-6 text-center">
+												<a class="editcomment" th:data-commentno='${ comment.commentNo }' href="javascript:">편집</a> 
+											</div>
+											<div class="review_button col-6 text-center">
+												<a class="deletecomment" th:data-commentno="${ comment.commentNo }" href="javascript:">삭제</a>
+											</div>	
+											</div>
+										</div>
+										<div class="container p-3" th:text="${ comment.contents }"></div>   
+										 <div class="row justify-content-end">
+											 <div class="review_button text-center" th:if="${id} != null">
+											 	<a class="recomment-link btn-xs" th:data-commentno="${ comment.commentNo }"
+											 		data-toggle="collapse" th:href="'#collapse'+${ comment.commentNo }" role="button" 
+											 		aria-expanded="false" th:aria-controls="'collapse'+${ comment.commentNo }">대댓글 작성</a>
+											 </div>
+										 </div>
+										 
+									 	<div class="collapse" th:id="'collapse'+${ comment.commentNo }">
+											<form id="recomment-form" class="row justify-content-center">
+												<input type="hidden" name="commentNo" th:value="${comment.commentNo}"> 
+												<input type="hidden" name="writer" th:value="${ id }"> 
+												<input type="hidden" name="productNo" th:value="${ product.productNo }">
+												<textarea class="form-control col-8" name="contents" rows="5"></textarea>
+											
+												<div class="col-2 button cart_button">
+													<a id="write-recomment" class="btn-xs">작성</a>
+												</div>
+											</form>
+										</div>
+										 
+									</div> <!-- 수정 -->
+									<div th:id="'commentedit'+${ comment.commentNo }" style="display: none">
+										<div th:text="${ comment.writer }"></div> 
+										<div th:text="'['+${ #dates.format(comment.regDate,'yyyy-MM-dd') }+']'"></div>
+										<form th:id="'updateform'+${ comment.commentNo }">
+											<input type="hidden" name="commentNo" th:value="${ comment.commentNo }" />
+											<textarea name="contents" rows="3" maxlength="200" th:text="${ comment.contents }"style="background: #f2f4f8;border: none;"></textarea>
+										</form>
+										<div>
+											<a class="updatecomment" href="javascript:" th:data-commentno="${ comment.commentNo }">edit</a>
+											<a class="cancel" data-commentno="${ comment.commentNo }" href="javascript:">back</a>
+										</div>
+									</div>
+								</div><hr>
+							</div>
+							<div class="py-5 text-center" th:unless="${ #lists.size(comments) } > 0">
+								등록된 댓글이 없습니다.
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -325,7 +389,6 @@ div .title {
 				</div>
 			</div>
 		</div>
-					<script type="text/javascript" th:src="@{/js/react/comment.bundle.js}"></script>
 	</div>
 </body>
 </html>

@@ -15,7 +15,7 @@ class MyRequestProducts extends Component {
     }
 
     getRequestProductList() {
-        const promise = ProductService.getRequestProductList();
+        const promise = ProductService.getMyRequestProductList();
         promise.then(products => {
             this.setState({
                 products: products

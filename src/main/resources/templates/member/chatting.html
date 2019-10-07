@@ -30,13 +30,14 @@
 			<div id="conversation" class="table table-striped">
 				<div id="greetings">
 					<div th:class="'row py-3 justify-content-'+${msg.align}" th:each="msg:${messages}">
-						<img class="profile col-2" 
+						<img class="profile col-2 h-100" 
 							th:src="'/files/profile-files/'+${msg.profile}" 
 							th:if="${msg.sender} != ${#authentication.principal.member.id}">
 						<div>
 							<div th:text="${msg.senderNickName}"
 								th:if="${msg.sender} != ${#authentication.principal.member.id}"></div>
 							<div class="contents" th:text="${msg.contents}"></div>
+							<span th:text="${#dates.format(msg.sendDate,'yyyy-MM-dd HH:mm')}"></span>
 						</div>
 					</div>
 				</div>

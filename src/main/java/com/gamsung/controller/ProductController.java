@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,7 +34,6 @@ import com.gamsung.vo.Product;
 import com.gamsung.vo.ProductFile;
 import com.gamsung.vo.Review;
 import com.gamsung.vo.ReviewFile;
-import com.google.gson.JsonObject;
 
 
 @Controller
@@ -75,7 +75,9 @@ public class ProductController {
 		Product product = productService.findProductByProductNo(productNo);
 		
 	    ArrayList<Review> reviewlist = reviewService.findReviewsByProductNo(productNo);
-	    
+
+		List<Comment> comments = commentService.findCommentListByProductNo(productNo);
+		
 		Member member = memberService.findMemberById(product.getSeller());
 		String addr = "";
 		if( member.getJibunAddr() != null ) {
@@ -89,6 +91,7 @@ public class ProductController {
 		model.addAttribute("addr", addr);
 		model.addAttribute("product", product);
 		model.addAttribute("reviewlist", reviewlist);
+		model.addAttribute("comments", comments);
 		model.addAttribute("heartcount", heartcount);
 		 
 		return "product/detail";
@@ -96,6 +99,17 @@ public class ProductController {
 
 	@GetMapping(path = "/categories")
 	public String productList(Model model, String type ,String category, String keyword) {
+		int pageNo = 0;
+		if(pageNo == 0) {
+			pageNo=1;
+		}
+		
+		int pageSize = 12;
+		int currentPage = pageNo;
+
+		int from = (currentPage - 1) * pageSize + 1;
+		int to = from + pageSize;
+
 
 		if (type == null) {
 			type = "all";
@@ -109,16 +123,72 @@ public class ProductController {
 			keyword = "";
 		}
 		
-		ArrayList<Product> products = productService.findProducts(type,category,keyword);
+
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("from", from-1);
+		params.put("to", to);
+		params.put("type", type);
+		params.put("category", category);
+		params.put("keyword", keyword);
+		
+		
+		ArrayList<Product> products = productService.findProducts(params);
 		model.addAttribute("products", products);
 		model.addAttribute("type", type);
 		model.addAttribute("category", category);
+		model.addAttribute("keyword", keyword);
 		
 		
 
 		return "product/list";
 	}
 
+	@PostMapping(path = "/categories")
+	@ResponseBody
+	public ArrayList<Product> productListReact(Model model, String type ,String category, String keyword, Integer pageNo) {
+		if(pageNo == null) {
+			pageNo=1;
+		}
+		
+		int pageSize = 12;
+		int currentPage = pageNo;
+
+		int from = (currentPage - 1) * pageSize + 1;
+		int to = from + pageSize;
+
+
+		if (type == null) {
+			type = "all";
+		}
+		
+		if (category == null) {
+			category = "every";
+		}
+		
+		if (keyword == null) {
+			keyword = "";
+		}
+		
+
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("from", from-1);
+		params.put("to", to);
+		params.put("type", type);
+		params.put("category", category);
+		params.put("keyword", keyword);
+		
+		
+		ArrayList<Product> products = productService.findProducts(params);
+		model.addAttribute("products", products);
+//		model.addAttribute("type", type);
+//		model.addAttribute("category", category);
+//		model.addAttribute("keyword", keyword);
+		
+		
+
+		return products;
+	}
+	
 	@GetMapping(path = "/write")
 	public String showProductWrite() {
 
@@ -494,9 +564,7 @@ public class ProductController {
 	 *  =========================================== */
 	
 	
-	
-	@RequestMapping(path = "/write-comment", 
-					method = RequestMethod.POST, 
+	@PostMapping(path = "/write-comment", 
 					produces = "text/plain;charset=utf-8") 
 	@ResponseBody 
 	public String writeComment(Comment comment) {
@@ -507,8 +575,7 @@ public class ProductController {
 		return "success"; 
 	}
 	
-	@RequestMapping(path = "/write-recomment", 
-			method = RequestMethod.POST, 
+	@PostMapping(path = "/write-recomment", 
 			produces = "text/plain;charset=utf-8") 
 	@ResponseBody 
 	public String writeRecomment(Comment comment) {
@@ -518,10 +585,9 @@ public class ProductController {
 		return "success"; 
 	}
 	
-	@GetMapping(value = "/comment-list/{productNo}")
-	@ResponseBody
-	public List<Comment> commentList(@PathVariable int productNo) {
-		
+	@PostMapping(value = "/comment-list")
+	public String commentList(int productNo, Model model, HttpServletRequest req) {
+		Authentication auth = (Authentication)req.getUserPrincipal();
 //		if(pageNo == 0) {
 //			pageNo=1;
 //		}
@@ -540,12 +606,14 @@ public class ProductController {
 		List<Comment> comments = 
 				commentService.findCommentListByProductNo(productNo);
 //				commentService.findCommentListByProductNoWithPaging(params);
-//		model.addAttribute("comments", comments);
+		model.addAttribute("comments", comments);
+		model.addAttribute("productNo", productNo);
+		model.addAttribute("id", auth.getName());
 
-		return comments;
+		return "product/comments";
 	}
 	
-	@RequestMapping(value = "/delete-comment", method = RequestMethod.GET)
+	@DeleteMapping(value = "/delete-comment")
 	@ResponseBody
 	public String deleteComment(int commentNo) {
 		
