@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 
-import ReportApp from './components/reportApp.jsx';
+import EditUserApp from './components/EditUserApp.jsx'
 
 ReactDom.render(
-    <EditUserRoute />,
+    <EditUserApp />,
     document.getElementById("userDetail")
 )
