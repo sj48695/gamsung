@@ -131,11 +131,7 @@ class UserDetailData extends Component{
                                                 <input type="text" className="checkout_input" value={postcode} onChange={this.handleChange3}
                                                     id="postcode"  name="postcode" placeholder="우편번호" required="required" />
                                             </div>
-                                            <div className="form-group col-6">
-                                                <div className="button ml-auto w-100">
-                                                    <a href="#" className="addrBtn">주소 불러오기</a>
-                                                </div>
-                                            </div>
+                                            
                                     </div>
                                     <div className="form-group">
                                             <label htmlFor="roadAddress">RoadAddress*</label> 
@@ -163,11 +159,9 @@ class UserDetailData extends Component{
                             </div>
                             <div className="row justify-content-center">
 					            <button className="newsletter_button col-5 mt-0" id="registerBtn" type="submit"><span>수정완료</span></button>
-					            <button className="newsletter_button col-5 mt-0 ml-5"><Link to="/member/mypage"><span>취소</span></Link></button>
 				            </div>
                         </form>
                     </div>
-                    <div><Link to="/member/mypage" ref={this.successedit}></Link></div>
                 </div>
             )
     }

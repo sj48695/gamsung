@@ -33,3 +33,18 @@ export const getReportList = () =>{
     })
    
 }
+
+export const getDealList = () =>{
+    return new Promise((resolve, reject)=>{
+         axios.get("/deal/list")
+         .then( (result) => {
+             const data = result.data;
+             resolve(data);
+         })
+         .catch((err)=>{
+             console.log(err);
+             reject(err.message);
+         })
+     })
+    
+ }

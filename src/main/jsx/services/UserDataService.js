@@ -18,7 +18,7 @@ export const getUserDetail = () =>{
 
 export const UpdateUser = (member) =>{
     return new Promise((resolve, reject) =>{
-        axios.post("/member/mypage/userUpdate", member)
+        axios.post("/member/mypage/update", member)
              .then((result) =>{
                  const data = result.data;
                  resolve(data);
