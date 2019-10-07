@@ -55,5 +55,7 @@ public interface ProductMapper {
 	List<Product> selectMyHeartList(String memberId);
 
 	Integer selectHeartCountByProductNo(int productNo);
+
+	ArrayList<Product> selectProductSearch(String keyword);
 	
 }

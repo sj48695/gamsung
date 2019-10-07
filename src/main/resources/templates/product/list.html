@@ -95,6 +95,9 @@
 							</div>
 						</div>
 					</div>
+					<div class="product" th:unless="${ #lists.size(products) } > 0">
+						<div>등록된 상품이 없습니다.</div>
+					</div>
 				</div>
 				<div class="wrapper">
 				  <nav>

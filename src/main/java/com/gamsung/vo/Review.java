@@ -1,6 +1,5 @@
 package com.gamsung.vo;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +18,7 @@ public class Review {
 	private String name;
 	private String seller;
 	private String imgFileName;
+	private float staravg;
 	
 	private List<ReviewFile> files;
 }

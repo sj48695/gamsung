@@ -53,6 +53,19 @@
 								<input type="hidden" class="seller" id="seller" th:value="${ member.id }">
 								<i class="fa fa-paper-plane" onclick="chatpop()" title="쪽지보내기"></i>
 							</h3>
+							<div class="col">
+							  <span class="starR1" th:attrappend="class=${staravg}*2 >= 1 ? ' on' : ''">별1_왼쪽</span>
+							  <span class="starR2" th:attrappend="class=${staravg}*2 >= 2 ? ' on' : ''">별1_오른쪽</span>
+							  <span class="starR1" th:attrappend="class=${staravg}*2 >= 3 ? ' on' : ''">별2_왼쪽</span>
+							  <span class="starR2" th:attrappend="class=${staravg}*2 >= 4 ? ' on' : ''">별2_오른쪽</span>
+							  <span class="starR1" th:attrappend="class=${staravg}*2 >= 5 ? ' on' : ''">별3_왼쪽</span>
+							  <span class="starR2" th:attrappend="class=${staravg}*2 >= 6 ? ' on' : ''">별3_오른쪽</span>
+							  <span class="starR1" th:attrappend="class=${staravg}*2 >= 7 ? ' on' : ''">별4_왼쪽</span>
+							  <span class="starR2" th:attrappend="class=${staravg}*2 >= 8 ? ' on' : ''">별4_오른쪽</span>
+							  <span class="starR1" th:attrappend="class=${staravg}*2 >= 9 ? ' on' : ''">별5_왼쪽</span>
+							  <span class="starR2" th:attrappend="class=${staravg}*2 >= 10 ? ' on' : ''">별5_오른쪽</span>
+							</div>
+							<div th:text="${staravg}"></div>
 						</div>
 						<div id="intro_div" class="row">
 							<div id="intro_view" class="col-8 row" th:text="${member.introduction}"></div>
@@ -101,6 +114,18 @@
 												<h4>
 													<span th:text="${review.buyer}"></span>
 												</h4>
+												<div class="col">
+												  <span class="starR1" th:attrappend="class=${review.rating}*2 >= 1 ? ' on' : ''">별1_왼쪽</span>
+												  <span class="starR2" th:attrappend="class=${review.rating}*2 >= 2 ? ' on' : ''">별1_오른쪽</span>
+												  <span class="starR1" th:attrappend="class=${review.rating}*2 >= 3 ? ' on' : ''">별2_왼쪽</span>
+												  <span class="starR2" th:attrappend="class=${review.rating}*2 >= 4 ? ' on' : ''">별2_오른쪽</span>
+												  <span class="starR1" th:attrappend="class=${review.rating}*2 >= 5 ? ' on' : ''">별3_왼쪽</span>
+												  <span class="starR2" th:attrappend="class=${review.rating}*2 >= 6 ? ' on' : ''">별3_오른쪽</span>
+												  <span class="starR1" th:attrappend="class=${review.rating}*2 >= 7 ? ' on' : ''">별4_왼쪽</span>
+												  <span class="starR2" th:attrappend="class=${review.rating}*2 >= 8 ? ' on' : ''">별4_오른쪽</span>
+												  <span class="starR1" th:attrappend="class=${review.rating}*2 >= 9 ? ' on' : ''">별5_왼쪽</span>
+												  <span class="starR2" th:attrappend="class=${review.rating}*2 >= 10 ? ' on' : ''">별5_오른쪽</span>
+												</div>
 												<div class="product_title">
 													<a th:text="${review.name}"
 														th:href="'/product/detail/'+${review.productNo}"></a>

@@ -38,6 +38,8 @@ public interface ReviewMapper {
 	/* 상점 */
 	List<Review> selectStoreReview(String id);
 
-	Review selectReviewBuyerImg(String id);
+	//Review selectReviewBuyerImg(String id);
+
+	float selectStoreAvg(String id);
 	
 }
