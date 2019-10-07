@@ -66,27 +66,24 @@ div .title {
 			<div class="sorting_bar d-flex flex-md-row flex-column align-items-md-center justify-content-md-start">
 				<div class="sorting_container">
 					<div class="sorting">
-								<select name="type" id="type_form"  class="custom-select" >
-									<option value="all">전체</option>
-									<option value="흥정" th:selected="${ type } eq '흥정'">흥정</option>
-									<option value="일반" th:selected="${ type } eq '일반'">일반</option>
-						      	</select>
-						      	<select name="category" id="category_form"  class="custom-select">
-									<option value="every">전체</option>
-									<option value="전자제품" th:selected="${ category } eq '전자제품'">전자제품</option>
-									<option value="의류/잡화" th:selected="${ category } eq '의류/잡화'">의류/잡화</option>
-									<option value="생활용품" th:selected="${ category } eq '생활용품'">생활용품</option>
-									<option value="기타" th:selected="${ category } eq '기타'">기타</option>
-						      	</select> 
+						<select name="type" id="type_form"  class="custom-select" >
+							<option value="all">전체</option>
+							<option value="흥정" th:selected="${ type } eq '흥정'">흥정</option>
+							<option value="일반" th:selected="${ type } eq '일반'">일반</option>
+				      	</select>
+				      	<select name="category" id="category_form"  class="custom-select">
+							<option value="every">전체</option>
+							<option value="전자제품" th:selected="${ category } eq '전자제품'">전자제품</option>
+							<option value="의류/잡화" th:selected="${ category } eq '의류/잡화'">의류/잡화</option>
+							<option value="생활용품" th:selected="${ category } eq '생활용품'">생활용품</option>
+							<option value="기타" th:selected="${ category } eq '기타'">기타</option>
+				      	</select> 
 					</div>
 				</div>
 				<div class="sorting_container ml-md-auto"> 
-					
 						<input type="text" class="search_input"  name="keyword" th:value="${ param.keyword }"
 								placeholder="Search" required="required">
 						<button class="newsletter_button" style="width:80px;height:45px;margin-top:5px"><span>검색</span></button>
-
-					
 				</div>
 			</div>
 			</form>
@@ -147,7 +144,6 @@ div .title {
 				</div>
 			</div>
 		</div>
-		
 	</div>
 	</body>
 </html>
