@@ -17,11 +17,9 @@ public class Product {
 	private String contents; //제품상세
 	private int count; // 제품수량
 	private int price; //가격
-	private String category; //거래상태
-	private int view; //조회수
+	private String category; //상품종류
 	private String type; //흥정or일반
 	private Date regDate;
-	
 	private ProductFile file;
 	private List<ProductFile> files;
 	

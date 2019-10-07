@@ -997,7 +997,7 @@ section
 }
 .avds_small_content
 {
-	max-width: 250px;
+	max-width: 400px;
 	padding-top: 57px;
 	padding-left: 31px;
 	padding-right: 30px;
@@ -1437,4 +1437,16 @@ section
 .footer_social ul li a i:hover
 {
 	color: #FFFFFF;
+}
+
+.product_image
+{
+   width: 100%;
+   height: 200px;
+}
+.product_image img
+{
+   max-width: 100%;
+   min-width: -webkit-fill-available;
+   max-height: 100%;
 }

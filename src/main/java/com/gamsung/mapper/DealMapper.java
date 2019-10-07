@@ -22,5 +22,13 @@ public interface DealMapper {
 
 	void deleteDeal(int dealNo);
 
+	List<Deal> list();
+
+	void dealComplete(int dealNo);
+
+	List<Deal> findsaleCom();
+
+	List<Deal> findComplete();
+
 
 }

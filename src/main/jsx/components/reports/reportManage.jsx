@@ -24,7 +24,6 @@ class ReportManage extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleInsert(e){
@@ -94,9 +93,10 @@ class ReportManage extends Component {
     };
 
     renderModal(){
-        const {answer} = this.state;
+        const {answer, contents} = this.state;
         if(this.state.selectReport !== null){
             const report = this.state.reports[this.state.selectReport];
+            let content = report.contents;
             return(
                 <div>
                     <div>
@@ -104,7 +104,7 @@ class ReportManage extends Component {
                             <div className="report-tx">신고번호:<input type="hidden" value={report.reportNo} />{report.reportNo}</div>
                             <div className="report-tx">신고자:<input type="hidden" value={report.reporter} />{report.reporter}</div>
                             <div className="report-tx">신고대상:<input type="hidden" value={report.user} />{report.user}</div>
-                            <div className="report-tx"><div>신고내용:</div><input type="hidden" value={report.contents} />{report.contents}</div>
+                            <div className="report-tx" ><div>신고내용:</div><input type="hidden" value={report.contents} /><div dangerouslySetInnerHTML={{__html: report.contents}}></div></div>
                             <div className="report-tx">관리자답변:{report.answer}</div>
                             <div className="report-tx">답변입력:
                                 <div><input type="text" name="answer" value={answer} onChange={this.handleInsert} /></div>

@@ -1,5 +1,7 @@
 package com.gamsung.service;
 
+import java.util.List;
+
 import com.gamsung.vo.Deal;
 import com.gamsung.vo.Product;
 
@@ -12,5 +14,13 @@ public interface DealService {
 	void deleteDeal(int dealNo);
 
 	Deal findDealByDealNo(int dealNo);
+
+	List<Deal> list();
+
+	void dealComplete(int dealNo);
+
+	List<Deal> findsaleCom();
+
+	List<Deal> findComplete();
 
 }

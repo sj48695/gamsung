@@ -105,10 +105,17 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public Review findReviewBuyerImg(String id) {
-		Review review = reviewMapper.selectReviewBuyerImg(id);
+	public float findStoreAvg(String id) {
+		float avg = reviewMapper.selectStoreAvg(id);
 		
-		return review;
+		return avg;
 	}
+
+//	@Override
+//	public Review findReviewBuyerImg(String id) {
+//		Review review = reviewMapper.selectReviewBuyerImg(id);
+//		
+//		return review;
+//	}
 
 }

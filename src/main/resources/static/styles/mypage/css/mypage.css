@@ -331,3 +331,11 @@
 {
 	color: #FFFFFF;
 }
+
+.ellipsis{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 230px;
+	height: 30px;
+}
