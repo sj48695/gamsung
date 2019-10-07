@@ -118,13 +118,9 @@ public class MemberController {
 		//후기
 		List<Review> reviews = reviewService.findStoreReview(id);
 		
-		//후기 평점
-		float staravg = reviewService.findStoreAvg(id);
-		
 		model.addAttribute("member", member);
 		model.addAttribute("products", products);
 		model.addAttribute("reviews", reviews);
-		model.addAttribute("staravg", staravg);
 		
 		return "member/store";
 	}
@@ -272,15 +268,20 @@ public class MemberController {
 		return member; 
 	}
 	
-//	@RequestMapping("/mypage/update")
-//	public String userUpdate(Member member) {
-//		
-//		 memberService.UpdateUser(member);
-//		 
-//		 
-//		 //attrs.addFlashAttribute("update", "success");
-//		//return String.format("redirect:/member/mypage");
-//		 return "redirect:/member/mypage";
-//	}
+	@PostMapping("/mypage/update")
+	@ResponseBody
+	public String userUpdate(@RequestBody Member member) {
+		
+		 memberService.UpdateUser(member);
+		 
+		 //Authentication auth = new UsernamePasswordAuthenticationToken(member, member.getPwd());
+		 
+		 //SecurityContextHolder.getContext().setAuthentication(auth);
+		 
+		 
+		 //attrs.addFlashAttribute("update", "success");
+		//return String.format("redirect:/member/mypage");
+		 return "success";
+	}
 
 }

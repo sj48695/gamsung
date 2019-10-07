@@ -19,8 +19,8 @@ class EditUserApp extends Component {
     render(){
         return(
             <div>
-                <Route path="/member/mypage" title="editUser" component={UserDetail}/>
-                <Route exact path="/member/mypage/trash" title="confirm" component={Confirmpwd}/>
+                <UserDetail/>
+                
             </div>
         )
     }
