@@ -27,6 +27,8 @@ public interface ReviewService {
 	/* 상점 */
 	List<Review> findStoreReview(String id);
 
-	Review findReviewBuyerImg(String id);
+	float findStoreAvg(String id);
+
+//	Review findReviewBuyerImg(String id);
 
 }

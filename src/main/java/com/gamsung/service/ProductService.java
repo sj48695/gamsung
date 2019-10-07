@@ -37,6 +37,9 @@ public interface ProductService {
 	
 	List<Product> findMain();
 	
+	//메인 검색
+	ArrayList<Product> findProductSearch(String keyword);
+	
 	/*	Heart	*/
 
 	void insertHeart(Heart heart);

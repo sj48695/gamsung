@@ -165,6 +165,19 @@ public class ProductServiceImpl implements ProductService {
 		return main;
 	}
 	
+	@Override
+	public ArrayList<Product> findProductSearch(String keyword) {
+		ArrayList<Product> products = productMapper.selectProductSearch(keyword);
+		
+		for(Product product : products) {
+			ProductFile file = productMapper.selectProductFileByProductNo(product.getProductNo());
+			product.setFile(file);
+			product.setSellerNick(memberMapper.findMemberById(product.getSeller()).getNickname());
+		}
+		
+		return products;
+	}
+	
 	/*	Heart	*/
 
 	@Override

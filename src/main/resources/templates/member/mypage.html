@@ -46,9 +46,8 @@ div .title {
 <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/animate.css}">
-<link rel="stylesheet" type="text/css" th:href="@{/styles/main_styles.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/styles/checkout.css}">
-<link rel="stylesheet" type="text/css" th:href="@{/styles/responsive.css}">
+
 
 </head>
 <body>
@@ -95,18 +94,10 @@ div .title {
 							<div class="container" id="myRequestProducts"></div>
 						</section>
 						<section id="section-topline-3">
-							<div class="row">
-								<div class="col">
 									<div class="product_grid">
 										<!-- Product -->
 										<div class="product" th:if="${ #lists.size(hearts) } > 0" th:each="heart : ${hearts}">
 											<div class="product_image">
-												<!-- <div style="position: absolute">
-													<div style="position: relative;top: 10px;left: 200px ">
-														<font size="6"><i class="fa fa-heart" id="heart" style="color:#CD3B3B;"></i></font>
-													</div>
-												</div>  -->
-												
 												<div style="position: absolute">
 													<div style="position: relative;top: 10px;left: 200px ">
 														<div>
@@ -134,8 +125,6 @@ div .title {
 											</div>
 										</div>
 									</div>
-								</div>
-							</div>
 						</section>
 						<section id="section-topline-4">
 							<div class="row py-3 align-items-center" th:if="${#lists.size(reviews)} > 0" th:each="review : ${reviews}">

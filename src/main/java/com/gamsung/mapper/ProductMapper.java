@@ -57,5 +57,8 @@ public interface ProductMapper {
 	Integer selectHeartCountByProductNo(int productNo);
 
 	List<Product> list(HashMap<String, Object> params);
+
+	ArrayList<Product> selectProductSearch(String keyword);
+
 	
 }
