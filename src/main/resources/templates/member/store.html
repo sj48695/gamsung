@@ -92,7 +92,15 @@
 							<div class="container">
 								<div class="product_grid">
 									<div class="product col" th:if="${ #lists.size(products) } > 0" th:each="product : ${products}">
-										<div><img style="width:230px; height:230px;" th:src="'/files/product-files/'+${product.file.saveFileName}" alt=""></div>
+										<div>
+											<img style="width:230px; height:230px;" th:src="'/files/product-files/'+${product.file.saveFileName}" alt="">
+											<div class="product_extra product_sale" th:if="${ product.type } == '흥정'">
+												<a href="categories">흥정</a>
+											</div>
+											<div class="product_extra product_hot" th:if="${ product.type } == '일반'">
+												<a href="categories">일반</a>
+											</div>	
+										</div>
 										<div class="product_content">
 											<div class="product_title ellipsis">
 												<a th:text="${product.name}" th:href="'/product/detail/'+${product.productNo}"></a>
