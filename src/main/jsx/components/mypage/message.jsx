@@ -47,15 +47,15 @@ class Message extends Component {
             chatList = messages.map((message) => {
 
                 return (
-                    <Fragment>
-                        <div className="row align-items-center" key={message.messageNo}>
+                    <Fragment key={message.messageNo}>
+                        <div className="row align-items-center">
                             <i className="icon pe-7s-paper-plane col-1" title={message.relativeId} onClick={this.chatpop}></i>
                             <div className="col-2">
                                 <img className="profile m-0" style={{position:"initial"}} src={`/files/profile-files/${message.profile}`} />
                                 <div>{message.relativeNick}</div>
                             </div>
                             <div className="col-5">
-                                <div>{message.contents}</div>
+                                <div className="text-left">{message.contents}</div>
                             </div>
                             <div className="col-4">
                                 <div>{dateFormat(message.sendDate,'yyyy-mm-dd hh:MM')}</div>

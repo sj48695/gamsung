@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -64,10 +65,10 @@ public class ReportController {
 		//return "/reports/report";
 	}
 		
-
+	//에디터
 	@RequestMapping(value = "/coding.do")
     public String coding() {
-        return "redirect:/reports/report";
+        return "redirect:/report/report";
     }
 	  
 	
@@ -76,6 +77,7 @@ public class ReportController {
         System.err.println("저장할 내용 : " + editor);
         return "redirect:/report/coding.do";
     }
+	
 	
 	@PostMapping(path="/editor-image-upload", produces = "text/plain;charset=utf-8")
 	@ResponseBody
@@ -87,7 +89,9 @@ public class ReportController {
 			String name = req.getHeader("file-name");
 			String ext = name.substring(name.lastIndexOf(".") + 1);
 			//파일 기본경로
-			String defaultPath = req.getServletContext().getRealPath("/files/product-files");
+			String defaultPath = req.getServletContext().getRealPath("/files/product-files/");
+			
+			
 			//파일 기본경로 _ 상세경로
 			String path = defaultPath + File.separator;
 			File file = new File(path);
@@ -99,8 +103,14 @@ public class ReportController {
 			OutputStream os=new FileOutputStream(path + realname);
 			int numRead;
 			// 파일쓰기
-			byte b[] = new byte[Integer.parseInt(req.getHeader("file-size"))];
-			while((numRead = is.read(b,0,b.length)) != -1){
+			int fileSize = Integer.parseInt(req.getHeader("file-size"));
+			byte b[] = new byte[fileSize];
+			//while((numRead = is.read(b,0,b.length)) != -1){
+			while (true) {
+				numRead = is.read(b,0,b.length);
+				if (numRead == -1)
+					break;
+				
 			    os.write(b,0,numRead);
 			}
 			if(is != null) {
@@ -108,7 +118,7 @@ public class ReportController {
 			}
 			os.flush();
 			os.close();
-			sFileInfo += "&bNewLine=true&sFileName="+ name+"&sFileURL="+"/files/product-files"+realname;
+			sFileInfo += "&bNewLine=true&sFileName="+ name+"&sFileURL="+"/files/product-files/"+realname;
 			
 			return sFileInfo;
 		} catch (Exception ex) {

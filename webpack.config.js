@@ -5,15 +5,13 @@ module.exports = {
     entry: {
         // main: './App.jsx',
         admin:'./adminIndex.jsx',
+        products:'./containers/product/products.jsx',
         myProducts:'./containers/mypage/myProducts.jsx',
         myRequestProducts:'./containers/mypage/myRequestProducts.jsx',
         myEditUserData:'./editUserIndex.jsx',
         message:'./containers/mypage/message.jsx',
         report:'./reportIndex.jsx',
-        comment:'./containers/product/commentIndex.jsx',
         deal:'./dealIndex.jsx'
-
-
 
     },
     devtool: 'sourcemaps',

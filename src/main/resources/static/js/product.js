@@ -406,13 +406,164 @@ $(function () {
 		});
 	   
 	});
-
-
-
-	//에디터
 	
+	//검색버튼
 
-	
+	$(document).on('click', '#btnSearch', function(e){
 
+		e.preventDefault();
+
+		var url = "${getBoardList}";    // <c:url>로 선언한 url을 사용
+
+		url = url + "?searchType=" + $('#searchType').val();
+
+		url = url + "&keyword=" + $('#keyword').val();
+
+		location.href = url;
+		console.log(url);
+
+	});	
+
+	$('#type_form').on('change', function(event) {
+		this.form.submit();
+	});
 	
+	$('#category_form').on('change', function(event) {
+		this.form.submit();
+	});
+});
+
+/* **********************************************
+ * 					comments
+ * **********************************************/
+
+$(function() {
+	var productNo = $('#productNo').val();
+	$('#writecomment').on('click', function(event) {
+		
+		//serialize : <form에 포함된 입력 요소의 값을 이름=값&이름=값&... 형식으로 만드는 함수
+		var formData = $('#commentform').serialize();
+		// alert(formData)
+		
+			$.ajax({
+			url: "/product/write-comment",
+			method: "POST",
+			data: formData,
+			success: function(data, status, xhr) {
+				 alert(data);
+				$("#comment-list").load('/product/comment-list', 
+										{ "productNo" : productNo,
+											"pageNo" : 1 }, 
+										function() {})
+			},
+			error: function(xhr, status, err) {
+				alert(err);
+			} 
+		});
+	});
+	
+	var currentCommentNo = -1;
+	//$('.editcomment').on('click', function(event) {
+	$('#comment-list').on('click', '.editcomment', function(event) {
+		commentNo = $(this).attr('data-commentno'); // $(event.target) == $(this)
+		
+		//이전에 편집중인 항목을 원래 상태로 복구
+		if (currentCommentNo != -1) {
+			$('#commentview' + currentCommentNo).css('display', '');
+			$('#commentedit' + currentCommentNo).css('display', 'none');
+		}
+		
+		$('#commentview' + commentNo).css('display', 'none');
+		$('#commentedit' + commentNo).css('display', '');
+		currentCommentNo = commentNo;
+	});
+	
+	$('#comment-list').on('click', '.cancel', function(event) {
+		commentNo = $(this).attr('data-commentno'); // $(event.target) == $(this)
+		$('#commentview' + commentNo).css('display', '');
+		$('#commentedit' + commentNo).css('display', 'none');
+		currentCommentNo = -1;			
+	});
+	
+	$('#comment-list').on('click', '.deletecomment', function(event) {
+		commentNo = $(this).attr('data-commentno');
+		$.ajax({
+			url: "/product/delete-comment",
+			method: "DELETE",
+			data: "commentNo=" + commentNo,
+			success: function(data, status, xhr) {
+				if (data == 'success') {
+					$('#tr' + commentNo).remove();
+					alert('삭제했습니다.');
+				} else {
+					alert('삭제 실패 1');
+				}
+			},
+			error: function(xhr, status, err) {
+				alert('삭제 실패 2');
+			}
+		});
+	});
+	
+	$('#comment-list').on('click', '.updatecomment', function(event) {
+		//현재 클릭된 <a 의 data-commentno 속성 값 읽기
+		var commentNo = $(this).attr('data-commentno');
+		var content = $('#updateform' + commentNo + ' textarea').val();
+		var inputData = $('#updateform' + commentNo).serialize();
+		
+		//ajax 방식으로 데이터 수정
+		$.ajax({
+			"url": "/product/update-comment",
+			"method": "POST",
+			"data": inputData,
+			"success": function(data, status, xhr) {
+				alert('댓글을 수정했습니다.');
+				var span = $('#commentview' + commentNo + ' span');					
+				span.html(content.replace(/\n/gi, '<br>'));
+				//view-div는 숨기고, edit-div는 표시하기	
+				$('#commentview' + commentNo).css('display', 'block');
+				$('#commentedit' + commentNo).css('display', 'none');
+			},
+			"error": function(xhr, status, err) {
+				alert('댓글 수정 실패');
+			}
+		});
+	});
+	
+	$('#comment-list').on('click', '.recomment-link', function(event) {
+		var commentNo = $(this).attr('data-commentno');
+		$('#write-recomment-modal input[name=commentNo]').val(commentNo);
+		$('#write-recomment-modal').modal('show'); //show bootstrap modal
+	});
+	
+	$('#write-recomment').on('click', function(event) {
+		
+		var content = $('#recomment-form textarea').val();
+		if (content.length == 0) return;
+		
+		var recommentData = $('#recomment-form').serialize();
+		
+		$.ajax({
+			url: "/product/write-recomment",
+			method: "POST",
+			data: recommentData,
+			success: function(data, status, xhr) {
+				alert('success');					
+				$('#recomment-form').each(function() {
+					this.reset();
+				});
+				$("#comment-list").load('/product/comment-list', 
+						{ "productNo" : productNo,
+							"pageNo" : 1 }, 
+						function() {})
+				
+			},
+			error: function(xhr, status, err) {
+				alert('fail');
+			}
+		});
+	
+	});	
+
+
 });

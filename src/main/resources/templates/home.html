@@ -16,12 +16,13 @@
 	<!-- Home -->
 
 	<div class="home">
-		<div class="home_slider_container">
+		<iframe style="margin-top:5%;width:93%;margin-left: 65px;margin-right:80px"  height="700" src="https://www.youtube.com/embed/0wolSzbFo6c?amp;vq=hd720&showinfo=0&autoplay=1&loop=1;playlist=0wolSzbFo6c" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		<!-- <div class="home_slider_container">
 			
-			<!-- Home Slider -->
+			Home Slider
 			<div class="owl-carousel owl-theme home_slider">
 				
-				<!-- Slider Item -->
+				Slider Item
 				<div class="owl-item home_slider_item">
 					<div class="home_slider_background" style="background-image:url(images/home_slider_1.jpg)"></div>
 					<div class="home_slider_content_container">
@@ -39,7 +40,7 @@
 					</div>
 				</div>
 
-				<!-- Slider Item -->
+				Slider Item
 				<div class="owl-item home_slider_item">
 					<div class="home_slider_background" style="background-image:url(images/home_slider_1.jpg)"></div>
 					<div class="home_slider_content_container">
@@ -57,7 +58,7 @@
 					</div>
 				</div>
 
-				<!-- Slider Item -->
+				Slider Item
 				<div class="owl-item home_slider_item">
 					<div class="home_slider_background" style="background-image:url(images/home_slider_1.jpg)"></div>
 					<div class="home_slider_content_container">
@@ -77,7 +78,7 @@
 
 			</div>
 
-			<!-- Home Slider Dots -->
+			Home Slider Dots
 			
 			<div class="home_slider_dots_container">
 				<div class="container">
@@ -95,7 +96,7 @@
 				</div>	
 			</div>
 
-		</div>
+		</div> -->
 	</div>
 
 	<!-- Ads -->
@@ -103,20 +104,22 @@
 	<div class="avds">
 		<div class="avds_container d-flex flex-lg-row flex-column align-items-start justify-content-between">
 			<div class="avds_small">
-				<div class="avds_background" style="background-image:url(images/avds_small.jpg)"></div>
-				<div class="avds_small_inner">
-					<div class="avds_discount_container">
-						<img src="images/discount.png" alt="">
-						<div>
-							<div class="avds_discount">
-								<div>20<span>%</span></div>
-								<div>Discount</div>
-							</div>
-						</div>
+				<!-- <div class="avds_background" style="background-image:url(images/avds_small.jpg)"></div>
+				<div class="avds_large_container">
+					<div class="avds_large_content">
+						<div class="avds_title">아마도 더 없을 Trust.</div>
+						<div class="avds_text">'신뢰' 사람간의 거래이기에 더 중요한 부분이죠. 어떤 것처럼 폭발하진 않는지. 혹시 사기를 치지 않는지. 그 모든 것은 저희 감성마켓의 다양한 서비스를 통해 판매자의 신뢰를 한번에 알수 있습니다. 이제 여러분은 안전하게 이용하시면 됩니다.</div>
+						<div class="avds_link avds_link_large"><a href="categories">See More</a></div>
 					</div>
+				</div> -->
+				
+				<div class="avds_background" style="background-image:url(images/home_slider_1.jpg)"></div>
+				<div class="avds_large_inner">
+					
 					<div class="avds_small_content">
-						<div class="avds_title">Smart Phones</div>
-						<div class="avds_link"><a href="categories">See More</a></div>
+						<div class="avds_title">아마도 더 없을 Trust.</div>
+						<div class="avds_text">'신뢰' 사람간의 거래이기에 더 중요한 부분이죠. 어떤 것처럼 폭발하진 않는지. 혹시 사기를 치지 않는지. 그 모든 것은 저희 감성마켓의 다양한 서비스를 통해 판매자의 신뢰를 한번에 알수 있습니다. 이제 여러분은 안전하게 이용하시면 됩니다.</div>
+						<div class="avds_link"><a href="member/register">See More</a></div>
 					</div>
 				</div>
 			</div>
@@ -124,9 +127,9 @@
 				<div class="avds_background" style="background-image:url(images/avds_large.jpg)"></div>
 				<div class="avds_large_container">
 					<div class="avds_large_content">
-						<div class="avds_title">Professional Cameras</div>
-						<div class="avds_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie eros. Sed viver ra velit venenatis fermentum luctus.</div>
-						<div class="avds_link avds_link_large"><a href="categories">See More</a></div>
+						<div class="avds_title">인간적이라는 것, 사용감이 있다는것.</div>
+						<div class="avds_text">안전하다는 것이나 감성 충만한 기기라는것을 글로만 전달할 수는 없습니다. 그렇기에 필요한 것이 바로 사용감 오히려 의심스러울 수 있는 기기를 인간적으로 꾸며주는 것. 그게 바로 사용감이죠.</div>
+						<div class="avds_link avds_link_large"><a href="product/categories">See More</a></div>
 					</div>
 				</div>
 			</div>
@@ -139,9 +142,9 @@
 		<div class="container">
 			<div class="row">
 				<div class="col">
-					
+					<h3>인기 상품</h3>	
 					<div class="product_grid">
-						<h3>인기 상품</h3>
+						
 						<!-- Product -->
 						<div class="product" th:if="${ #lists.size(main) } > 0" th:each="main : ${main}">
 							<div class="product_image"><img th:src="'/files/product-files/'+${ main.file.saveFileName }" alt=""></div>

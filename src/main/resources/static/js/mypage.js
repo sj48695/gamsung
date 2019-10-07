@@ -35,9 +35,22 @@ $(function() {
 //	});
 	//소켓서버 접속, 정보셋팅, 응답 fn 정의
 	connect(function(obj){
+		var now = new Date();
+
+	    var year= now.getFullYear();
+	    var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
+	    var day = now.getDate()>9 ? ''+now.getDate() : '0'+now.getDate();
+	    var h = now.getHours();
+	    var m = now.getMinutes();
+	    
+	            
+	    var chan_val = year + '-' + mon + '-' + day +' '+h + ':' +m;
+
 		var message = obj.contents;
 		$('#greetings').append('<div class="row py-3 justify-content-end">\
-				<div class="contents">'+message+'</div></div>');
+				<div><div class="contents">'+message+'</div>\
+				<span>'+chan_val+'</span></div>\
+				</div>');
 		$('#contents').val('');
 
 	});
@@ -133,7 +146,7 @@ function chatpop(){
     //left : 100px 왼쪽화면과 100px 차이해서 위치
     //툴바 X, 메뉴바 X, 스크롤바 X , 크기조절 X
     window.open('/member/chatting/'+seller,'popName',
-                'width=550,height=700,top=100,left=100,toolbar=no,menubar=no,scrollbars=no,resizable=no,status=no');
+                'width=600,height=700,top=100,left=100,toolbar=no,menubar=no,scrollbars=no,resizable=no,status=no');
 //window.open('http://www.naver.com','popName',
 //                'width=550,height=700,top=100,left=100,toolbar=no,menubar=no,scrollbars=no,resizable=no,status=no');    
 }

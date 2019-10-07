@@ -19,12 +19,23 @@
 		<include refid="productColumns" />
 		from product where product_no = #{ productNo }
 	</select>
-	<select id="selectProducts" resultType="com.gamsung.vo.Product">
+	
+	<select id="selectProducts" parameterType="hashmap" resultType="com.gamsung.vo.Product">
 		select product_no, reg_date,
 		<include refid="productColumns" />
 		from product
-		WHERE deleted = false 
+		WHERE deleted = false and count <![CDATA[>]]> 0
+		<if test='type != "all"'>
+			and type = #{ type }
+		</if>
+		<if test='category != "every"'>
+			and category = #{ category }
+		</if>
+		<if test="keyword != ''">
+			and name like concat('%', #{ keyword }, '%')
+		</if>
 		order by product_no desc
+		limit #{from}, #{to}
 	</select>
 	
 	<update id="deleteProduct" parameterType="int">
@@ -163,7 +174,7 @@
 	<select id="selectMain" resultType="com.gamsung.vo.Product">
 		select <include refid="productColumns" />, p.product_no, h.id, count(h.product_no)
 		from product p, heart h
-		where p.product_no = h.product_no
+		where p.product_no = h.product_no and count <![CDATA[>]]> 0 and p.deleted = false
 		group by h.product_no
 		order by count(h.product_no) desc
 		limit 0,8

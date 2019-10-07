@@ -17,7 +17,8 @@
 			
 			product_no, 
 			WRITER, 
-			contents,  
+			contents,
+			group_no,  
 			STEP, 
 			DEPTH
 		)
@@ -27,6 +28,7 @@
 			#{ productNo }, 
 			#{ writer }, 
 			#{ contents },
+			#{ groupNo },
 			1,
 			0
 		)	

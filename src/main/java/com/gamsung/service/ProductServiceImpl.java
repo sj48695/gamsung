@@ -11,14 +11,9 @@ import com.gamsung.mapper.DealMapper;
 import com.gamsung.mapper.MemberMapper;
 import com.gamsung.mapper.ProductMapper;
 import com.gamsung.mapper.ReviewMapper;
-import com.gamsung.vo.Deal;
 import com.gamsung.vo.Heart;
-import com.gamsung.vo.Member;
 import com.gamsung.vo.Product;
 import com.gamsung.vo.ProductFile;
-import com.gamsung.vo.Report;
-import com.gamsung.vo.Review;
-import com.gamsung.vo.ReviewFile;
 
 
 @Service
@@ -51,7 +46,6 @@ public class ProductServiceImpl implements ProductService {
 		product.setFile(titleFile);
 		List<ProductFile> files = productMapper.selectProductFilesByProductNo(product.getProductNo());
 		product.setFiles(files);
-		
 		product.setSellerNick(memberMapper.findMemberById(product.getSeller()).getNickname());
 		
 		return product;
@@ -59,9 +53,9 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ArrayList<Product> findProducts() {
+	public ArrayList<Product> findProducts(HashMap<String , Object> params) {
 		
-		ArrayList<Product> products = productMapper.selectProducts();
+		ArrayList<Product> products = productMapper.selectProducts(params);
 		
 		for(Product product : products) {
 			ProductFile file = productMapper.selectProductFileByProductNo(product.getProductNo());

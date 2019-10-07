@@ -19,15 +19,14 @@
 <body>
 
 
-
 		<div class="newsletter" layout:fragment="content">
 		<form action="/report/" id="reportForm" method="post" enctype="multipart/form-data">
-		<div style="margin-top:25%; margin-left:10%"><h3>신고접수</h3><hr>
+		<div style="margin-top:25%; margin-left:10%"><h3>신고접수</h3><hr style="width:92%">
 		
 			Reporter : <input type="hidden" name="reporter" th:value="${#authentication.principal.member.nickname}"
 								th:text="${#authentication.principal.member.nickname}"><br><hr style="width:50%">
 	
-			User : <input type="hidden" name="user" style="width: 300px"
+			User : <input type="hidden" name="user" style="width: 300px" th:value="${seller}"
 								class="form-control" th:text="${seller}" />&nbsp;&nbsp;(신고대상아이디)<br><hr style="width:50%">
 								
 			Title : <input type="text" name="title" style="width: 550px"
@@ -50,16 +49,6 @@
 
 
 	<script src="https://code.jquery.com/jquery-latest.js"></script>
-	<script>
-		// Add the following code if you want the name of the file appear on select
-		$(".custom-file-input").on(
-				"change",
-				function() {
-					var fileName = $(this).val().split("\\").pop();
-					$(this).siblings(".custom-file-label").addClass("selected")
-							.html(fileName);
-				});
-	</script>
 	<script type="text/javascript"
 		src="/navereditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
