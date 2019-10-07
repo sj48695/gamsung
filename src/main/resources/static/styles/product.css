@@ -1507,3 +1507,16 @@ section
    max-height: 100%;
 }
 
+.details_image_thumbnail
+{
+   width: 100%;
+   height: 140px;
+}
+.details_image_thumbnail img
+{
+   max-width: 100%;
+   min-width: -webkit-fill-available;
+   max-height: 100%;
+}
+
+

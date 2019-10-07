@@ -25,6 +25,13 @@
     overflow: hidden;
     margin: 0px;
 }
+div .title {
+   font-family: sans-serif;
+   font-size: 20px;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+}
 </style>
 <link rel="stylesheet" type="text/css" th:href="@{/styles/main_styles.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/styles/star.css}">
@@ -132,7 +139,7 @@
 								  <span class="starR1" th:attrappend="class=${review.rating}*2 >= 9 ? ' on' : ''">별5_왼쪽</span>
 								  <span class="starR2" th:attrappend="class=${review.rating}*2 >= 10 ? ' on' : ''">별5_오른쪽</span>
 								</div>
-		                  		<div class="col">
+		                  		<div class="col title">
 		                  			<a th:href="'/product/detail/'+${review.productNo}" th:text="${review.contents}"></a>
 		                  			
 		                  		</div>

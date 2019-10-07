@@ -5,6 +5,7 @@ module.exports = {
     entry: {
         // main: './App.jsx',
         admin:'./adminIndex.jsx',
+        products:'./containers/product/products.jsx',
         myProducts:'./containers/mypage/myProducts.jsx',
         myRequestProducts:'./containers/mypage/myRequestProducts.jsx',
         myEditUserData:'./editUserIndex.jsx',

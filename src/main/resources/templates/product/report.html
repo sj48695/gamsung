@@ -21,7 +21,7 @@
 
 		<div class="newsletter" layout:fragment="content">
 		<form action="/report/" id="reportForm" method="post" enctype="multipart/form-data">
-		<div style="margin-top:25%; margin-left:10%"><h3>신고접수</h3><hr>
+		<div style="margin-top:25%; margin-left:10%"><h3>신고접수</h3><hr style="width:92%">
 		
 			Reporter : <input type="hidden" name="reporter" th:value="${#authentication.principal.member.nickname}"
 								th:text="${#authentication.principal.member.nickname}"><br><hr style="width:50%">
