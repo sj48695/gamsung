@@ -116,8 +116,6 @@ public class MemberController {
 		//후기 평점
 		float staravg = reviewService.findStoreAvg(id);
 		
-		
-		
 		model.addAttribute("member", member);
 		model.addAttribute("products", products);
 		model.addAttribute("reviews", reviews);

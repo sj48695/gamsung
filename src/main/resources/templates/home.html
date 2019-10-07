@@ -9,6 +9,7 @@
 <link rel="stylesheet" type="text/css" th:href="@{plugins/OwlCarousel2-2.2.1/animate.css}">
 <link rel="stylesheet" type="text/css" th:href="@{styles/main_styles.css}">
 <link rel="stylesheet" type="text/css" th:href="@{styles/responsive.css}">
+
 </head>
 <body>
 	
@@ -145,7 +146,15 @@
 						<!-- Product -->
 						<div class="product" th:if="${ #lists.size(main) } > 0" th:each="main : ${main}">
 							<div class="product_image"><img th:src="'/files/product-files/'+${ main.file.saveFileName }" alt=""></div>
-							<div class="product_content">
+								<div class="product_extra product_sale"
+									th:if="${ main.type } == '흥정'">
+									<a href="categories">흥정</a>
+								</div>
+								<div class="product_extra product_hot"
+									th:if="${ main.type } == '일반'">
+									<a href="categories">일반</a>
+								</div>
+								<div class="product_content">
 								<div class="product_title"><a th:href="'/product/detail/'+${main.productNo}" th:text="${main.name}"></a></div>
 								<div class="product_price" th:text="${ #numbers.formatInteger(main.price,3,'COMMA') }+'원'"></div>
 							</div>
