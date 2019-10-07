@@ -110,16 +110,16 @@
 	
 
 	<update id="Update" parameterType="com.gamsung.vo.Member">
-		UPDATE member
-		SET 
-		 nickname = #{ nickname }
-		,	phone = #{ phone }
-		, postcode = #{ postcode }
-		, roadAddr = #{ roadAddr }
-		, jibunAddr = #{ jibunAddr }
-		, detailAddr = #{ detailAddr }
-		, extraAddr = #{ extraAddr }
-		WHERE id = #{ id }			
+		update member
+		set 
+			 nickname = #{nickname}
+			,phone = #{phone}
+			,postcode = #{postcode}
+			,roadAddr = #{roadAddr}
+			,jibunAddr = #{jibunAddr}
+			,detailAddr = #{detailAddr}
+			,extraAddr = #{extraAddr}
+		where id = #{id}			
 	</update>
 	
 	<update id="updateProfileImg" parameterType="com.gamsung.vo.Member">

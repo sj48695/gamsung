@@ -42,6 +42,8 @@ public interface ProductMapper {
 	
 	List<Product> selectMain();
 	
+	ArrayList<Product> selectProductSearch(String keyword);
+	
 	//찜
 
 	void insertHeart(Heart heart);
@@ -55,5 +57,9 @@ public interface ProductMapper {
 	List<Product> selectMyHeartList(String memberId);
 
 	Integer selectHeartCountByProductNo(int productNo);
+
+	//거래
+	List<Product> list(HashMap<String, Object> params);
+
 	
 }

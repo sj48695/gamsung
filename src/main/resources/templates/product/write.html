@@ -10,8 +10,6 @@
 <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/animate.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/styles/product.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/styles/product_responsive.css}">
-
-
 </head>
 
 <body>
@@ -41,106 +39,96 @@
 
 	<div class="product_details">
 		<div class="container">
-			<div class="row details_row">
-
+		<div class="row details_row">
 				
-				<div class="col-lg-6">
-					<div class="col-md-7 form-group"><hr>
-						<span class="tit">대표이미지<span class="ico_required">
-								*</span></span>
-						<p class="p_guide warn">
-							<i class="sp_icon ico_alert"></i>(대표이미지는 필수 입력입니다.)
-						</p>
-						<div class="form-group">
-						<p class="option">2048 *1158 권장, 최대 3MB</p>
-							<div class="product_image">이미지 파일을 추가해 주세요. (JPG, JPEG,PNG)</div></div><hr>
-							<div class="btn_box" >
-									<label class="titleImgBtn btn" for="titleImgFile" style="border:1px solid" ><div>파일첨부</div>
-										<input type="file" class="_fileRel" name="titleImgFile"
-										id="titleImgFile" required accept="image/*"
-										style="display: none;"></label>
-							</div>
+			<div class="col-lg-6">
+				<div class="col-md-7 form-group"><hr>
+					<span class="tit">대표이미지<span class="ico_required">
+							*</span></span>
+					<p class="p_guide warn">
+						<i class="sp_icon ico_alert"></i>(대표이미지는 필수 입력입니다.)
+					</p>
+				<div class="form-group">
+					<p class="option">2048 *1158 권장, 최대 3MB</p>
+					<div class="product_image">이미지 파일을 추가해 주세요. (JPG, JPEG,PNG)</div>
+				</div><hr>
+				<div class="btn_box" >
+						<label class="titleImgBtn btn" for="titleImgFile" style="border:1px solid" ><div>파일첨부</div>
+							<input type="file" class="_fileRel" name="titleImgFile"
+							id="titleImgFile" required accept="image/*"
+							style="display: none;"></label>
+				</div>
+				</div>
+				
+				
+            	<div class="col-md-12 form-group"><hr>
+					<span class="tit">이미지<span class="ico_required">
+							*</span></span>
+				<div class="form-group">
+					<p class="option">
+						2048 * 1158 권장, 한 장당 최대 3MB(최대 10장)</p>
+					<div class="files">
+					<div class="product_images" >이미지 파일을 추가해 주세요. (JPG, JPEG, PNG)</div></div><hr>
+					<div class="btn_box">
+						<label class="imgBtn btn" for="imgFile" style="border:1px solid"><div>파일첨부</div> 
+							<input type="file" class="_fileRel"  name="imgFile" id="imgFile" style="display: none;"
+								accept="image/*" placeholder="이미지 파일을 추가해 주세요. (JPG, JPEG, PNG)" multiple>
+						</label>
 					</div>
-					
-					
-	            	<div class="col-md-12 form-group"><hr>
-						<span class="tit">이미지<span class="ico_required">
-								*</span></span>
-						<div class="form-group">
-						<p class="option">
-							2048 * 1158 권장, 한 장당 최대 3MB(최대 10장)</p>
-						<div class="files">
-							<div class="product_images" >이미지 파일을 추가해 주세요. (JPG, JPEG, PNG)</div></div><hr>
-							<div class="btn_box">
-								<label class="imgBtn btn" for="imgFile" style="border:1px solid"><div>파일첨부</div> 
-									<input type="file" class="_fileRel"  name="imgFile" id="imgFile" style="display: none;"
-										accept="image/*" placeholder="이미지 파일을 추가해 주세요. (JPG, JPEG, PNG)" multiple>
-								</label>
-							</div>
-						</div>
-         			</div>
 				</div>
-				<!-- Product Content -->
-				
-				
-				
-				
-				
-					<!-- Billing Info -->
-				<div class="col-lg-6"><hr>
-					Category : <select name="type" class="custom-select">
-										<option value="흥정" selected="selected">흥정등록</option>
-										<option value="일반">일반등록</option>
-									</select>&nbsp;&nbsp;&nbsp;
-									
-					<select name="category" class="custom-select">
-										<option value="전자제품" selected="selected">전자제품</option>
-										<option value="의류/잡화">의류/잡화</option>
-										<option value="생활용품">생활용품</option>
-										<option value="기타">기타</option>
-									</select> <br><hr>
-					
-					Seller : <input type="hidden" name="seller" th:text="${#authentication.principal.member.nickname}"><br>	<hr>
-					
-					Title : <input type="text"  name="name" 
-										style="width: 550px" class="form-control" /><br>
-				
-					Price : <input type="text" name="price" 
-										style="width: 250px" class="form-control" /><br>
-				
-					Content : <textarea name="contents"  
-									style="width: 550px" rows="10" class="form-control"></textarea><br>
-				
-					Count : <input type="text" name="count" 
-										style="width: 150px" class="form-control" /><hr>
-				</div>
-				</div>
+        		</div>
+			</div>
+			<!-- Product Content -->
 			
-
 			
+			
+			
+			
+			<!-- Billing Info -->
+			<div class="col-lg-6"><hr>
+			Category : <select name="type" class="custom-select">
+								<option value="흥정" selected="selected">흥정등록</option>
+								<option value="일반">일반등록</option>
+							</select>&nbsp;&nbsp;&nbsp;
+							
+			<select name="category" class="custom-select">
+								<option value="전자제품" selected="selected">전자제품</option>
+								<option value="의류/잡화">의류/잡화</option>
+								<option value="생활용품">생활용품</option>
+								<option value="기타">기타</option>
+							</select> <br><hr>
+			
+			Seller : <input type="hidden" name="seller" th:text="${#authentication.principal.member.nickname}"><br>	<hr>
+			
+			Title : <input type="text"  name="name" 
+								style="width: 550px" class="form-control" /><br>
+		
+			Price : <input type="text" name="price" 
+								style="width: 250px" class="form-control" /><br>
+		
+			Content : <textarea name="contents"
+							style="width: 550px" rows="10" class="form-control"></textarea><br>
+		
+			Count : <input type="text" name="count" 
+								style="width: 150px" class="form-control" /><hr>
+			</div>
+		</div>
 		</div>
 	</div>
-
 	
-
 	<!-- Newsletter -->
 
 	<div class="newsletter">
-				<div class="col-lg-8 offset-lg-2">
-					<div class="newsletter_content text-center">
-							<button class="newsletter_button trans_200" ><span>판매등록</span></button>
-							<button type="button" class="newsletter_button trans_200" id="back_button" 
-								onclick="history.back();"><span>취소</span></button>
-					</div>
+		<div class="col-lg-8 offset-lg-2">
+			<div class="newsletter_content text-center">
+				<button class="newsletter_button trans_200" ><span>판매등록</span></button>
+				<button type="button" class="newsletter_button trans_200" id="back_button" 
+						onclick="history.back();"><span>취소</span></button>
 			</div>
+		</div>
 	</div>
 	</form>
-
-	
 	</div>
 	</body>
-	
-	
-
 </html>
 

@@ -407,30 +407,30 @@ $(function () {
 	   
 	});
 	
-//	//검색버튼
-//
-//	$(document).on('click', '#btnSearch', function(e){
-//
-//		e.preventDefault();
-//
-//		var url = "${getBoardList}";    // <c:url>로 선언한 url을 사용
-//
-//		url = url + "?searchType=" + $('#searchType').val();
-//
-//		url = url + "&keyword=" + $('#keyword').val();
-//
-//		location.href = url;
-//		console.log(url);
-//
-//	});	
-//
-//	$('#type_form').on('change', function(event) {
-//		this.form.submit();
-//	});
-//	
-//	$('#category_form').on('change', function(event) {
-//		this.form.submit();
-//	});
+	//검색버튼
+
+	$(document).on('click', '#btnSearch', function(e){
+
+		e.preventDefault();
+
+		var url = "${getBoardList}";    // <c:url>로 선언한 url을 사용
+
+		url = url + "?searchType=" + $('#searchType').val();
+
+		url = url + "&keyword=" + $('#keyword').val();
+
+		location.href = url;
+		console.log(url);
+
+	});	
+
+	$('#type_form').on('change', function(event) {
+		this.form.submit();
+	});
+	
+	$('#category_form').on('change', function(event) {
+		this.form.submit();
+	});
 });
 
 /* **********************************************

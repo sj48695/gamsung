@@ -25,6 +25,13 @@
     position:relative; 
     bottom: 10px;
 }
+
+.review_content{
+	border: 0.3px;
+	border-bottom-style: solid;
+	border-top-style: solid;
+	
+}
 </style>
 <link rel="stylesheet" type="text/css" th:href="@{/styles/main_styles.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/styles/star.css}">
@@ -53,6 +60,19 @@
 								<input type="hidden" class="seller" id="seller" th:value="${ member.id }">
 								<i class="icon pe-7s-paper-plane" onclick="chatpop()" title="쪽지보내기"></i>
 							</h3>
+							<div class="col-3" style="left:80px">
+							  <span class="starR1" th:attrappend="class=${staravg}*2 >= 1 ? ' on' : ''">별1_왼쪽</span>
+							  <span class="starR2" th:attrappend="class=${staravg}*2 >= 2 ? ' on' : ''">별1_오른쪽</span>
+							  <span class="starR1" th:attrappend="class=${staravg}*2 >= 3 ? ' on' : ''">별2_왼쪽</span>
+							  <span class="starR2" th:attrappend="class=${staravg}*2 >= 4 ? ' on' : ''">별2_오른쪽</span>
+							  <span class="starR1" th:attrappend="class=${staravg}*2 >= 5 ? ' on' : ''">별3_왼쪽</span>
+							  <span class="starR2" th:attrappend="class=${staravg}*2 >= 6 ? ' on' : ''">별3_오른쪽</span>
+							  <span class="starR1" th:attrappend="class=${staravg}*2 >= 7 ? ' on' : ''">별4_왼쪽</span>
+							  <span class="starR2" th:attrappend="class=${staravg}*2 >= 8 ? ' on' : ''">별4_오른쪽</span>
+							  <span class="starR1" th:attrappend="class=${staravg}*2 >= 9 ? ' on' : ''">별5_왼쪽</span>
+							  <span class="starR2" th:attrappend="class=${staravg}*2 >= 10 ? ' on' : ''">별5_오른쪽</span>
+							</div>
+							<div th:text="${staravg}" style="left:30px"></div>
 						</div>
 						<div id="intro_div" class="row">
 							<div id="intro_view" class="col-8 row" th:text="${member.introduction}"></div>
@@ -72,16 +92,16 @@
 							<div class="container">
 								<div class="product_grid">
 									<div class="product col" th:if="${ #lists.size(products) } > 0" th:each="product : ${products}">
-										<div class="product_image"><img th:src="'/files/product-files/'+${product.file.saveFileName}" alt=""></div>
+										<div><img style="width:230px; height:230px;" th:src="'/files/product-files/'+${product.file.saveFileName}" alt=""></div>
 										<div class="product_content">
-											<div class="product_title">
+											<div class="product_title ellipsis">
 												<a th:text="${product.name}" th:href="'/product/detail/'+${product.productNo}"></a>
 											</div>
 											<div class="product_price" th:text="${ #numbers.formatInteger(product.price,3,'COMMA') }+'원'"></div>
 										</div>
 									</div>
 									<div th:unless="${ #lists.size(products) } > 0">
-										<div>
+										<div class="">
 											등록된 상품이없습니다.
 										</div>
 									</div>
@@ -89,44 +109,54 @@
 							</div>	
 						</section>
 						<section id="section-topline-2">
-							<div class="container">
-								<div class="row">
-									<div class="col">
-										<div th:if="${ #lists.size(reviews) } > 0" th:each="review : ${reviews}">
-											<div class="px-5" style="float: left">
-												<!-- <img class="buyer_profile " th:src="'/files/profile-files/'+${member.imgFileName}" /> -->
-												 <img class="buyer_profile " th:src="'/files/profile-files/'+${review.imgFileName}" />
-											</div>
+							<div class="container" style="text-align:left">
+								<div class="review_content py-5" th:if="${ #lists.size(reviews) } > 0" th:each="review : ${reviews}">
+										<div class="col-2">
+										 	<img class="buyer_profile" style="float:left" th:src="'/files/profile-files/'+${review.imgFileName}" />
+										</div>
+										<div class="row">
 											<div>
-												<h4>
-													<span th:text="${review.buyer}"></span>
-												</h4>
-												<div class="product_title">
+												<div class="col product_title">
+													<a th:href="'/member/store/'+${review.buyer}" th:text="${review.buyer}"></a>
+												</div>
+											</div>
+												<div class="col">
+												  <span class="starR1" th:attrappend="class=${review.rating}*2 >= 1 ? ' on' : ''">별1_왼쪽</span>
+												  <span class="starR2" th:attrappend="class=${review.rating}*2 >= 2 ? ' on' : ''">별1_오른쪽</span>
+												  <span class="starR1" th:attrappend="class=${review.rating}*2 >= 3 ? ' on' : ''">별2_왼쪽</span>
+												  <span class="starR2" th:attrappend="class=${review.rating}*2 >= 4 ? ' on' : ''">별2_오른쪽</span>
+												  <span class="starR1" th:attrappend="class=${review.rating}*2 >= 5 ? ' on' : ''">별3_왼쪽</span>
+												  <span class="starR2" th:attrappend="class=${review.rating}*2 >= 6 ? ' on' : ''">별3_오른쪽</span>
+												  <span class="starR1" th:attrappend="class=${review.rating}*2 >= 7 ? ' on' : ''">별4_왼쪽</span>
+												  <span class="starR2" th:attrappend="class=${review.rating}*2 >= 8 ? ' on' : ''">별4_오른쪽</span>
+												  <span class="starR1" th:attrappend="class=${review.rating}*2 >= 9 ? ' on' : ''">별5_왼쪽</span>
+												  <span class="starR2" th:attrappend="class=${review.rating}*2 >= 10 ? ' on' : ''">별5_오른쪽</span>
+												</div>
+											</div>
+													<div class="product_title" style="padding:2px 0px 2px 150px">
 													<a th:text="${review.name}"
 														th:href="'/product/detail/'+${review.productNo}"></a>
 												</div>
-												<div class="product_price" th:text="${review.contents}"></div>
-											</div>
-										</div>
-										<div th:unless="${ #lists.size(reviews) } > 0">
+												<div class="product_price" style="padding:2px 0px 2px 150px" th:text="${review.contents}"></div>
+									</div>
+									<div th:unless="${ #lists.size(reviews) } > 0">
 											<div class="product_content">
 												등록된 후기가없습니다.
 											</div>
 										</div>
-									</div>
 								</div>
-							</div>
 						</section>
 					</div><!-- /content -->
 				</div><!-- /tabs -->
-			</section>
-		</div>
+		</section>
+	</div>
 		<script type="text/javascript" th:src="@{/js/react/myProducts.bundle.js}"></script>
 		<script type="text/javascript" th:src="@{/js/react/myRequestProducts.bundle.js}"></script>
 		<!-- <script type="text/javascript" th:src="@{/js/react/message.bundle.js}"></script> -->
 	    <script type="text/javascript" th:src="@{/js/socket/sockjs.min.js}"></script>
 	    <script type="text/javascript" th:src="@{/js/socket/stomp.min.js}"></script>
 		<script type="text/javascript" th:src="@{/js/react/myEditUserData.bundle.js}"></script>
-	</div>
+	
+</div>
 </body>
 </html>

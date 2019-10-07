@@ -10,7 +10,9 @@ module.exports = {
         myRequestProducts:'./containers/mypage/myRequestProducts.jsx',
         myEditUserData:'./editUserIndex.jsx',
         message:'./containers/mypage/message.jsx',
-        report:'./reportIndex.jsx'
+        report:'./reportIndex.jsx',
+        deal:'./dealIndex.jsx'
+
     },
     devtool: 'sourcemaps',
     cache: true,

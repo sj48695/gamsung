@@ -65,4 +65,72 @@
 	<update id="deleteDeal" parameterType="int">
 		update deal set deleted = true where deal_no = #{dealNo}
 	</update>
+	
+	<select id="list" resultType="com.gamsung.vo.Deal">
+		select d.deal_no 
+		,d.buyer
+		,d.active
+		,d.product_no 
+		,d.price
+		,d.complete 
+		,d.completeActive 
+		,d.reg_date
+		,d.deleted
+		,p.seller
+		,p.contents
+		,p.product_no
+		from deal as d
+			join product as p
+			on p.product_no = d.product_no
+ 		where d.active in('판매완료', '최종거래완료')  and d.deleted = 0
+	
+	</select>
+	
+	<update id="dealComplete" parameterType="int">
+		update deal
+		set complete = '금액전달완료'
+		,completeActive = '1'
+		where deal_no = #{dealNo}
+	
+	</update>
+	
+	<select id="findsaleCom" resultType="com.gamsung.vo.Deal">
+		select d.deal_no 
+		,d.buyer
+		,d.active
+		,d.product_no 
+		,d.complete 
+		,d.completeActive 
+		,d.reg_date
+		,d.deleted
+		,p.seller
+		,p.contents
+		,p.product_no
+		from deal as d
+			join product as p
+			on p.product_no = d.product_no
+ 		where d.active = '판매완료' and d.deleted = 0
+	
+	</select>
+	
+	<select id="findComplete" resultType="com.gamsung.vo.Deal">
+		select d.deal_no 
+		,d.buyer
+		,d.active
+		,d.product_no 
+		,d.complete 
+		,d.completeActive 
+		,d.reg_date
+		,d.deleted
+		,p.seller
+		,p.contents
+		,p.product_no
+		from deal as d
+			join product as p
+			on p.product_no = d.product_no
+ 		where d.active = '최종거래완료' and d.deleted = 0
+	
+	</select>
+	
+	
 </mapper>

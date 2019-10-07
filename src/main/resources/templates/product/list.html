@@ -80,13 +80,12 @@ div .title {
 					      	</select> 
 						</div>
 					</div>
-					<div class="sorting_container ml-md-auto">
+					<div class="sorting_container ml-md-auto"> 
 						<input type="text" class="search_input"  name="keyword" th:value="${ param.keyword }"
 								placeholder="Search" required="required">
 						<button class="newsletter_button" style="width:80px;height:45px;margin-top:5px"><span>검색</span></button>
 					</div>
 				</div>
-			
 				<div class="product_grid">
 					<!-- Product -->
 					<div class="product" th:if="${ #lists.size(products) } > 0" th:each="product : ${products}">
@@ -118,6 +117,9 @@ div .title {
 								<div class="product_price col" th:text="${ #numbers.formatInteger(product.price,3,'COMMA') }+'원'"></div>
 							</div>
 						</div>
+					</div>
+					<div class="product" th:unless="${ #lists.size(products) } > 0">
+						<div>등록된 상품이 없습니다.</div>
 					</div>
 				</div>
 				<div class="wrapper">

@@ -1,5 +1,7 @@
 package com.gamsung.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,5 +80,47 @@ public class DealController {
 	public String deleteDeal(@PathVariable int dealNo) {
 		dealService.deleteDeal(dealNo);
 		return "success";
+	}
+	
+	@GetMapping(path= {"/list"})
+	@ResponseBody
+	public List<Deal> dealList(){
+		
+		List<Deal> deals = dealService.list();
+		
+		
+		return deals;
+	}
+	
+	@PostMapping(path= {"/deleted"})
+	@ResponseBody
+	public String delete(@RequestBody Deal deal) {
+		dealService.deleteDeal(deal.getDealNo());
+		
+		return "success";
+	}
+	
+	@PostMapping(path= {"/complete"})
+	@ResponseBody
+	public String Complete(@RequestBody Deal deal) {
+		dealService.dealComplete(deal.getDealNo());
+		
+		return "success";
+	}
+	
+	@GetMapping(path= {"/findsaleCom"})
+	@ResponseBody
+	public List<Deal> findsalsCom(){
+		List<Deal> deals = dealService.findsaleCom();
+		
+		return deals;
+	}
+	
+	@GetMapping(path= {"/findcomlete"})
+	@ResponseBody
+	public List<Deal> findComplete(){
+		List<Deal> deals = dealService.findComplete();
+		
+		return deals;
 	}
 }

@@ -8,8 +8,8 @@ import lombok.Data;
 public class Report {
 
 	private int reportNo; 
-	private String user; 
-	private String reporter; 
+	private String user; //신고대상
+	private String reporter; //신고접수하는 유저
 	private String title; 
 	private String contents; 
 	private Date regDate;
