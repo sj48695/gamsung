@@ -49,6 +49,7 @@ public class SecurityConfig
 			.antMatchers("/product/update/**").access("hasRole('ROLE_USER')")
 			.antMatchers("/product/updateReview/**").access("hasRole('ROLE_USER')")
 			.antMatchers("/deal/requestForm").access("hasRole('ROLE_USER')")
+			.antMatchers("/deal/**").access("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
 			.antMatchers("/report/**").access("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
 			.anyRequest().permitAll()
 			.and()

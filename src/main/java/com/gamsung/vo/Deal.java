@@ -1,6 +1,7 @@
 package com.gamsung.vo;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -23,5 +24,9 @@ public class Deal {
 	private String extraAddr;
 	private boolean deleted;
 	private Date regDate;
+	private String complete;
+	private boolean completeActive;
+	
+	private List<Product> products;
 	
 }

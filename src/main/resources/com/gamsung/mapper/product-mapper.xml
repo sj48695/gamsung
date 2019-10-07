@@ -168,6 +168,13 @@
 		order by count(h.product_no) desc
 		limit 0,8
 	</select>
+	
+	<select id="list" resultType="com.gamsung.vo.Product">
+		select <include refid="productColumns" />, product_no
+		from product
+		where deleted = 0
+	
+	</select>
 
 </mapper>
 
