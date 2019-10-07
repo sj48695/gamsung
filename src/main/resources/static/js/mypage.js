@@ -156,7 +156,7 @@ var receiverNickName = $("#receiverNickName").val();
 var receiverId = $("#receiverId").val();
 
 function connect(fn){
-	var socket = new SockJS('http://localhost:8088/websocket');
+	var socket = new SockJS('http://192.168.0.35:8088/websocket'); //실행하는 서버 ip주소로 변경해야 웹소켓 가능
 	stompClient = Stomp.over(socket);
 	stompClient.connect({},function(frame){
 		console.log('Connected : '+frame);

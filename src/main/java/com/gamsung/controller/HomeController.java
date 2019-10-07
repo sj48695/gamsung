@@ -26,9 +26,4 @@ public class HomeController {
 		return "home";
 	}
 	
-	@GetMapping(path = { "/test" })
-	public String test() {
-		
-		return "test";
-	}
 }

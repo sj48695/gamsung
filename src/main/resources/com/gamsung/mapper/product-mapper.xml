@@ -170,7 +170,7 @@
 		group by product_no;
 	</select>
 	
-	<!-- 메인 -->
+	<!-- 메인 인기상품-->
 	<select id="selectMain" resultType="com.gamsung.vo.Product">
 		select <include refid="productColumns" />, p.product_no, h.id, count(h.product_no)
 		from product p, heart h
@@ -180,19 +180,11 @@
 		limit 0,8
 	</select>
 	
+	<!-- 관리자 최종금액전달 -->
 	<select id="list" resultType="com.gamsung.vo.Product">
 		select <include refid="productColumns" />, product_no
 		from product
 		where deleted = 0
-	</select>
-	
-	<select id="selectProductSearch" resultType="com.gamsung.vo.Product" parameterType="String">
-		select <include refid="productColumns" />, product_no, reg_date
-		from product p
-		<if test="keyword != ''">
-			where name like concat('%', #{ keyword }, '%')
-		</if>
-		order by product_no desc
 	</select>
 
 </mapper>

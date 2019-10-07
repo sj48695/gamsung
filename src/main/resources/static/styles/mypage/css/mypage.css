@@ -339,3 +339,14 @@
 	width: 230px;
 	height: 30px;
 }
+
+/* 판매완료 이미지위 글씨 */
+.sold_out {
+  z-index: 100;
+  position: absolute;
+  color: #fff;
+  font-size: 30px;
+  font-weight: bold;
+  right: 30px;
+  top: 90px;
+}

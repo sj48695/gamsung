@@ -32,6 +32,7 @@
 	border-top-style: solid;
 	
 }
+
 </style>
 <link rel="stylesheet" type="text/css" th:href="@{/styles/main_styles.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/styles/star.css}">
@@ -92,7 +93,13 @@
 							<div class="container">
 								<div class="product_grid">
 									<div class="product col" th:if="${ #lists.size(products) } > 0" th:each="product : ${products}">
-										<div><img style="width:230px; height:230px;" th:src="'/files/product-files/'+${product.file.saveFileName}" alt=""></div>
+										<div th:if="${product.count} > 0">
+											<img style="width:230px; height:230px;" th:src="'/files/product-files/'+${product.file.saveFileName}" alt="">
+										</div>
+										<div style="position: relative" th:unless="${product.count} > 0">
+											<img style="width:230px; height:230px; filter: brightness(50%);" th:src="'/files/product-files/'+${product.file.saveFileName}" alt="">
+											<div class="sold_out">판매 완료</div>
+										</div>
 										<div class="product_content">
 											<div class="product_title ellipsis">
 												<a th:text="${product.name}" th:href="'/product/detail/'+${product.productNo}"></a>

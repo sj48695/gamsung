@@ -390,22 +390,6 @@ public class ProductController {
 		return "redirect:/product/detail/" + product.getProductNo();
 	}
 	
-	//메인에서 검색
-	@GetMapping(path = "/search")
-	public String Search(Model model, String keyword) {
-		
-		if (keyword == null) {
-			keyword = "";
-		}
-		
-		ArrayList<Product> products = productService.findProductSearch(keyword);
-
-		model.addAttribute("products", products);
-		
-		return "/product/list";
-	}
-	
-	
 	/*===============================================
 	 *  					Heart 
 	 *  =========================================== */
