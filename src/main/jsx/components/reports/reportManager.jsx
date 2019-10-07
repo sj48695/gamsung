@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import ReportManage from './reportManage.jsx'
 import * as ManageService from '../../services/ManageService.js'
 
-class ReportMagnager extends Component {
+class ReportManager extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -30,8 +30,9 @@ class ReportMagnager extends Component {
     render(){
         const {reports} = this.state;
         return(
-            <ReportManage reports={reports}/>
+            <div></div>
+
         )
     }
 }
-export default ReportMagnager;
+export default ReportManager;

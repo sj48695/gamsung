@@ -51,7 +51,6 @@ public class ProductServiceImpl implements ProductService {
 		product.setFile(titleFile);
 		List<ProductFile> files = productMapper.selectProductFilesByProductNo(product.getProductNo());
 		product.setFiles(files);
-		
 		product.setSellerNick(memberMapper.findMemberById(product.getSeller()).getNickname());
 		
 		return product;
@@ -59,9 +58,14 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ArrayList<Product> findProducts() {
+	public ArrayList<Product> findProducts(String type, String category, String keyword) {
 		
-		ArrayList<Product> products = productMapper.selectProducts();
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("type", type);
+		params.put("category", category);
+		params.put("keyword", keyword);
+		
+		ArrayList<Product> products = productMapper.selectProducts(params);
 		
 		for(Product product : products) {
 			ProductFile file = productMapper.selectProductFileByProductNo(product.getProductNo());

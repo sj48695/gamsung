@@ -9,7 +9,7 @@ public class Comment {
 	
 	private int commentNo;
 	private int productNo;
-	private String id;
+	private String writer;
 	private String contents;
 	private int groupNo;
 	private int step;

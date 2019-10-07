@@ -16,7 +16,7 @@ public interface ProductMapper {
 
 	Product selectProductByProductNo(int productNo);
 
-	ArrayList<Product> selectProducts();
+	ArrayList<Product> selectProducts(HashMap<String, Object> param);
 
 	void insertProduct(Product product);
 

@@ -9,9 +9,7 @@ module.exports = {
         myRequestProducts:'./containers/mypage/myRequestProducts.jsx',
         myEditUserData:'./editUserIndex.jsx',
         message:'./containers/mypage/message.jsx',
-        comment:'./containers/product/commentIndex.jsx'
-
-
+        report:'./reportIndex.jsx'
     },
     devtool: 'sourcemaps',
     cache: true,

@@ -74,6 +74,7 @@
 .mypage_item_image div img
 {
 	max-width: 100%;
+	height: -webkit-fill-available;
 }
 .mypage_item_name_container
 {

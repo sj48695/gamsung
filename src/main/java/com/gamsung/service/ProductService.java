@@ -14,7 +14,7 @@ public interface ProductService {
 	
 	Product findProductByProductNo(int productNo);
 
-	ArrayList<Product> findProducts();
+	ArrayList<Product> findProducts(String type, String category, String keyword);
 	
 	Integer registerProductTx(Product product);
 
