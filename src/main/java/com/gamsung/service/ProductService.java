@@ -1,6 +1,7 @@
 package com.gamsung.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.gamsung.vo.Heart;
@@ -14,7 +15,7 @@ public interface ProductService {
 	
 	Product findProductByProductNo(int productNo);
 
-	ArrayList<Product> findProducts(String type, String category, String keyword);
+	ArrayList<Product> findProducts(HashMap<String , Object> params);
 	
 	Integer registerProductTx(Product product);
 

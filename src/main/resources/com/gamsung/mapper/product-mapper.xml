@@ -35,6 +35,7 @@
 			and name like concat('%', #{ keyword }, '%')
 		</if>
 		order by product_no desc
+		limit #{from}, #{to}
 	</select>
 	
 	<update id="deleteProduct" parameterType="int">

@@ -262,7 +262,7 @@ daum.postcode.load(function(){
 /* 주문자 정보 동일 */
 function checkBuy(my) {
 	if (my.checked) {
-//		$('#name_to').attr('value', $('#name_from').attr('value'));
+		$('#name_to').attr('value', $('#name_from').attr('value'));
 		$('#phone_to').attr('value', $('#phone_from').attr('value'));
 		$('#postcode').attr('value', $('#postCode_from').attr('value'));
 		$('#roadAddress').attr('value', $('#roadAddr_from').attr('value'));
@@ -270,7 +270,7 @@ function checkBuy(my) {
 		$('#detailAddress').attr('value', $('#detailAddr_from').attr('value'));
 		$('#extraAddress').attr('value', $('#extraAddr_from').attr('value'));
 	}else{
-//		$('#name_to').attr('value', '');
+		$('#name_to').attr('value', '');
 		$('#phone_to').attr('value', '');
 		$('#postcode').attr('value', '');
 		$('#roadAddress').attr('value', '');
