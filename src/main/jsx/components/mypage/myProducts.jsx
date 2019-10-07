@@ -12,6 +12,7 @@ class MyProducts extends Component {
             products: []
         }
         this.handleOnUpdateDealActive = this.handleOnUpdateDealActive.bind(this);
+        this.handleOnDeleteProduct = this.handleOnDeleteProduct.bind(this);
     }
 
     getProductList() {
@@ -37,6 +38,20 @@ class MyProducts extends Component {
         })
     }
 
+    handleOnDeleteProduct(productNo) {
+        var ok = confirm('상품을 삭제하시겠습니까?');
+        if (ok) {
+            const promise = ProductService.deleteProduct(productNo);
+            promise.then(() => {
+                alert('상품을 삭제하였습니다.');
+                this.getProductList();
+            }).catch(err => {
+                console.log(err);
+                return;
+            })
+        }
+    }
+
     componentDidMount() {
         this.getProductList();
     }
@@ -47,7 +62,8 @@ class MyProducts extends Component {
         return (
             <ProductList type="myProducts"
                 products={products}
-                onUpdateDealActive={this.handleOnUpdateDealActive} />
+                onUpdateDealActive={this.handleOnUpdateDealActive}
+                onDeleteProduct={this.handleOnDeleteProduct} />
         );
     }
 }

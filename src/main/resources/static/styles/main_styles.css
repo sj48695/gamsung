@@ -1130,17 +1130,11 @@ section
 .product_extra
 {
 	position: absolute;
-	top: 0;
-	left: 54px;
-	width: 66px;
-	height: 36px;
-	text-align: center;
-	-webkit-transform-origin: top left;
-	-moz-transform-origin: top left;
-	-ms-transform-origin: top left;
-	-o-transform-origin: top left;
-	transform-origin: top left;
-	transform: rotate(90deg);
+    top: 0;
+    /* left: 54px; */
+    width: 66px;
+    height: 36px;
+    text-align: center;
 }
 .product_extra a
 {

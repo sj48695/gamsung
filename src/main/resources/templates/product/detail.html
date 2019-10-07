@@ -172,7 +172,7 @@ div .title {
 											<a th:href="'/product/update/' + ${ product.productNo }">수정</a>
 										</div>
 										<div class="button cart_button trans_200" id="back_button"
-											th:data-productNo="${ product.productNo }"><a>삭제</a></div>
+											th:data-productNo="${ product.productNo }"><a href="#">삭제</a></div>
 									</div>
 								</div>
 							</form>
@@ -244,7 +244,7 @@ div .title {
 								</div>
 							
 								<div th:id="'collapse'+${ review.dealNo }" class="collapse" th:aria-labelledby="'heading'+ ${ review.dealNo }" data-parent="#accordionExample">
-							      <div th:text="${review.contents}"></div>
+							      <div class="py-4" th:text="${review.contents}"></div>
 							      <div class="product_images" >
 										<div class="row">
 											<img class='fileImg col-2'

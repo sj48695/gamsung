@@ -6,17 +6,45 @@ import NumberFormat from 'react-number-format';
 
 class MyProducts extends Component {
 
+    constructor(props) {
+        super(props);
+        this.onClickDeleteButton = this.onClickDeleteButton.bind(this);
+    }
+
+    onClickDeleteButton(e) {
+        const { onDeleteProduct } = this.props;
+        onDeleteProduct(e.target.id);
+    }
+
     render() {
         const { type, products, onUpdateDealActive, onDeleteDeal } = this.props;
         var productRows;
+        var updateDelete;
+        var updateDeleteInfo;
+
         if (products.length <= 0) {
-            productRows = 
+            productRows =
                 <div className="align-items-center align-items-start col-12">
                     <div className="card-header mypage_info_col col-12" id='heading'>등록된 상품이 없습니다.</div>
                 </div>
-            
-        }else {
+
+        } else {
             productRows = products.map(product => {
+
+                if (type == 'myProducts') {
+                    updateDelete =
+                        <div className="product_quantity_container">
+                            <div className="row justify-content-center">
+                                <div className="deal_button" id="insertBoard" >
+                                    <a href={`/product/update/${product.productNo}`}>수정</a>
+                                </div>
+                                <div className="deal_button" ><span onClick={this.onClickDeleteButton} id={product.productNo}>삭제</span></div>
+                            </div>
+                        </div>
+
+                    updateDeleteInfo = <div className="mypage_info_col mypage_info_col_state"><b>수정/삭제</b></div>
+                }
+
                 return (
                     <div className="align-items-center align-items-start col-12" key={product.productNo}>
 
@@ -51,7 +79,7 @@ class MyProducts extends Component {
                                         <option>거래완료</option>
                                         <option>거래중지</option>
                                     </select> */}
-                                    {product.active}
+                                    {updateDelete}
                                 </div>
                             </div>
                         </div>
@@ -64,7 +92,7 @@ class MyProducts extends Component {
                     </div>
                 );
             });
-        } 
+        }
         return (
             <div>
                 <div className="row">
@@ -75,7 +103,7 @@ class MyProducts extends Component {
                             <div className="mypage_info_col mypage_info_col_price"><b>가격</b></div>
                             <div className="mypage_info_col mypage_info_col_quantity"><b>갯수</b></div>
                             <div className="mypage_info_col mypage_info_col_date"><b>날짜</b></div>
-                            <div className="mypage_info_col mypage_info_col_state"><b>상태</b></div>
+                            {updateDeleteInfo}
                         </div>
                     </div>
                 </div>

@@ -51,7 +51,7 @@ class Message extends Component {
                         <div className="row align-items-center">
                             <i className="icon pe-7s-paper-plane col-1" title={message.relativeId} onClick={this.chatpop}></i>
                             <div className="col-2">
-                                <img className="profile m-0" style={{position:"initial"}} src={`/files/profile-files/${message.profile}`} />
+                                <img className="profile m-0" style={{position:"initial",width:'90px', height:'90px'}} src={`/files/profile-files/${message.profile}`} />
                                 <div>{message.relativeNick}</div>
                             </div>
                             <div className="col-5">

@@ -47,3 +47,19 @@ export const getMyRequestProductList = () => {
             })
     })
 }
+
+export const deleteProduct= (pageNo) => {
+    return new Promise((resolve, reject) => {
+        axios.get("/product/delete/"+pageNo)
+            .then((result) => {
+                const data = result.data;
+                resolve(data);
+                return;
+            })
+            .catch((err) => {
+                console.log(err);
+                reject(err.message);
+                return;
+            })
+    })
+}
