@@ -196,8 +196,20 @@
 											<input type="text" class="checkout_input checkout_address_2" id="extraAddress" name="extraAddr" placeholder="참고항목">
 										</div>
 									</div>
+									<!-- Payment Options -->
+		                           <div class="payment col-12">
+		                              <div class="payment_options row justify-content-end">
+		                                 <label class="payment_option clearfix col-2">택배
+		                                    <input type="radio" name="type" value="택배">
+		                                    <span class="checkmark"></span>
+		                                 </label>
+		                                 <label class="payment_option clearfix col-2">직거래
+		                                    <input type="radio" name="type" value="직거래">
+		                                    <span class="checkmark"></span>
+		                                 </label>
+		                              </div>
+		                           </div>
 									<div class="button order_button"><a onclick="alert('요청되었습니다.');$('#request_form').submit();">거래요청</a></div>
-							
 								</div>
 							</div>
 						</div>

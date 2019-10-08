@@ -105,10 +105,23 @@ div .title {
 									</div>
 									<font color="#CD3B3B" id="heart_count" th:text="${heartcount}"></font>
 								</div>
-								<div th:if="${ id } == null">
-									<a th:onclick="'javascript:heart('+${product.productNo}+')'">
-										<font size="6" color="#CD3B3B"><i class="fa fa-heart-o" th:id="'heart'+${product.productNo}" aria-hidden="true"></i></font>
-									</a>
+								<!-- 자신의 상품 -->
+								<div class="text-center col-2" th:if="${ id } != null and ${ id } == ${ product.seller }">
+									<div>
+										<a onclick="javascript:alert('자신의 상품에는 찜 할 수 없습니다.');">
+											<font size="6" color="#CD3B3B"><i class="fa fa-heart-o" th:id="'heart'+${product.productNo}" aria-hidden="true"></i></font>
+										</a>
+									</div>
+									<font color="#CD3B3B" id="heart_count" th:text="${heartcount}"></font>
+								</div>
+								<!-- 로그인 안했을 때 -->
+								<div class="text-center col-2" th:if="${ id } == null">
+									<div>
+										<a th:onclick="'javascript:heart('+${product.productNo}+')'">
+											<font size="6" color="#CD3B3B"><i class="fa fa-heart-o" th:id="'heart'+${product.productNo}" aria-hidden="true"></i></font>
+										</a>
+									</div>
+									<font color="#CD3B3B" id="heart_count" th:text="${heartcount}"></font>
 								</div>
 							</div>
 							<!-- In Stock -->
