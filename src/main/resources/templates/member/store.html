@@ -23,7 +23,6 @@
     object-position: top;
     border-radius: 50%;
     position:relative; 
-    bottom: 10px;
 }
 
 .review_content{
@@ -31,6 +30,13 @@
 	border-bottom-style: solid;
 	border-top-style: solid;
 	
+}
+
+.review_img{
+	width: 150px;
+	height: 150px;
+	margin: 20px 10px 10px 0px;
+	border-radius: 7px;
 }
 
 </style>
@@ -48,7 +54,7 @@
 </head>
 <body>
 	<div class="newsletter" layout:fragment="content">
-		<div class="container py-5">
+		<div class="container py-4">
 			<section>
 				<div class="py-5">
 					<div class="px-5" style="float:left">
@@ -96,20 +102,20 @@
 										<div th:if="${product.count} > 0">
 											<img style="width:230px; height:230px;" th:src="'/files/product-files/'+${product.file.saveFileName}" alt="">
 											<div class="product_extra product_sale" th:if="${ product.type } == '흥정'">
-												<a href="categories">흥정</a>
+												<a th:href="'/product/detail/'+${product.productNo}">흥정</a>
 											</div>
 											<div class="product_extra product_hot" th:if="${ product.type } == '일반'">
-												<a href="categories">일반</a>
+												<a th:href="'/product/detail/'+${product.productNo}">일반</a>
 											</div>	
 										</div>
 										<div style="position: relative" th:unless="${product.count} > 0">
 											<img style="width:230px; height:230px; filter: brightness(50%);" th:src="'/files/product-files/'+${product.file.saveFileName}" alt="">
 											<div class="sold_out">판매 완료</div>
 											<div class="product_extra product_sale" th:if="${ product.type } == '흥정'">
-												<a href="categories">흥정</a>
+												<a th:href="'/product/detail/'+${product.productNo}">흥정</a>
 											</div>
 											<div class="product_extra product_hot" th:if="${ product.type } == '일반'">
-												<a href="categories">일반</a>
+												<a th:href="'/product/detail/'+${product.productNo}">일반</a>
 											</div>	
 										</div>
 										<div class="product_content">
@@ -129,7 +135,7 @@
 						</section>
 						<section id="section-topline-2">
 							<div class="container" style="text-align:left">
-								<div class="review_content py-5" th:if="${ #lists.size(reviews) } > 0" th:each="review : ${reviews}">
+								<div class="review_content py-4" th:if="${ #lists.size(reviews) } > 0" th:each="review : ${reviews}">
 										<div class="col-2">
 										 	<img class="buyer_profile" style="float:left" th:src="'/files/profile-files/'+${review.imgFileName}" />
 										</div>
@@ -157,6 +163,10 @@
 														th:href="'/product/detail/'+${review.productNo}"></a>
 												</div>
 												<div class="product_price" style="padding:2px 0px 2px 150px" th:text="${review.contents}"></div>
+												<div class="row">
+													<img class="review_img" th:src="'/files/review-files/'+${file.saveFileName}" th:each="file : ${ review.files }">
+												</div>
+												
 									</div>
 									<div th:unless="${ #lists.size(reviews) } > 0">
 											<div class="product_content">
