@@ -42,25 +42,49 @@ $(function() {
 	    var day = now.getDate()>9 ? ''+now.getDate() : '0'+now.getDate();
 	    var h = now.getHours();
 	    var m = now.getMinutes();
-	    
 	            
 	    var chan_val = year + '-' + mon + '-' + day +' '+h + ':' +m;
 
 		var message = obj.contents;
-		$('#greetings').append('<div class="row py-3 justify-content-end">\
-				<div><div class="contents">'+message+'</div>\
-				<span>'+chan_val+'</span></div>\
-				</div>');
+		$('#greetings').append(
+				'<div class="row py-3 justify-content-end">\
+					<div>\
+						<div class="contents">'+message+'</div>\
+						<span>'+chan_val+'</span>\
+					</div>\
+				</div>');	
+			
 		$('#contents').val('');
 
+	},function(obj){
+		var now = new Date();
+
+	    var year= now.getFullYear();
+	    var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
+	    var day = now.getDate()>9 ? ''+now.getDate() : '0'+now.getDate();
+	    var h = now.getHours();
+	    var m = now.getMinutes();
+	            
+	    var chan_val = year + '-' + mon + '-' + day +' '+h + ':' +m;
+
+		var message = obj.contents;
+		var receiver = obj.receiver;
+		$('#greetings').append(
+				'<div class="row py-3 justify-content-start">\
+					<img class="profile col-2" src="/files/profile-files/'+receiverProfile+'">\
+					<div>\
+						<div>receiver</div>\
+						<div class="contents">'+message+'</div>\
+						<span>'+chan_val+'</span>\
+					</div>\
+				</div>');	
 	});
 	
 	//메세지 전송
 	$('#send').click(function(){
 		sendContent($('#contents').val());
-	})
-	
-//	$("#chatting_div").scrollTop(800);
+	});
+
 });
 
 /*찜하기*/
@@ -153,18 +177,33 @@ var senderNickName = $("#senderNickName").val();
 var senderId = $("#senderId").val();
 var receiverNickName = $("#receiverNickName").val();
 var receiverId = $("#receiverId").val();
+var receiverProfile = $("#profile").val();
+var currentId = $("#currentId").val();
 
-function connect(fn){
-	var socket = new SockJS('http://192.168.0.35:8088/websocket'); //실행하는 서버 ip주소로 변경해야 웹소켓 가능
+function connect(sendfn, receivefn){
+	var socket = new SockJS('http://192.168.6.14:8088/websocket'); //실행하는 서버 ip주소로 변경해야 웹소켓 가능
 	stompClient = Stomp.over(socket);
 	stompClient.connect({},function(frame){
 		console.log('Connected : '+frame);
-		stompClient.subscribe('/topic/roomId', function(obj){
-			fn(JSON.parse(obj.body));
+		stompClient.subscribe('/topic/receive', function(obj){
+			if(JSON.parse(obj.body).sender==currentId){
+				console.log(JSON.parse(obj.body).sender+" / "+currentId);
+				sendfn(JSON.parse(obj.body));
+			}else{
+				console.log(JSON.parse(obj.body).sender+" / "+currentId);
+				receivefn(JSON.parse(obj.body));
+			}
 		});
 		stompClient.subscribe('/queue/info', function(obj){
-			fn(JSON.parse(obj.body));
+			sendfn(JSON.parse(obj.body));
 		});
+		stompClient.subscribe('/topic/out', function(obj){
+			sendfn(JSON.parse(obj.body));
+		});
+		stompClient.subscribe('/topic/in', function(obj){
+			sendfn(JSON.parse(obj.body));
+		});
+		stompClient.send("/app/in",{},senderId+'');
 	});
 }
 
@@ -175,5 +214,6 @@ function sendContent(contents){
 	query.receiverNickName=receiverNickName;
 	query.receiver=receiverId;
 	query.contents = contents;
-	stompClient.send('/app/hello',{}, JSON.stringify(query));
+	
+	stompClient.send('/app/receive',{}, JSON.stringify(query));
 }
