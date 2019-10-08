@@ -118,9 +118,13 @@ public class MemberController {
 		//후기
 		List<Review> reviews = reviewService.findStoreReview(id);
 		
+		//후기 평점
+		float staravg = reviewService.findStoreAvg(id);
+		
 		model.addAttribute("member", member);
 		model.addAttribute("products", products);
 		model.addAttribute("reviews", reviews);
+		model.addAttribute("staravg",staravg);
 		
 		return "member/store";
 	}
