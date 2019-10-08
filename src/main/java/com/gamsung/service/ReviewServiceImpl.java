@@ -98,8 +98,13 @@ public class ReviewServiceImpl implements ReviewService {
 	public List<Review> findStoreReview(String id) {
 		List<Review> reviews = reviewMapper.selectStoreReview(id);
 		for(Review review : reviews) {
+			//구매자 프로필 사진
 			String profile = memberMapper.selectProfileImgById(review.getBuyer());
 			review.setImgFileName(profile);
+			
+			//리뷰 파일 
+			List<ReviewFile> files = reviewMapper.selectReviewFilesByDealNo(review.getDealNo());
+			review.setFiles(files);
 		}
 		return reviews;
 	}

@@ -46,7 +46,7 @@
 </head>
 <body>
 	<div class="newsletter" layout:fragment="content">
-		<div class="container py-5">
+		<div class="container py-4">
 			<section>
 				<div class="py-5">
 					<form method="post" action="/member/mypage/introduction" id="introduction" enctype="multipart/form-data">
@@ -60,7 +60,10 @@
 						</div>
 					
 					<div>
-						<h3><span th:text="${member.nickname}"></span>의 상점</h3>
+						<h3>
+							<a th:href="'/member/store/'+${member.id}" style="color: #74777b;">
+							<span th:text="${member.nickname}"></span>의 상점</a>
+						</h3>
 						<div id="intro_div" class="row">
 							<i id="update" class="fa fa-edit col-1" th:data-introduction="${member.introduction}"></i>
 							<div id="intro_view" class="col-8 row" th:utext="${#strings.replace(member.introduction, T(org.apache.commons.lang3.StringUtils).LF, '&lt;br /&gt;')}"></div>
@@ -93,16 +96,34 @@
 								<div class="col-3" th:if="${ #lists.size(hearts) } > 0" th:each="heart : ${hearts}">
 									<div class="product_image">
 										<div style="position: absolute">
-											<div style="position: relative;top: 10px;left: 200px ">
+											<div style="position: relative;top: 10px;left: 200px;z-index: 1000">
 												<a th:onclick="'javascript:heart('+${heart.productNo}+')'">
 													<font size="6"><i class="fa fa-heart" th:id="'heart'+${heart.productNo}"
 														style="color: #CD3B3B;"></i></font>
 												</a>
 											</div>
 										</div>
-						
-										<!-- <img src="/images/product_1.jpg" alt=""> -->
-										<img th:src="'/files/product-files/'+${heart.file.saveFileName}" alt="">
+										
+										<div th:if="${heart.count} > 0">
+											<img style="width:230px; height:230px;" th:src="'/files/product-files/'+${heart.file.saveFileName}" alt="">
+											<div class="product_extra product_sale" th:if="${ heart.type } == '흥정'">
+												<a th:href="'/product/detail/'+${heart.productNo}">흥정</a>
+											</div>
+											<div class="product_extra product_hot" th:if="${ heart.type } == '일반'">
+												<a th:href="'/product/detail/'+${heart.productNo}">일반</a>
+											</div>
+										</div>
+										
+										<div style="position: relative" th:unless="${heart.count} > 0">
+											<img style="width:230px; height:230px; filter: brightness(50%);" th:src="'/files/product-files/'+${heart.file.saveFileName}" alt="">
+											<div class="sold_out" style="right:60px">판매 완료</div>
+											<div class="product_extra product_sale" th:if="${ heart.type } == '흥정'">
+												<a th:href="'/product/detail/'+${heart.productNo}">흥정</a>
+											</div>
+											<div class="product_extra product_hot" th:if="${ heart.type } == '일반'">
+												<a th:href="'/product/detail/'+${heart.productNo}">일반</a>
+											</div>
+										</div>
 									</div>
 									<div class="product_content">
 										<div class="product_title ellipsis">
