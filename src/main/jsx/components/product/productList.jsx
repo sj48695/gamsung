@@ -38,10 +38,12 @@ class ProductList extends Component {
 
     handleChangeSelectType(e) {
         this.setState({ type: e.target.value });
+        this.handleSubmit();
     }
 
     handleChangeSelectCategory(e) {
         this.setState({ category: e.target.value });
+        this.handleSubmit();
     }
 
     handleChangeInput(e) {
@@ -51,6 +53,7 @@ class ProductList extends Component {
 
     handleSerch() {
         const { type, category, keyword, pageNo } = this.state;
+        alert('value - ' + type+category+keyword+pageNo);
         this.getProductList(type, category, keyword, pageNo);
     }
 

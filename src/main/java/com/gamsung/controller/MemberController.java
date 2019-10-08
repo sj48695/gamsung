@@ -53,7 +53,7 @@ public class MemberController {
 	
 	@GetMapping("/login")
 	public ModelAndView loginpage() {
-		return new ModelAndView("/member/login");
+		return new ModelAndView("member/login");
 	}
 	
 	@GetMapping("/register")
@@ -75,7 +75,7 @@ public class MemberController {
 		Authentication auth = (Authentication)req.getUserPrincipal();
 		auth.getPrincipal();
 		
-		return new ModelAndView("/member/admin");
+		return new ModelAndView("member/admin");
 	}
 	
 	// 마이페이지
@@ -124,7 +124,7 @@ public class MemberController {
 		model.addAttribute("member", member);
 		model.addAttribute("products", products);
 		model.addAttribute("reviews", reviews);
-		model.addAttribute("staravg",staravg);
+		model.addAttribute("staravg", staravg);
 		
 		return "member/store";
 	}
