@@ -31,7 +31,7 @@
 				<div id="greetings">
 					<div th:class="'row py-3 justify-content-'+${msg.align}" th:each="msg:${messages}">
 						<img class="profile col-2" 
-							th:src="'/files/profile-files/'+${msg.profile}" 
+							th:src="'/files/profile-files/'+${receiver.imgFileName}" 
 							th:if="${msg.sender} != ${#authentication.principal.member.id}">
 						<div>
 							<div th:text="${msg.senderNickName}"
@@ -47,6 +47,8 @@
 				<input type="hidden" id="senderId" th:value="${#authentication.principal.member.id}">
 				<input type="hidden" id="receiverId" th:value="${receiver.id}">
 				<input type="hidden" id="receiverNickName" th:value="${receiver.nickname}">
+				<input type="hidden" id="profile" th:value="${receiver.imgFileName}">
+				<input type="hidden" id="currentId" th:value="${#authentication.principal.member.id}">
 				<div class="row col">
 					<input type="text" id="contents" class="checkout_input col-10 h-100" placeholder="보낼 메세지">
 					<div class="button col-2">

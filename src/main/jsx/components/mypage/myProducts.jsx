@@ -44,7 +44,7 @@ class MyProducts extends Component {
             const promise = ProductService.deleteProduct(productNo);
             promise.then(() => {
                 alert('상품을 삭제하였습니다.');
-                this.getProductList();
+                this.componentDidUpdate
             }).catch(err => {
                 console.log(err);
                 return;
@@ -53,6 +53,10 @@ class MyProducts extends Component {
     }
 
     componentDidMount() {
+        this.getProductList();
+    }
+
+    componentDidUpdate() {
         this.getProductList();
     }
 
