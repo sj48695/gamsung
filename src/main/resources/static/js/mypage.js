@@ -158,17 +158,6 @@ function introduction(){
 	});
 }
 
-function imageOn(path){ 
-	var divform = document.getElementById("up"); 
-	divform.style.display = ''; 
-	document.getElementById("upImg").src = path; 
-} 
-
-function imageOut(){ 
-	var divform = document.getElementById("up"); 
-	divform.style.display = 'none'; 
-}
-
 
 /*chat*/
 function chatpop(){
