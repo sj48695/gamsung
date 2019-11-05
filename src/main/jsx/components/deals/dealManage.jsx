@@ -146,7 +146,7 @@ class DealManage extends Component {
                             <div className="report-tx">구매번호:<input type="hidden" value={deal.dealNo} />{deal.dealNo}</div>
                             <div className="report-tx">구매자:<input type="hidden" value={deal.buyer} />{deal.buyer}</div>
                             <div className="report-tx">판매자:<input type="hidden" value={product.seller} />{product.seller}</div>
-                            <div className="report-tx">판매물품:<input type="hidden" value={product.contents} />{product.contents}</div>
+                            <div className="report-tx">송금상태:<input type="hidden" value={product.contents} />{product.contents}</div>
                             <div className="report-tx"><div>판매금액:</div><input type="hidden" value={deal.price} />{deal.price}</div>
                             <div className="report-tx">거래상태:{deal.active}</div>
                             <div className="report-tx">삭제
