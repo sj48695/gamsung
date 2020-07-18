@@ -15,7 +15,7 @@
     "dateformat": "^3.0.3",
     "json-fetch": "^8.0.0",
     "loadjs": "^4.0.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "node-sass": "^4.12.0",
     "randomstring": "^1.1.5",
     "react": "^16.9.0",
